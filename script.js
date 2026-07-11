@@ -103,8 +103,8 @@ function renderizarTabela(lista) {
           <img src="img/editar.png" alt="Ícone de Editar">
         </button>
         <button class="btn-action btn-excluir" data-index="${index}" aria-label="Excluir">
-          <img src="img/editar.png" alt="Ícone de Excluir">
-        </button>
+          <img src="img/lixeira-de-reciclagem.png" alt="Ícone de Excluir">
+          </button>
       </td>
     `;
     tabelaUsuarios.appendChild(linha);
