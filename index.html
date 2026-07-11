@@ -1,300 +1,211 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Dashboard Admin</title>
-  </head>
 
-  <body>
-    <div class="layout-grid">
-      <input type="checkbox" id="menu-check" style="display: none" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Dashboard Admin</title>
+</head>
 
-      <aside class="sidebar">
-        <div class="logo">
-          <h2>DASHBOARD</h2>
+<body>
+  <div class="layout-grid">
+
+    <aside class="sidebar">
+      <div class="logo">
+        <h2>DASHBOARD</h2>
+      </div>
+
+      <nav class="sidebar-menu">
+        <ul>
+          <li>
+            <a href="#" class="active">
+              <span class="icon">
+                <img src="img/painel-de-controle.png" alt="Ícone de Painel de Controle" />
+              </span>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="icon">
+                <img src="img/perfil-de-usuario.png" alt="Ícone de Perfil de Usuário" />
+              </span>
+              Usuários
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="icon">
+                <img src="img/pasta.png" alt="Ícone de Pasta de Projetos" />
+              </span>
+              Projetos
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="icon">
+                <img src="img/configuracoes.png" alt="Ícone de Engrenagem de Configurações" />
+              </span>
+              Configurações
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="main-wrapper">
+      <header class="topbar">
+        <button id="menuToggle" class="hamburger" aria-label="Abrir menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="search-box">
+          <input type="text" placeholder="Pesquisar..." id="inputBuscaUsuario" />
         </div>
 
-        <nav class="sidebar-menu">
-          <ul>
-            <li>
-              <a href="#" class="active">
-                <span class="icon">
-                  <img
-                    src="img/painel-de-controle.png"
-                    alt="Ícone de Painel de Controle"
-                  />
-                </span>
-                Dashboard
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <span class="icon">
-                  <img
-                    src="img/perfil-de-usuario.png"
-                    alt="Ícone de Perfil de Usuário"
-                  />
-                </span>
-                Usuários
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <span class="icon">
-                  <img src="img/pasta.png" alt="Ícone de Pasta de Projetos" />
-                </span>
-                Projetos
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <span class="icon">
-                  <img
-                    src="img/configuracoes.png"
-                    alt="Ícone de Engrenagem de Configurações"
-                  />
-                </span>
-                Configurações
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </aside>
-
-      <div class="main-wrapper">
-        <header class="topbar">
-          <label for="menu-check" class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-          </label>
-          <div class="search-box">
-            <input type="text" placeholder="Pesquisar..." />
-          </div>
-          <div class="topbar-actions">
-            <button class="btn-notification" aria-label="Notificações">
+        <div class="topbar-actions">
+          <div class="notification-wrapper">
+            <button class="btn-notification" id="btnNotificacao" aria-label="Notificações">
               <img src="img/sino.png" alt="Ícone de Sino" />
-              <span class="badge-notification">1</span>
+              <span class="badge-notification" id="badgeNotificacao">0</span>
             </button>
-            <div class="user-avatar">
-              <span>DY</span>
+
+            <div class="notification-dropdown" id="notificationDropdown">
+              <div class="notification-header">Notificações</div>
+              <div id="listaNotificacoes"></div>
             </div>
           </div>
+
+          <div class="user-avatar">
+            <span>DY</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <header class="page-header">
+          <h1>Dashboard Geral</h1>
+          <p>Bem-vindo de volta, Diovanny!</p>
         </header>
 
-        <main class="main-content">
-          <header class="page-header">
-            <h1>Dashboard Geral</h1>
-            <p>Bem-vindo de volta, Diovanny!</p>
-          </header>
+        <section class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-header">
+              <span class="icon">
+                <img src="img/multiplos-usuarios.png" alt="Ícone de Múltiplos Usuários" />
+              </span>
+              <h3>Usuários Totais</h3>
+            </div>
+            <p class="stat-value">1.245</p>
+            <span class="stat-trend positive">+10% este mês</span>
+          </article>
 
-          <section class="stats-grid">
-            <article class="stat-card">
-              <div class="stat-header">
-                <span class="icon">
-                  <img
-                    src="img/multiplos-usuarios.png"
-                    alt="Ícone de Múltiplos Usuários"
-                  />
-                </span>
-                <h3>Usuários Totais</h3>
-              </div>
-              <p class="stat-value">1.245</p>
-              <span class="stat-trend positive">+10% este mês</span>
-            </article>
+          <article class="stat-card">
+            <div class="stat-header">
+              <span class="icon">
+                <img src="img/maleta-de-negocios.png" alt="Ícone de Maleta de Negócios" />
+              </span>
+              <h3>Projetos Ativos</h3>
+            </div>
+            <p class="stat-value">85</p>
+            <span class="stat-trend negative">-2% este mês</span>
+          </article>
 
-            <article class="stat-card">
-              <div class="stat-header">
-                <span class="icon">
-                  <img
-                    src="img/maleta-de-negocios.png"
-                    alt="Ícone de Maleta de Negócios"
-                  />
-                </span>
-                <h3>Projetos Ativos</h3>
-              </div>
-              <p class="stat-value">85</p>
-              <span class="stat-trend negative">-2% este mês</span>
-            </article>
+          <article class="stat-card">
+            <div class="stat-header">
+              <span class="icon">
+                <img src="img/carrinho-carrinho.png" alt="Ícone de Carrinho de Compras" />
+              </span>
+              <h3>Vendas do Mês</h3>
+            </div>
+            <p class="stat-value">R$ 15.400</p>
+            <span class="stat-trend positive">+25%</span>
+          </article>
 
-            <article class="stat-card">
-              <div class="stat-header">
-                <span class="icon">
-                  <img
-                    src="img/carrinho-carrinho.png"
-                    alt="Ícone de Carrinho de Compras"
-                  />
-                </span>
-                <h3>Vendas do Mês</h3>
-              </div>
-              <p class="stat-value">R$ 15.400</p>
-              <span class="stat-trend positive">+25%</span>
-            </article>
+          <article class="stat-card">
+            <div class="stat-header">
+              <span class="icon">
+                <img src="img/dinheiro.png" alt="Ícone de Dinheiro" />
+              </span>
+              <h3>Receita Mensal</h3>
+            </div>
+            <p class="stat-value">R$ 12.800</p>
+            <span class="stat-trend positive">+18%</span>
+          </article>
+        </section>
 
-            <article class="stat-card">
-              <div class="stat-header">
-                <span class="icon">
-                  <img src="img/dinheiro.png" alt="Ícone de Dinheiro" />
-                </span>
-                <h3>Receita Mensal</h3>
-              </div>
-              <p class="stat-value">R$ 12.800</p>
-              <span class="stat-trend positive">+18%</span>
-            </article>
+        <div class="content-grid">
+          <section class="widget chart-widget">
+            <h2>Desempenho Semanal</h2>
+            <div class="fake-bar-chart" id="grafico"></div>
           </section>
 
-          <div class="content-grid">
-            <section class="widget chart-widget">
-              <h2>Desempenho Semanal</h2>
-              <div class="fake-bar-chart">
-                <div class="bar-group">
-                  <div class="bars-wrapper">
-                    <div class="bar bar-green" style="height: 40%"></div>
-                    <div class="bar bar-blue" style="height: 60%"></div>
-                  </div>
-                  <span class="label">Seg</span>
-                </div>
-
-                <div class="bar-group">
-                  <div class="bars-wrapper">
-                    <div class="bar bar-green" style="height: 65%"></div>
-                    <div class="bar bar-blue" style="height: 35%"></div>
-                  </div>
-                  <span class="label">Ter</span>
-                </div>
-
-                <div class="bar-group">
-                  <div class="bars-wrapper">
-                    <div class="bar bar-green" style="height: 70%"></div>
-                    <div class="bar bar-blue" style="height: 80%"></div>
-                  </div>
-                  <span class="label">Qua</span>
-                </div>
-
-                <div class="bar-group">
-                  <div class="bars-wrapper">
-                    <div class="bar bar-green" style="height: 45%"></div>
-                    <div class="bar bar-blue" style="height: 50%"></div>
-                  </div>
-                  <span class="label">Qui</span>
-                </div>
-
-                <div class="bar-group">
-                  <div class="bars-wrapper">
-                    <div class="bar bar-green" style="height: 85%"></div>
-                    <div class="bar bar-blue" style="height: 90%"></div>
-                  </div>
-                  <span class="label">Sex</span>
-                </div>
-              </div>
-            </section>
-
-            <section class="widget table-widget">
+          <section class="widget table-widget">
+            <div class="table-widget-header">
               <h2>Últimos Usuários Cadastrados</h2>
-              <div class="table-responsive">
-                <table class="data-table">
-                  <thead>
-                    <tr>
-                      <th>Nome</th>
-                      <th>Status</th>
-                      <th>Plano</th>
-                      <th>Ações</th>
-                    </tr>
-                  </thead>
+              <button type="button" class="btn-add-user" id="btnAdicionarUsuario">+ Novo Usuário</button>
+            </div>
 
-                  <tbody>
-                    <tr>
-                      <td>João Silva</td>
-                      <td>
-                        <span class="badge status-active">Ativo</span>
-                      </td>
-                      <td>
-                        <span class="badge plan-premium">Premium</span>
-                      </td>
-                      <td>
-                        <button class="btn-action" aria-label="Visualizar">
-                          <img
-                            src="img/visualizar.png"
-                            alt="Icone de Visualizar"
-                          />
-                        </button>
-                        <button class="btn-action" aria-label="Editar">
-                          <img src="img/editar.png" alt="Icone de Editar" />
-                        </button>
-                      </td>
-                    </tr>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th data-campo="nome">Nome <span class="sort-icon"></span></th>
+                    <th data-campo="status">Status <span class="sort-icon"></span></th>
+                    <th data-campo="plano">Plano <span class="sort-icon"></span></th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
 
-                    <tr>
-                      <td>Maria Souza</td>
-                      <td>
-                        <span class="badge status-inactive">Inativo</span>
-                      </td>
-                      <td>
-                        <span class="badge plan-basic">Básico</span>
-                      </td>
-                      <td>
-                        <button class="btn-action" aria-label="Visualizar">
-                          <img
-                            src="img/visualizar.png"
-                            alt="Icone de Visualizar"
-                          />
-                        </button>
-                        <button class="btn-action" aria-label="Editar">
-                          <img src="img/editar.png" alt="Icone de Editar" />
-                        </button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Pedro Alves</td>
-                      <td>
-                        <span class="badge status-active">Ativo</span>
-                      </td>
-                      <td>
-                        <span class="badge plan-basic">Básico</span>
-                      </td>
-                      <td>
-                        <button class="btn-action" aria-label="Visualizar">
-                          <img
-                            src="img/visualizar.png"
-                            alt="Icone de Visualizar"
-                          />
-                        </button>
-                        <button class="btn-action" aria-label="Editar">
-                          <img src="img/editar.png" alt="Icone de Editar" />
-                        </button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Ana Dias</td>
-                      <td>
-                        <span class="badge status-active">Ativo</span>
-                      </td>
-                      <td>
-                        <span class="badge plan-premium">Premium</span>
-                      </td>
-                      <td>
-                        <button class="btn-action" aria-label="Visualizar">
-                          <img
-                            src="img/visualizar.png"
-                            alt="Icone de Visualizar"
-                          />
-                        </button>
-                        <button class="btn-action" aria-label="Editar">
-                          <img src="img/editar.png" alt="Icone de Editar" />
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </div>
-        </main>
-      </div>
+                <tbody id="tabelaUsuarios">
+                  <!-- Linhas inseridas dinamicamente via JS -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </main>
     </div>
-  </body>
+  </div>
+
+  <!-- Modal de usuário (visualizar/editar/criar) -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="modal-usuario" id="modalUsuario">
+    <div class="modal-header">
+      <h3 id="modalTitulo">Detalhes do Usuário</h3>
+      <button type="button" id="btnFecharModal" aria-label="Fechar">✕</button>
+    </div>
+
+    <form id="formUsuario" class="modal-form">
+      <div class="campo-modal">
+        <label for="modalNome">Nome</label>
+        <input type="text" id="modalNome" required>
+      </div>
+
+      <div class="campo-modal">
+        <label for="modalStatus">Status</label>
+        <select id="modalStatus">
+          <option value="Ativo">Ativo</option>
+          <option value="Inativo">Inativo</option>
+        </select>
+      </div>
+
+      <div class="campo-modal">
+        <label for="modalPlano">Plano</label>
+        <select id="modalPlano">
+          <option value="Básico">Básico</option>
+          <option value="Premium">Premium</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-add-user" id="btnSalvarModal">Salvar</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
 </html>
