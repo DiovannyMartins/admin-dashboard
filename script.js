@@ -62,6 +62,20 @@ function salvarUsuarios() {
 
 const tabelaUsuarios = document.getElementById("tabelaUsuarios");
 
+// Campo de busca (declarado aqui em cima para poder ser usado pela função de filtro)
+const inputBuscaUsuario = document.getElementById("inputBuscaUsuario");
+
+// Retorna a lista de usuários já filtrada conforme o texto digitado na busca
+function obterListaFiltrada() {
+  const termo = inputBuscaUsuario.value.trim().toLowerCase();
+
+  if (termo === "") return usuarios;
+
+  return usuarios.filter((usuario) =>
+    usuario.nome.toLowerCase().includes(termo),
+  );
+}
+
 function renderizarTabela(lista) {
   tabelaUsuarios.innerHTML = "";
 
@@ -99,20 +113,12 @@ function renderizarTabela(lista) {
   ligarEventosAcoes();
 }
 
-renderizarTabela(usuarios);
+renderizarTabela(obterListaFiltrada());
 
 /* ===== BUSCA NA TABELA ===== */
 
-const inputBuscaUsuario = document.getElementById("inputBuscaUsuario");
-
 inputBuscaUsuario.addEventListener("input", () => {
-  const termo = inputBuscaUsuario.value.trim().toLowerCase();
-
-  const filtrados = usuarios.filter((usuario) =>
-    usuario.nome.toLowerCase().includes(termo),
-  );
-
-  renderizarTabela(filtrados);
+  renderizarTabela(obterListaFiltrada());
 });
 
 /* ===== ORDENAÇÃO DA TABELA ===== */
@@ -131,11 +137,11 @@ document.querySelectorAll(".data-table th[data-campo]").forEach((cabecalho) => {
     });
 
     ordemAtual = { [campo]: crescente ? "asc" : "desc" };
-    renderizarTabela(usuarios);
+    renderizarTabela(obterListaFiltrada());
   });
 });
 
-/* ===== MODAL DE USUÁRIO (visualizar/editar) ===== */
+/* ===== MODAL DE USUÁRIO (visualizar/editar/criar) ===== */
 
 const modalOverlay = document.getElementById("modalOverlay");
 const modalUsuario = document.getElementById("modalUsuario");
@@ -148,7 +154,6 @@ const modalPlano = document.getElementById("modalPlano");
 const btnSalvarModal = document.getElementById("btnSalvarModal");
 
 let indexEditando = null;
-let modoVisualizacao = false;
 
 function abrirModal() {
   modalOverlay.classList.add("active");
@@ -179,7 +184,6 @@ function ligarEventosAcoes() {
       modalPlano.disabled = true;
       btnSalvarModal.style.display = "none";
 
-      modoVisualizacao = true;
       abrirModal();
     });
   });
@@ -200,7 +204,6 @@ function ligarEventosAcoes() {
       btnSalvarModal.style.display = "block";
 
       indexEditando = index;
-      modoVisualizacao = false;
       abrirModal();
     });
   });
@@ -212,7 +215,7 @@ function ligarEventosAcoes() {
       if (confirm(`Remover o usuário "${usuarios[index].nome}"?`)) {
         usuarios.splice(index, 1);
         salvarUsuarios();
-        renderizarTabela(usuarios);
+        renderizarTabela(obterListaFiltrada());
       }
     });
   });
@@ -229,7 +232,6 @@ document.getElementById("btnAdicionarUsuario").addEventListener("click", () => {
   btnSalvarModal.style.display = "block";
 
   indexEditando = null;
-  modoVisualizacao = false;
   abrirModal();
 });
 
@@ -250,7 +252,7 @@ formUsuario.addEventListener("submit", (event) => {
   }
 
   salvarUsuarios();
-  renderizarTabela(usuarios);
+  renderizarTabela(obterListaFiltrada());
   fecharModal();
 });
 
