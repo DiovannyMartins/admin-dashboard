@@ -10,6 +10,12 @@
   --gray-text: #6c757d;
   --white: #ffffff;
 
+  /* Variantes escurecidas, usadas especificamente para texto (garantem contraste) */
+  --success-text: #1b8a54;
+  --danger-text: #c0392b;
+  --primary-text: #2c46b3;
+  --gray-text-dark: #495057;
+
   --sidebar-width: 260px;
 }
 
@@ -185,7 +191,16 @@ a {
 }
 
 .page-header p {
-  color: var(--gray-text);
+  color: var(--gray-text-dark);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
 .stats-grid {
@@ -226,7 +241,7 @@ a {
 
 .stat-header h3 {
   font-size: 15px;
-  color: var(--gray-text);
+  color: var(--gray-text-dark);
   font-weight: 500;
 }
 
@@ -243,11 +258,11 @@ a {
 }
 
 .stat-trend.positive {
-  color: var(--success);
+  color: var(--success-text);
 }
 
 .stat-trend.negative {
-  color: var(--danger);
+  color: var(--danger-text);
 }
 
 .content-grid {
@@ -355,22 +370,22 @@ a {
 
 .status-active {
   background-color: #e8f8f5;
-  color: var(--success);
+  color: var(--success-text);
 }
 
 .status-inactive {
   background-color: #fadedd;
-  color: var(--danger);
+  color: var(--danger-text);
 }
 
 .plan-premium {
   background-color: #ebeeff;
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .plan-basic {
   background-color: var(--gray-light);
-  color: var(--gray-text);
+  color: var(--gray-text-dark);
   border: 1px solid var(--gray-medium);
 }
 
