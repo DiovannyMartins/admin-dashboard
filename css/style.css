@@ -10,10 +10,10 @@
   --gray-text: #6c757d;
   --white: #ffffff;
 
-  /* Variantes escurecidas, usadas especificamente para texto (garantem contraste) */
-  --success-text: #1b8a54;
-  --danger-text: #c0392b;
-  --primary-text: #2c46b3;
+  /* Variantes escurecidas, com margem de segurança para contraste AA */
+  --success-text: #146c2e;
+  --danger-text: #a61b1b;
+  --primary-text: #253a94;
   --gray-text-dark: #495057;
 
   --sidebar-width: 260px;
