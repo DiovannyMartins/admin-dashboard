@@ -54,7 +54,8 @@ const usuariosPadrao = [
   { nome: "Ana Dias", status: "Ativo", plano: "Premium" },
 ];
 
-let usuarios = JSON.parse(localStorage.getItem("usuarios")) || usuariosPadrao;
+let usuariosSalvos = JSON.parse(localStorage.getItem("usuarios"));
+let usuarios = usuariosSalvos && usuariosSalvos.length > 0 ? usuariosSalvos : usuariosPadrao;
 
 function salvarUsuarios() {
   localStorage.setItem("usuarios", JSON.stringify(usuarios));
