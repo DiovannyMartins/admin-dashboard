@@ -4,34 +4,55 @@
    ========================================================================== */
 
 :root {
-  /* Cores principais da marca */
-  --primary: #4361ee;
-  --primary-hover: #3a53cc;
+  /* Cores principais da marca - Azul índigo moderno */
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-light: #eef2ff;
   
   /* Cores de estado (sucesso, erro, aviso, informação) */
-  --success: #2ecc71;
-  --danger: #e74c3c;
-  --danger-hover: #c0392b;
-  --warning: #f1c40f;
-  --info: #3498db;
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --danger-light: #fee2e2;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --info: #06b6d4;
+  --info-light: #cffafe;
   
-  /* Cores neutras */
-  --dark: #2b2d42;
-  --gray-light: #f8f9fa;
-  --gray-medium: #e9ecef;
-  --gray-text: #6c757d;
+  /* Cores neutras - Tons de cinza-azulados */
+  --dark: #1e293b;
+  --gray-900: #0f172a;
+  --gray-800: #1e293b;
+  --gray-700: #334155;
+  --gray-600: #475569;
+  --gray-500: #64748b;
+  --gray-400: #94a3b8;
+  --gray-300: #cbd5e1;
+  --gray-200: #e2e8f0;
+  --gray-100: #f1f5f9;
+  --gray-50: #f8fafc;
   --white: #ffffff;
 
-  /* Cores de fundo para badges (versões claras) */
-  --success-bg: #e8f8f5;
-  --danger-bg: #fadedd;
-  --primary-bg: #ebeeff;
+  /* Aliases para compatibilidade */
+  --gray-light: var(--gray-100);
+  --gray-medium: var(--gray-200);
 
-  /* Cores de texto com contraste AA (escuras o suficiente para fundo claro) */
-  --success-text: #146c2e;
-  --danger-text: #a61b1b;
-  --primary-text: #253a94;
-  --gray-text-dark: #495057;
+  /* Cores de fundo para badges (versões claras) */
+  --success-bg: var(--success-light);
+  --danger-bg: var(--danger-light);
+  --primary-bg: var(--primary-light);
+  --warning-bg: var(--warning-light);
+  --info-bg: var(--info-light);
+
+  /* Cores de texto com contraste AA */
+  --success-text: #065f46;
+  --danger-text: #991b1b;
+  --primary-text: #3730a3;
+  --warning-text: #92400e;
+  --info-text: #155e75;
+  --gray-text: var(--gray-500);
+  --gray-text-dark: var(--gray-700);
 
   /* Dimensões e espaçamentos */
   --sidebar-width: 260px;
@@ -39,9 +60,11 @@
   --radius-sm: 6px;
   --radius-lg: 20px;
   
-  /* Sombras (elevação) */
-  --shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
-  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.1);
+  /* Sombras (elevação) - Mais suaves e modernas */
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   
   /* Transições */
   --transition: 0.3s ease;

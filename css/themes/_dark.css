@@ -5,30 +5,59 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Ajusta cores para melhor contraste em fundo escuro */
-    --primary: #5a7bff;
-    --primary-hover: #4a6be8;
-    --success: #27ae60;
-    --danger: #e74c3c;
-    --dark: #e4e6eb;
-    --gray-light: #1a1a2e;
-    --gray-medium: #2d2d44;
-    --gray-text: #a0a0b0;
-    --white: #16213e;
+    /* Cores principais ajustadas para dark mode */
+    --primary: #818cf8;
+    --primary-hover: #6366f1;
+    --primary-light: #312e81;
+    
+    /* Cores de estado */
+    --success: #34d399;
+    --success-light: #064e3b;
+    --danger: #f87171;
+    --danger-light: #7f1d1d;
+    --warning: #fbbf24;
+    --warning-light: #78350f;
+    --info: #22d3ee;
+    --info-light: #164e63;
+    
+    /* Cores neutras - Tons escuros azulados */
+    --dark: #f1f5f9;
+    --gray-900: #f8fafc;
+    --gray-800: #f1f5f9;
+    --gray-700: #e2e8f0;
+    --gray-600: #cbd5e1;
+    --gray-500: #94a3b8;
+    --gray-400: #64748b;
+    --gray-300: #475569;
+    --gray-200: #334155;
+    --gray-100: #1e293b;
+    --gray-50: #0f172a;
+    --white: #0f172a;
+
+    /* Aliases para compatibilidade */
+    --gray-light: var(--gray-100);
+    --gray-medium: var(--gray-200);
 
     /* Fundos escuros para badges */
-    --success-bg: #0d3320;
-    --danger-bg: #3d1515;
-    --primary-bg: #1a2550;
+    --success-bg: var(--success-light);
+    --danger-bg: var(--danger-light);
+    --primary-bg: var(--primary-light);
+    --warning-bg: var(--warning-light);
+    --info-bg: var(--info-light);
 
     /* Textos claros para contraste em fundo escuro */
-    --success-text: #6ee7a0;
-    --danger-text: #f5a0a0;
-    --primary-text: #a0b4ff;
-    --gray-text-dark: #c0c0d0;
+    --success-text: #6ee7b7;
+    --danger-text: #fca5a5;
+    --primary-text: #c7d2fe;
+    --warning-text: #fcd34d;
+    --info-text: #67e8f9;
+    --gray-text: var(--gray-400);
+    --gray-text-dark: var(--gray-200);
 
     /* Sombras mais pronunciadas em dark mode */
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.3);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
   }
 }
