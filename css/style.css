@@ -1,47 +1,1892 @@
 /* ==========================================================================
-   ADMIN DASHBOARD - STYLE.CSS
-   Arquivo principal que importa todos os módulos CSS
-   
-   Arquitetura (ITCSS):
-   - base/        → Variáveis, reset, acessibilidade
-   - layout/      → Grid, sidebar, topbar
-   - components/  → Botões, cards, tabela, modal, etc.
-   - pages/       → Estilos específicos de páginas
-   - themes/      → Temas (dark/light)
-   - responsive/  → Media queries
-   - utils/       → Utilitários (skip-link, etc.)
+   ADMIN DASHBOARD - STYLESHEET CONSOLIDADO
+   Gerado automaticamente - Não editar manualmente
+   ==========================================================================
+
+/* ==========================================================================
+   VARIÁVEIS CSS (DESIGN TOKENS)
+   Paleta moderna inspirada em Linear, Vercel e Stripe
+   Tema padrão: escuro (pode ser alternado via data-theme)
    ========================================================================== */
 
-/* BASE */
-@import url('./base/_variables.css');
-@import url('./base/_reset.css');
-@import url('./base/_accessibility.css');
+:root {
+  /* Cores principais da marca - Índigo vibrante */
+  --primary: #818cf8;
+  --primary-hover: #6366f1;
+  --primary-light: #312e81;
+  --primary-dark: #c7d2fe;
+  
+  /* Cores de estado (sucesso, erro, aviso, informação) */
+  --success: #34d399;
+  --success-light: #064e3b;
+  --success-dark: #6ee7b7;
+  --danger: #f87171;
+  --danger-hover: #ef4444;
+  --danger-light: #7f1d1d;
+  --danger-dark: #fca5a5;
+  --warning: #fbbf24;
+  --warning-light: #78350f;
+  --warning-dark: #fcd34d;
+  --info: #22d3ee;
+  --info-light: #164e63;
+  --info-dark: #67e8f9;
+  
+  /* Cores neutras - Tema ESCURO (padrão) */
+  /* slate-50 é o mais escuro, slate-900 é o mais claro */
+  --slate-50: #0f172a;
+  --slate-100: #1e293b;
+  --slate-200: #334155;
+  --slate-300: #475569;
+  --slate-400: #64748b;
+  --slate-500: #94a3b8;
+  --slate-600: #cbd5e1;
+  --slate-700: #e2e8f0;
+  --slate-800: #f1f5f9;
+  --slate-900: #f8fafc;
+  --white: #0f172a;
 
-/* LAYOUT */
-@import url('./layout/_grid.css');
-@import url('./layout/_sidebar.css');
-@import url('./layout/_topbar.css');
+  /* Aliases semânticos - TEMA ESCURO (padrão) */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --border-color: #334155;
+  --border-light: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
 
-/* COMPONENTES */
-@import url('./components/_buttons.css');
-@import url('./components/_cards.css');
-@import url('./components/_table.css');
-@import url('./components/_chart.css');
-@import url('./components/_modal.css');
-@import url('./components/_notifications.css');
-@import url('./components/_pagination.css');
-@import url('./components/_toast.css');
-@import url('./components/_extras.css');
+  /* Cores de fundo para badges */
+  --success-bg: var(--success-light);
+  --danger-bg: var(--danger-light);
+  --primary-bg: var(--primary-light);
+  --warning-bg: var(--warning-light);
+  --info-bg: var(--info-light);
 
-/* PÁGINAS */
-@import url('./pages/_dashboard.css');
+  /* Cores de texto para badges */
+  --success-text: var(--success-dark);
+  --danger-text: var(--danger-dark);
+  --primary-text: var(--primary-dark);
+  --warning-text: var(--warning-dark);
+  --info-text: var(--info-dark);
+  --gray-text: var(--text-secondary);
+  --gray-text-dark: var(--slate-700);
 
-/* TEMAS */
-@import url('./themes/_dark.css');
+  /* Aliases para compatibilidade */
+  --gray-light: var(--slate-100);
+  --gray-medium: var(--slate-200);
+  --dark: var(--slate-50);
 
-/* RESPONSIVIDADE */
-@import url('./responsive/_tablet.css');
-@import url('./responsive/_mobile.css');
+  /* Dimensões e espaçamentos */
+  --sidebar-width: 260px;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  
+  /* Sombras (elevação) - Mais pronunciadas para tema escuro */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  
+  /* Transições */
+  --transition: 0.2s ease;
+  --transition-fast: 0.15s ease;
+  --transition-slow: 0.3s ease;
+}
 
-/* UTILITÁRIOS */
-@import url('./utils/_skip-link.css');
+/* ==========================================================================
+   TEMA CLARO
+   Aplicado quando data-theme="light" está no HTML
+   ========================================================================== */
+
+[data-theme="light"] {
+  /* Cores principais ajustadas para tema claro */
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-light: #eef2ff;
+  --primary-dark: #3730a3;
+  
+  /* Cores de estado */
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --success-dark: #065f46;
+  --danger: #ef4444;
+  --danger-light: #fee2e2;
+  --danger-dark: #991b1b;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --warning-dark: #92400e;
+  --info: #06b6d4;
+  --info-light: #cffafe;
+  --info-dark: #155e75;
+  
+  /* Cores neutras - Tema CLARO */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  --white: #ffffff;
+
+  /* Aliases semânticos para tema claro */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --border-color: #e2e8f0;
+  --border-light: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  /* Cores de fundo para badges */
+  --success-bg: var(--success-light);
+  --danger-bg: var(--danger-light);
+  --primary-bg: var(--primary-light);
+  --warning-bg: var(--warning-light);
+  --info-bg: var(--info-light);
+
+  /* Cores de texto para badges */
+  --success-text: var(--success-dark);
+  --danger-text: var(--danger-dark);
+  --primary-text: var(--primary-dark);
+  --warning-text: var(--warning-dark);
+  --info-text: var(--info-dark);
+  --gray-text: var(--text-secondary);
+  --gray-text-dark: var(--slate-700);
+
+  /* Aliases para compatibilidade */
+  --gray-light: var(--slate-100);
+  --gray-medium: var(--slate-200);
+  --dark: var(--slate-900);
+
+  /* Sombras mais suaves para tema claro */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+
+/* ==========================================================================
+   RESET E BASE
+   Remove estilos padrão do navegador e define tipografia base
+   ========================================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* ==========================================================================
+   ACESSIBILIDADE
+   Estilos para navegação por teclado e screen readers
+   ========================================================================== */
+
+/* Outline visível para navegação por teclado (Tab) */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Focus específico para elementos interativos */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Classe para esconder visualmente mas manter acessível para screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Respeita preferência do usuário para reduzir animações */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ==========================================================================
+   LAYOUT PRINCIPAL
+   Grid com sidebar fixa e conteúdo principal fluido
+   ========================================================================== */
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  min-height: 100vh;
+}
+
+/* Wrapper do conteúdo principal */
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-secondary);
+}
+
+/* Conteúdo principal */
+.main-content {
+  padding: 32px;
+}
+
+
+/* ==========================================================================
+   SIDEBAR
+   Menu lateral com design moderno e refinado
+   ========================================================================== */
+
+.sidebar {
+  background-color: var(--bg-primary);
+  border-right: 1px solid var(--border-color);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo no topo da sidebar */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px 24px 12px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 24px;
+}
+
+.logo svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.logo h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+
+/* Menu de navegação */
+.sidebar-menu li {
+  margin-bottom: 4px;
+}
+
+/* Links do menu */
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  font-weight: 500;
+  font-size: 14px;
+  gap: 12px;
+}
+
+/* Container dos ícones */
+.sidebar-menu .icon {
+  width: 20px;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.sidebar-menu .icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Estado hover e ativo (item selecionado) */
+.sidebar-menu a:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.sidebar-menu a.active {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.sidebar-menu a.active svg {
+  color: var(--white);
+}
+
+
+/* ==========================================================================
+   TOPBAR
+   Barra superior com busca, notificações e avatar do usuário
+   ========================================================================== */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-primary);
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--border-color);
+  gap: 24px;
+}
+
+/* Campo de busca com ícone SVG */
+.search-box {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px 16px 10px 42px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  outline: none;
+  font-size: 14px;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: all var(--transition);
+}
+
+.search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-box input:focus {
+  border-color: var(--primary);
+  background-color: var(--bg-primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Container das ações (notificações + avatar) */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Avatar do usuário (iniciais) */
+.user-avatar {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: var(--white);
+  height: 38px;
+  width: 38px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.user-avatar:hover {
+  transform: scale(1.05);
+}
+
+
+/* ==========================================================================
+   BOTÕES
+   Estilos reutilizáveis para todos os botões do sistema
+   ========================================================================== */
+
+/* Botão primário (ação principal) */
+.btn-primary,
+.btn-add-user {
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover,
+.btn-add-user:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active,
+.btn-add-user:active {
+  transform: translateY(0);
+}
+
+/* Botão secundário (ação alternativa) */
+.btn-secondary,
+.btn-export-csv {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-secondary svg,
+.btn-export-csv svg {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+}
+
+.btn-secondary:hover,
+.btn-export-csv:hover {
+  background-color: var(--bg-secondary);
+  border-color: var(--slate-300);
+  color: var(--text-primary);
+}
+
+/* Botão de ação (ícones na tabela) */
+.btn-action {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  display: inline-flex;
+  color: var(--text-muted);
+}
+
+.btn-action svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-action:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.btn-action.btn-excluir:hover {
+  background-color: var(--danger-light);
+  color: var(--danger);
+}
+
+/* Botão hamburger (menu mobile) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+  font: inherit;
+}
+
+.hamburger span {
+  width: 22px;
+  height: 2px;
+  background-color: var(--text-primary);
+  border-radius: 2px;
+  transition: all var(--transition);
+}
+
+/* Botão de notificação (sino) */
+.btn-notification {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  transition: all var(--transition);
+}
+
+.btn-notification:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.btn-notification svg {
+  width: 22px;
+  height: 22px;
+}
+
+
+/* ==========================================================================
+   CARDS DE ESTATÍSTICAS
+   Design moderno com ícones coloridos e layout refinado
+   ========================================================================== */
+
+/* Card de estatística */
+.stat-card {
+  background-color: var(--bg-primary);
+  padding: 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  display: flex;
+  gap: 16px;
+  transition: all var(--transition);
+}
+
+/* Efeito hover: card sobe levemente e sombra aumenta */
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--slate-300);
+}
+
+/* Wrapper do ícone */
+.stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Cores dos ícones por tipo */
+.stat-icon-primary {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.stat-icon-success {
+  background-color: var(--success-light);
+  color: var(--success);
+}
+
+.stat-icon-warning {
+  background-color: var(--warning-light);
+  color: var(--warning);
+}
+
+.stat-icon-info {
+  background-color: var(--info-light);
+  color: var(--info);
+}
+
+/* Conteúdo do card */
+.stat-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.stat-content h3 {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+/* Valor principal da métrica */
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+/* Indicador de tendência (positivo/negativo) */
+.stat-trend {
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-trend svg {
+  width: 14px;
+  height: 14px;
+}
+
+.stat-trend.positive {
+  color: var(--success);
+}
+
+.stat-trend.negative {
+  color: var(--danger);
+}
+
+
+/* ==========================================================================
+   TABELA DE DADOS
+   Design moderno com hover e melhor legibilidade
+   ========================================================================== */
+
+/* Wrapper com scroll horizontal para telas pequenas */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* Cabeçalhos (clicáveis para ordenação) */
+.data-table th {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--transition);
+}
+
+.data-table th:hover {
+  color: var(--primary);
+}
+
+.data-table td {
+  font-size: 14px;
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+/* Linhas com hover */
+.data-table tbody tr {
+  transition: background-color var(--transition);
+}
+
+.data-table tbody tr:hover {
+  background-color: var(--bg-secondary);
+}
+
+/* Mensagem quando tabela está vazia */
+.table-empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 40px 16px !important;
+  font-size: 14px;
+}
+
+/* Badges (status e plano) */
+.badge {
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-active {
+  background-color: var(--success-light);
+  color: var(--success-dark);
+}
+
+.status-inactive {
+  background-color: var(--danger-light);
+  color: var(--danger-dark);
+}
+
+.plan-premium {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.plan-basic {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+/* Ícone de ordenação (seta ↑ ou ↓) */
+.sort-icon {
+  font-size: 12px;
+  color: var(--primary);
+  margin-left: 4px;
+}
+
+/* Coluna de ações (botões visualizar/editar/excluir) */
+.td-actions {
+  display: flex;
+  gap: 4px;
+}
+
+/* Cabeçalho da tabela com título e botões */
+.table-widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.table-widget-header h2 {
+  margin-bottom: 0;
+}
+
+/* Container dos botões */
+.table-widget-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+
+/* ==========================================================================
+   GRÁFICO DE BARRAS
+   Design moderno com barras arredondadas e animação
+   ========================================================================== */
+
+.fake-bar-chart {
+  display: flex;
+  flex-direction: column;
+  height: 260px;
+}
+
+/* Legenda do gráfico */
+.chart-legend {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Quadrado colorido da legenda */
+.chart-legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+/* Área do gráfico */
+.chart-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex: 1;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+  gap: 16px;
+}
+
+/* Grupo de barras */
+.bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  gap: 8px;
+  flex: 1;
+}
+
+/* Wrapper das barras */
+.bars-wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+  height: 100%;
+  width: 100%;
+}
+
+/* Barra individual */
+.bar {
+  width: 20px;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bar-blue {
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-hover) 100%);
+}
+
+.bar-green {
+  background: linear-gradient(180deg, var(--success) 0%, #059669 100%);
+}
+
+/* Label abaixo das barras */
+.label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+
+/* ==========================================================================
+   MODAL
+   Design moderno com overlay e animação suave
+   ========================================================================== */
+
+/* Overlay (fundo escuro semi-transparente) */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-slow);
+  z-index: 998;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Caixa do modal (conteúdo) */
+.modal-usuario {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  background-color: var(--bg-primary);
+  border-radius: var(--radius);
+  padding: 28px;
+  width: 420px;
+  max-width: 90vw;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-slow);
+  z-index: 999;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-color);
+}
+
+.modal-usuario.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Cabeçalho do modal */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.modal-header h3 {
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.modal-header button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-header button:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Formulário dentro do modal */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Campo do formulário */
+.campo-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo-modal label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.campo-modal input,
+.campo-modal select {
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 14px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all var(--transition);
+}
+
+.campo-modal input:focus,
+.campo-modal select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.campo-modal input:disabled,
+.campo-modal select:disabled {
+  background-color: var(--bg-secondary);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+
+/* ==========================================================================
+   NOTIFICAÇÕES (DROPDOWN)
+   Design moderno com badges e estados visuais
+   ========================================================================== */
+
+.notification-wrapper {
+  position: relative;
+}
+
+/* Badge vermelho com contador */
+.badge-notification {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: var(--danger);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  height: 18px;
+  min-width: 18px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  border: 2px solid var(--bg-primary);
+}
+
+/* Dropdown de notificações */
+.notification-dropdown {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  width: 320px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xl);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all var(--transition);
+  z-index: 500;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.notification-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Cabeçalho do dropdown */
+.notification-header {
+  padding: 16px;
+  font-weight: 600;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
+}
+
+/* Item de notificação */
+.notification-item {
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: background-color var(--transition);
+}
+
+.notification-item.unread {
+  background-color: var(--primary-light);
+}
+
+.notification-item.read {
+  opacity: 0.7;
+}
+
+.notification-item:hover {
+  background-color: var(--bg-secondary);
+}
+
+.notification-text {
+  flex: 1;
+}
+
+/* Botão para marcar como lida */
+.notification-mark-read {
+  background: none;
+  border: 1px solid var(--success);
+  color: var(--success);
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+
+.notification-mark-read:hover {
+  background-color: var(--success);
+  color: var(--white);
+}
+
+/* Mensagem quando não há notificações */
+.notification-empty {
+  text-align: center;
+  padding: 24px 16px;
+  color: var(--text-muted);
+}
+
+/* Rodapé do dropdown */
+.notification-footer {
+  padding: 12px 16px;
+  text-align: center;
+  border-top: 1px solid var(--border-light);
+}
+
+.notification-clear-all {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition);
+}
+
+.notification-clear-all:hover {
+  background-color: var(--danger-light);
+}
+
+
+/* ==========================================================================
+   PAGINAÇÃO
+   Design moderno com botões arredondados
+   ========================================================================== */
+
+.pagination-wrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Botões de página */
+.pagination-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+
+.pagination-btn:hover:not(.disabled):not(.active) {
+  background-color: var(--bg-secondary);
+  border-color: var(--slate-300);
+  color: var(--text-primary);
+}
+
+/* Página atual */
+.pagination-btn.active {
+  background-color: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+/* Botão desabilitado */
+.pagination-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Elipse */
+.pagination-ellipsis {
+  padding: 0 4px;
+  color: var(--text-muted);
+}
+
+
+/* ==========================================================================
+   TOAST NOTIFICATIONS
+   Notificações temporárias com design moderno
+   ========================================================================== */
+
+/* Container fixo no canto */
+.toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+
+/* Toast individual */
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  font-size: 14px;
+  color: var(--text-primary);
+  min-width: 300px;
+  max-width: 420px;
+  pointer-events: auto;
+  transform: translateX(120%);
+  opacity: 0;
+  transition: all var(--transition-slow);
+}
+
+/* Estado visível */
+.toast-visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Ícone do toast */
+.toast-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* Cores por tipo */
+.toast-success .toast-icon {
+  background-color: var(--success-light);
+  color: var(--success);
+}
+
+.toast-error .toast-icon {
+  background-color: var(--danger-light);
+  color: var(--danger);
+}
+
+.toast-warning .toast-icon {
+  background-color: var(--warning-light);
+  color: var(--warning);
+}
+
+.toast-info .toast-icon {
+  background-color: var(--info-light);
+  color: var(--info);
+}
+
+.toast-message {
+  flex: 1;
+}
+
+/* Botão de fechar */
+.toast-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  transition: all var(--transition);
+  display: flex;
+}
+
+.toast-close:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+
+/* ==========================================================================
+   THEME TOGGLE - BOTÃO DE ALTERNÂNCIA DE TEMA
+   ========================================================================== */
+
+.btn-theme-toggle {
+  background: none;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-theme-toggle:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--slate-300);
+}
+
+.btn-theme-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ==========================================================================
+   SEARCH BOX - CAMPO DE BUSCA COM ATALHO
+   ========================================================================== */
+
+.search-shortcut {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-family: inherit;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   TABLE FILTERS - FILTROS AVANÇADOS
+   ========================================================================== */
+
+.table-filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 150px;
+}
+
+.filter-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.btn-clear-filters {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+}
+
+.btn-clear-filters:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* ==========================================================================
+   UNDO TOAST - NOTIFICAÇÃO COM DESFAZER
+   ========================================================================== */
+
+.undo-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 10000;
+  opacity: 0;
+  transition: all var(--transition-slow);
+  pointer-events: none;
+}
+
+.undo-toast.active {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.undo-message {
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-undo {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color var(--transition);
+}
+
+.btn-undo:hover {
+  background-color: var(--primary-light);
+}
+
+/* ==========================================================================
+   MODAL IMPROVEMENTS - MELHORIAS NO MODAL
+   ========================================================================== */
+
+.required {
+  color: var(--danger);
+}
+
+.field-error {
+  font-size: 12px;
+  color: var(--danger);
+  min-height: 16px;
+  margin-top: 4px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.btn-cancel {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-cancel:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   SIDEBAR OVERLAY - OVERLAY PARA MOBILE
+   ========================================================================== */
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition);
+  z-index: 999;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ==========================================================================
+   LOGO ICON - ÍCONE DO LOGO
+   ========================================================================== */
+
+.logo-icon {
+  display: flex;
+  color: var(--primary);
+}
+
+.logo-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* ==========================================================================
+   PROFILE DROPDOWN - MENU DE PERFIL
+   ========================================================================== */
+
+.profile-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  width: 280px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xl);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all var(--transition);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.profile-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.profile-dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.profile-avatar-large {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.profile-info {
+  min-width: 0;
+}
+
+.profile-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-email {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-dropdown-menu {
+  padding: 8px;
+}
+
+.profile-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: left;
+  font-family: inherit;
+}
+
+.profile-menu-item svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.profile-menu-item:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.profile-menu-logout {
+  color: var(--danger);
+}
+
+.profile-menu-logout:hover {
+  background-color: var(--danger-light);
+  color: var(--danger-dark);
+}
+
+.profile-divider {
+  height: 1px;
+  background-color: var(--border-light);
+  margin: 8px 0;
+}
+
+
+/* ==========================================================================
+   PÁGINA DASHBOARD
+   Estilos específicos da página principal do dashboard
+   ========================================================================== */
+
+/* Cabeçalho da página */
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+
+.page-header p {
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+/* Grid de estatísticas */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+/* Grid de conteúdo (gráfico + tabela) */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 24px;
+}
+
+/* Widget genérico */
+.widget {
+  background-color: var(--bg-primary);
+  padding: 28px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+}
+
+.widget h2 {
+  font-size: 17px;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+
+/* ==========================================================================
+   TEMAS
+   Tema escuro fixo - sem alternância automática
+   ========================================================================== */
+
+/* Tema escuro é o padrão definido em _variables.css
+   Este arquivo está reservado para futuros temas adicionais */
+
+
+/* ==========================================================================
+   RESPONSIVIDADE - TABLET (até 1024px)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  /* Stats em 2 colunas em vez de 4 */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Conteúdo em coluna única (gráfico acima, tabela abaixo) */
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ==========================================================================
+   RESPONSIVIDADE - MOBILE (até 768px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Mostra botão hamburger */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Layout em coluna única */
+  .layout-grid {
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+
+  /* Sidebar vira drawer (desliza da esquerda) */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--bg-primary);
+    z-index: 1000;
+    border-right: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    transform: translateX(-100%);
+    transition: transform var(--transition);
+    display: block;
+  }
+
+  /* Sidebar visível (desliza para dentro) */
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  /* Stats em coluna única */
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Busca menor */
+  .search-box input {
+    width: 120px;
+  }
+
+  /* Esconde atalho de teclado em mobile */
+  .search-shortcut {
+    display: none;
+  }
+
+  /* Padding reduzido */
+  .topbar {
+    padding: 15px;
+  }
+
+  .main-content {
+    padding: 15px;
+  }
+
+  /* Header da tabela em coluna */
+  .table-widget-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Botões de ação ocupam largura total */
+  .table-widget-actions {
+    width: 100%;
+  }
+
+  .btn-add-user,
+  .btn-export-csv {
+    flex: 1;
+    justify-content: center;
+  }
+
+  /* Filtros em coluna */
+  .table-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  /* Undo toast em mobile */
+  .undo-toast {
+    width: 90%;
+    max-width: 400px;
+  }
+}
+
+
+/* ==========================================================================
+   SKIP LINK - ACESSIBILIDADE
+   Link para pular navegação (visível apenas no focus)
+   ========================================================================== */
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: var(--white);
+  padding: 8px 16px;
+  z-index: 10000;
+  transition: top 0.2s;
+  font-weight: 600;
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+
+*/
+
