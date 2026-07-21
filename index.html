@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
     content="Dashboard administrativo com painel de estatísticas, gráfico de desempenho semanal e gerenciamento completo de usuários.">
+  <meta name="theme-color" content="#4361ee">
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" type="image/png" href="img/painel-de-controle-favicon.png">
   <title>Dashboard Admin | Painel de Gerenciamento</title>
@@ -14,17 +15,17 @@
 <body>
   <div class="layout-grid">
 
-    <aside class="sidebar">
+    <aside class="sidebar" aria-label="Menu principal">
       <div class="logo">
         <h2>DASHBOARD</h2>
       </div>
 
-      <nav class="sidebar-menu">
+      <nav class="sidebar-menu" aria-label="Navegação principal">
         <ul>
           <li>
-            <a href="#" class="active">
+            <a href="#" class="active" aria-current="page">
               <span class="icon">
-                <img src="img/painel-de-controle.png" alt="Ícone de Painel de Controle" />
+                <img src="img/painel-de-controle.png" alt="" aria-hidden="true" loading="lazy" />
               </span>
               Dashboard
             </a>
@@ -32,7 +33,7 @@
           <li>
             <a href="#">
               <span class="icon">
-                <img src="img/perfil-de-usuario.png" alt="Ícone de Perfil de Usuário" />
+                <img src="img/perfil-de-usuario.png" alt="" aria-hidden="true" loading="lazy" />
               </span>
               Usuários
             </a>
@@ -40,7 +41,7 @@
           <li>
             <a href="#">
               <span class="icon">
-                <img src="img/pasta.png" alt="Ícone de Pasta de Projetos" />
+                <img src="img/pasta.png" alt="" aria-hidden="true" loading="lazy" />
               </span>
               Projetos
             </a>
@@ -48,7 +49,7 @@
           <li>
             <a href="#">
               <span class="icon">
-                <img src="img/configuracoes.png" alt="Ícone de Engrenagem de Configurações" />
+                <img src="img/configuracoes.png" alt="" aria-hidden="true" loading="lazy" />
               </span>
               Configurações
             </a>
@@ -59,30 +60,31 @@
 
     <div class="main-wrapper">
       <header class="topbar">
-        <button id="menuToggle" class="hamburger" aria-label="Abrir menu">
+        <button id="menuToggle" class="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar">
           <span></span>
           <span></span>
           <span></span>
         </button>
 
         <div class="search-box">
-          <input type="text" placeholder="Pesquisar..." id="inputBuscaUsuario" />
+          <label for="inputBuscaUsuario" class="sr-only">Pesquisar usuários</label>
+          <input type="search" placeholder="Pesquisar usuários..." id="inputBuscaUsuario" aria-label="Pesquisar usuários" />
         </div>
 
         <div class="topbar-actions">
           <div class="notification-wrapper">
-            <button class="btn-notification" id="btnNotificacao" aria-label="Notificações">
-              <img src="img/sino.png" alt="Ícone de Sino" />
-              <span class="badge-notification" id="badgeNotificacao">0</span>
+            <button class="btn-notification" id="btnNotificacao" aria-label="Notificações" aria-haspopup="true" aria-expanded="false">
+              <img src="img/sino.png" alt="" aria-hidden="true" loading="lazy" />
+              <span class="badge-notification" id="badgeNotificacao" aria-live="polite">0</span>
             </button>
 
-            <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-dropdown" id="notificationDropdown" role="menu" aria-label="Lista de notificações">
               <div class="notification-header">Notificações</div>
-              <div id="listaNotificacoes"></div>
+              <div id="listaNotificacoes" role="list"></div>
             </div>
           </div>
 
-          <div class="user-avatar">
+          <div class="user-avatar" role="button" tabindex="0" aria-label="Perfil do usuário">
             <span>DY</span>
           </div>
         </div>
@@ -94,99 +96,106 @@
           <p>Bem-vindo de volta, Diovanny!</p>
         </header>
 
-        <h2 class="sr-only">Resumo Geral</h2>
-        <section class="stats-grid">
+        <section class="stats-grid" aria-label="Resumo geral">
+          <h2 class="sr-only">Resumo Geral</h2>
+
           <article class="stat-card">
             <div class="stat-header">
               <span class="icon">
-                <img src="img/multiplos-usuarios.png" alt="Ícone de Múltiplos Usuários" />
+                <img src="img/multiplos-usuarios.png" alt="" aria-hidden="true" loading="lazy" />
               </span>
               <h3>Usuários Totais</h3>
             </div>
             <p class="stat-value">1.245</p>
-            <span class="stat-trend positive">+10% este mês</span>
+            <span class="stat-trend positive" aria-label="Aumento de 10% este mês">+10% este mês</span>
           </article>
 
           <article class="stat-card">
             <div class="stat-header">
               <span class="icon">
-                <img src="img/maleta-de-negocios.png" alt="Ícone de Maleta de Negócios" />
+                <img src="img/maleta-de-negocios.png" alt="" aria-hidden="true" loading="lazy" />
               </span>
               <h3>Projetos Ativos</h3>
             </div>
             <p class="stat-value">85</p>
-            <span class="stat-trend negative">-2% este mês</span>
+            <span class="stat-trend negative" aria-label="Queda de 2% este mês">-2% este mês</span>
           </article>
 
           <article class="stat-card">
             <div class="stat-header">
               <span class="icon">
-                <img src="img/carrinho-carrinho.png" alt="Ícone de Carrinho de Compras" />
+                <img src="img/carrinho-carrinho.png" alt="" aria-hidden="true" loading="lazy" />
               </span>
               <h3>Vendas do Mês</h3>
             </div>
             <p class="stat-value">R$ 15.400</p>
-            <span class="stat-trend positive">+25%</span>
+            <span class="stat-trend positive" aria-label="Aumento de 25%">+25%</span>
           </article>
 
           <article class="stat-card">
             <div class="stat-header">
               <span class="icon">
-                <img src="img/dinheiro.png" alt="Ícone de Dinheiro" />
+                <img src="img/dinheiro.png" alt="" aria-hidden="true" loading="lazy" />
               </span>
               <h3>Receita Mensal</h3>
             </div>
             <p class="stat-value">R$ 12.800</p>
-            <span class="stat-trend positive">+18%</span>
+            <span class="stat-trend positive" aria-label="Aumento de 18%">+18%</span>
           </article>
         </section>
 
         <div class="content-grid">
-          <section class="widget chart-widget">
+          <section class="widget chart-widget" aria-label="Gráfico de desempenho semanal">
             <h2>Desempenho Semanal</h2>
-            <div class="fake-bar-chart" id="grafico"></div>
+            <div class="fake-bar-chart" id="grafico" role="img" aria-label="Gráfico de barras: desempenho de vendas e metas de segunda a sexta-feira"></div>
           </section>
 
-          <section class="widget table-widget">
+          <section class="widget table-widget" aria-label="Gerenciamento de usuários">
             <div class="table-widget-header">
               <h2>Últimos Usuários Cadastrados</h2>
-              <button type="button" class="btn-add-user" id="btnAdicionarUsuario">+ Novo Usuário</button>
+              <div class="table-widget-actions">
+                <button type="button" class="btn-export-csv" id="btnExportarCsv" aria-label="Exportar tabela para CSV">
+                  <img src="img/pasta.png" alt="" aria-hidden="true" loading="lazy" />
+                  Exportar CSV
+                </button>
+                <button type="button" class="btn-add-user" id="btnAdicionarUsuario">+ Novo Usuário</button>
+              </div>
             </div>
 
             <div class="table-responsive">
-              <table class="data-table">
+              <table class="data-table" aria-label="Lista de usuários">
                 <thead>
                   <tr>
-                    <th data-campo="nome">Nome <span class="sort-icon"></span></th>
-                    <th data-campo="status">Status <span class="sort-icon"></span></th>
-                    <th data-campo="plano">Plano <span class="sort-icon"></span></th>
-                    <th>Ações</th>
+                    <th scope="col" data-campo="nome">Nome <span class="sort-icon" aria-hidden="true"></span></th>
+                    <th scope="col" data-campo="status">Status <span class="sort-icon" aria-hidden="true"></span></th>
+                    <th scope="col" data-campo="plano">Plano <span class="sort-icon" aria-hidden="true"></span></th>
+                    <th scope="col">Ações</th>
                   </tr>
                 </thead>
 
                 <tbody id="tabelaUsuarios">
-                  <!-- Linhas inseridas dinamicamente via JS -->
                 </tbody>
               </table>
             </div>
+
+            <div id="paginationContainer" class="pagination-wrapper"></div>
           </section>
         </div>
       </main>
     </div>
   </div>
 
-  <!-- Modal de usuário (visualizar/editar/criar) -->
   <div class="modal-overlay" id="modalOverlay"></div>
-  <div class="modal-usuario" id="modalUsuario">
+  <div class="modal-usuario" id="modalUsuario" role="dialog" aria-labelledby="modalTitulo" aria-modal="true">
     <div class="modal-header">
       <h3 id="modalTitulo">Detalhes do Usuário</h3>
-      <button type="button" id="btnFecharModal" aria-label="Fechar">✕</button>
+      <button type="button" data-modal-close id="btnFecharModal" aria-label="Fechar modal">✕</button>
     </div>
 
-    <form id="formUsuario" class="modal-form">
+    <form id="formUsuario" class="modal-form" novalidate>
       <div class="campo-modal">
         <label for="modalNome">Nome</label>
-        <input type="text" id="modalNome" required>
+        <input type="text" id="modalNome" required minlength="2" autocomplete="name">
       </div>
 
       <div class="campo-modal">
@@ -209,7 +218,7 @@
     </form>
   </div>
 
-  <script src="script.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 
 </html>
