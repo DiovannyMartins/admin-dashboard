@@ -1,6 +1,6 @@
 /* ==========================================================================
    VARIÁVEIS CSS (DESIGN TOKENS)
-   Tema escuro por padrão - Paleta moderna inspirada em Linear, Vercel e Stripe
+   Tema escuro FORÇADO - Paleta moderna inspirada em Linear, Vercel e Stripe
    ========================================================================== */
 
 :root {
@@ -38,7 +38,7 @@
   --slate-50: #0f172a;
   --white: #0f172a;
 
-  /* Aliases semânticos para tema escuro */
+  /* Aliases semânticos - TEMA ESCURO FIXO */
   --bg-primary: #0f172a;
   --bg-secondary: #1e293b;
   --bg-tertiary: #334155;
