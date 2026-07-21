@@ -1,61 +1,61 @@
 /* ==========================================================================
-   DARK MODE
-   Tema escuro refinado com tons azulados profundos
+   TEMA CLARO (OPCIONAL)
+   Aplicado apenas quando usuário prefere tema claro
    ========================================================================== */
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    /* Cores principais ajustadas para dark mode */
-    --primary: #818cf8;
-    --primary-hover: #6366f1;
-    --primary-light: #312e81;
-    --primary-dark: #c7d2fe;
+    /* Cores principais ajustadas para tema claro */
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --primary-light: #eef2ff;
+    --primary-dark: #3730a3;
     
     /* Cores de estado */
-    --success: #34d399;
-    --success-light: #064e3b;
-    --success-dark: #6ee7b7;
-    --danger: #f87171;
-    --danger-light: #7f1d1d;
-    --danger-dark: #fca5a5;
-    --warning: #fbbf24;
-    --warning-light: #78350f;
-    --warning-dark: #fcd34d;
-    --info: #22d3ee;
-    --info-light: #164e63;
-    --info-dark: #67e8f9;
+    --success: #10b981;
+    --success-light: #d1fae5;
+    --success-dark: #065f46;
+    --danger: #ef4444;
+    --danger-light: #fee2e2;
+    --danger-dark: #991b1b;
+    --warning: #f59e0b;
+    --warning-light: #fef3c7;
+    --warning-dark: #92400e;
+    --info: #06b6d4;
+    --info-light: #cffafe;
+    --info-dark: #155e75;
     
-    /* Cores neutras - Tons escuros azulados */
-    --slate-900: #f8fafc;
-    --slate-800: #f1f5f9;
-    --slate-700: #e2e8f0;
-    --slate-600: #cbd5e1;
-    --slate-500: #94a3b8;
-    --slate-400: #64748b;
-    --slate-300: #475569;
-    --slate-200: #334155;
-    --slate-100: #1e293b;
-    --slate-50: #0f172a;
-    --white: #0f172a;
+    /* Cores neutras - Tema claro */
+    --slate-900: #0f172a;
+    --slate-800: #1e293b;
+    --slate-700: #334155;
+    --slate-600: #475569;
+    --slate-500: #64748b;
+    --slate-400: #94a3b8;
+    --slate-300: #cbd5e1;
+    --slate-200: #e2e8f0;
+    --slate-100: #f1f5f9;
+    --slate-50: #f8fafc;
+    --white: #ffffff;
 
-    /* Aliases semânticos */
-    --bg-primary: var(--white);
-    --bg-secondary: var(--slate-50);
-    --bg-tertiary: var(--slate-100);
-    --border-color: var(--slate-200);
-    --border-light: var(--slate-100);
-    --text-primary: var(--slate-900);
-    --text-secondary: var(--slate-400);
-    --text-muted: var(--slate-500);
+    /* Aliases semânticos para tema claro */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    --border-color: #e2e8f0;
+    --border-light: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
 
-    /* Fundos escuros para badges */
+    /* Cores de fundo para badges */
     --success-bg: var(--success-light);
     --danger-bg: var(--danger-light);
     --primary-bg: var(--primary-light);
     --warning-bg: var(--warning-light);
     --info-bg: var(--info-light);
 
-    /* Textos claros para contraste em fundo escuro */
+    /* Cores de texto para badges */
     --success-text: var(--success-dark);
     --danger-text: var(--danger-dark);
     --primary-text: var(--primary-dark);
@@ -69,11 +69,11 @@
     --gray-medium: var(--slate-200);
     --dark: var(--slate-900);
 
-    /* Sombras mais pronunciadas em dark mode */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    /* Sombras mais suaves para tema claro */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
 }
