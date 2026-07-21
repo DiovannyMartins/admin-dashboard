@@ -1,0 +1,28 @@
+/* ==========================================================================
+   RESET E BASE
+   Remove estilos padrão do navegador e define tipografia base
+   ========================================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Inclui padding/border na largura total */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--gray-light);
+  color: var(--dark);
+}
+
+img {
+  max-width: 100%; /* Previne overflow de imagens */
+}
+
+ul {
+  list-style: none; /* Remove bullets padrão */
+}
+
+a {
+  text-decoration: none; /* Remove sublinhado padrão */
+}

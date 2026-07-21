@@ -1,0 +1,142 @@
+/* ==========================================================================
+   NOTIFICAÇÕES (DROPDOWN)
+   Dropdown com lista de notificações
+   ========================================================================== */
+
+.notification-wrapper {
+  position: relative; /* Para posicionar dropdown */
+}
+
+/* Badge vermelho com contador de notificações */
+.badge-notification {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: var(--danger);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: bold;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--white); /* Borda branca para destaque */
+}
+
+/* Dropdown de notificações */
+.notification-dropdown {
+  position: absolute;
+  top: 45px; /* Abaixo do botão */
+  right: 0;
+  width: 300px;
+  background-color: var(--white);
+  border: 1px solid var(--gray-medium);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px); /* Começa deslocado para cima */
+  transition: all var(--transition-fast);
+  z-index: 500;
+  max-height: 400px;
+  overflow-y: auto; /* Scroll se muitas notificações */
+}
+
+.notification-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0); /* Volta à posição normal */
+}
+
+/* Cabeçalho do dropdown */
+.notification-header {
+  padding: 15px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--gray-medium);
+  color: var(--dark);
+}
+
+/* Item de notificação individual */
+.notification-item {
+  padding: 12px 15px;
+  font-size: 13px;
+  color: var(--gray-text);
+  border-bottom: 1px solid var(--gray-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  transition: background-color var(--transition-fast);
+}
+
+/* Notificação não lida (destaque) */
+.notification-item.unread {
+  background-color: var(--primary-bg);
+}
+
+/* Notificação lida (opacidade reduzida) */
+.notification-item.read {
+  opacity: 0.7;
+}
+
+.notification-item:hover {
+  background-color: var(--gray-light);
+}
+
+.notification-text {
+  flex: 1;
+}
+
+/* Botão para marcar como lida */
+.notification-mark-read {
+  background: none;
+  border: 1px solid var(--success);
+  color: var(--success);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  flex-shrink: 0; /* Não encolhe */
+}
+
+.notification-mark-read:hover {
+  background-color: var(--success);
+  color: var(--white);
+}
+
+/* Mensagem quando não há notificações */
+.notification-empty {
+  text-align: center;
+  padding: 20px 15px;
+  color: var(--gray-text);
+}
+
+/* Rodapé do dropdown (botão limpar todas) */
+.notification-footer {
+  padding: 10px 15px;
+  text-align: center;
+  border-top: 1px solid var(--gray-medium);
+}
+
+.notification-clear-all {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color var(--transition-fast);
+}
+
+.notification-clear-all:hover {
+  background-color: var(--danger-bg);
+}

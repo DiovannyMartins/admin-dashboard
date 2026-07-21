@@ -1,0 +1,21 @@
+/* ==========================================================================
+   LAYOUT PRINCIPAL
+   Grid com sidebar fixa e conteúdo principal fluido
+   ========================================================================== */
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr; /* Sidebar fixa + conteúdo fluido */
+  min-height: 100vh;
+}
+
+/* Wrapper do conteúdo principal (topbar + main) */
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Conteúdo principal */
+.main-content {
+  padding: 30px;
+}

@@ -1,0 +1,49 @@
+/* ==========================================================================
+   VARIÁVEIS CSS (DESIGN TOKENS)
+   Definição de cores, espaçamentos e valores reutilizáveis em todo o projeto
+   ========================================================================== */
+
+:root {
+  /* Cores principais da marca */
+  --primary: #4361ee;
+  --primary-hover: #3a53cc;
+  
+  /* Cores de estado (sucesso, erro, aviso, informação) */
+  --success: #2ecc71;
+  --danger: #e74c3c;
+  --danger-hover: #c0392b;
+  --warning: #f1c40f;
+  --info: #3498db;
+  
+  /* Cores neutras */
+  --dark: #2b2d42;
+  --gray-light: #f8f9fa;
+  --gray-medium: #e9ecef;
+  --gray-text: #6c757d;
+  --white: #ffffff;
+
+  /* Cores de fundo para badges (versões claras) */
+  --success-bg: #e8f8f5;
+  --danger-bg: #fadedd;
+  --primary-bg: #ebeeff;
+
+  /* Cores de texto com contraste AA (escuras o suficiente para fundo claro) */
+  --success-text: #146c2e;
+  --danger-text: #a61b1b;
+  --primary-text: #253a94;
+  --gray-text-dark: #495057;
+
+  /* Dimensões e espaçamentos */
+  --sidebar-width: 260px;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-lg: 20px;
+  
+  /* Sombras (elevação) */
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.1);
+  
+  /* Transições */
+  --transition: 0.3s ease;
+  --transition-fast: 0.2s ease;
+}

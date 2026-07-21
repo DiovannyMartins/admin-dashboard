@@ -1,0 +1,96 @@
+/* ==========================================================================
+   TOAST NOTIFICATIONS
+   Notificações temporárias no canto superior direito
+   ========================================================================== */
+
+/* Container fixo no canto */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none; /* Container não intercepta cliques */
+}
+
+/* Toast individual */
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background-color: var(--white);
+  border: 1px solid var(--gray-medium);
+  box-shadow: var(--shadow-lg);
+  font-size: 14px;
+  color: var(--dark);
+  min-width: 280px;
+  max-width: 400px;
+  pointer-events: auto; /* Toast pode ser clicado */
+  transform: translateX(120%); /* Começa fora da tela (direita) */
+  opacity: 0;
+  transition: all var(--transition);
+}
+
+/* Estado visível (desliza para dentro) */
+.toast-visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Ícone do toast (círculo com símbolo) */
+.toast-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+/* Cores por tipo de toast */
+.toast-success .toast-icon {
+  background-color: var(--success-bg);
+  color: var(--success-text);
+}
+
+.toast-error .toast-icon {
+  background-color: var(--danger-bg);
+  color: var(--danger-text);
+}
+
+.toast-warning .toast-icon {
+  background-color: #fef3cd;
+  color: #856404;
+}
+
+.toast-info .toast-icon {
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}
+
+.toast-message {
+  flex: 1;
+}
+
+/* Botão de fechar toast */
+.toast-close {
+  background: none;
+  border: none;
+  color: var(--gray-text);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color var(--transition-fast);
+}
+
+.toast-close:hover {
+  background-color: var(--gray-light);
+}

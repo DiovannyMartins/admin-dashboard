@@ -1,0 +1,58 @@
+/* ==========================================================================
+   TOPBAR
+   Barra superior com busca, notificações e avatar do usuário
+   ========================================================================== */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--white);
+  padding: 15px 30px;
+  border-bottom: 1px solid var(--gray-medium);
+}
+
+/* Campo de busca com ícone de lupa */
+.search-box input {
+  padding: 10px 15px 10px 40px; /* Espaço para ícone à esquerda */
+  border: 1px solid var(--gray-medium);
+  border-radius: var(--radius-lg); /* Formato pílula */
+  outline: none;
+  width: 250px;
+  transition: border-color var(--transition);
+  background-image: url("../img/lupa.png");
+  background-repeat: no-repeat;
+  background-position: 10px center; /* Ícone à esquerda */
+  background-color: var(--white);
+  color: var(--dark);
+}
+
+.search-box input:focus {
+  border-color: var(--primary);
+}
+
+/* Container das ações (notificações + avatar) */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Avatar do usuário (iniciais) */
+.user-avatar {
+  background-color: var(--primary);
+  color: var(--white);
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.user-avatar:hover {
+  transform: scale(1.05); /* Efeito de zoom ao passar mouse */
+}

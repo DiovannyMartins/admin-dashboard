@@ -1,0 +1,15 @@
+/* ==========================================================================
+   RESPONSIVIDADE - TABLET (até 1024px)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  /* Stats em 2 colunas em vez de 4 */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Conteúdo em coluna única (gráfico acima, tabela abaixo) */
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}

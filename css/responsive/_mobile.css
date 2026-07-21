@@ -1,0 +1,73 @@
+/* ==========================================================================
+   RESPONSIVIDADE - MOBILE (até 768px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Mostra botão hamburger */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Layout em coluna única */
+  .layout-grid {
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+
+  /* Sidebar vira drawer (desliza da esquerda) */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--white);
+    z-index: 1000;
+    border-right: 1px solid var(--gray-medium);
+    box-shadow: var(--shadow-lg);
+    transform: translateX(-100%); /* Escondida fora da tela */
+    transition: transform var(--transition);
+    display: block;
+  }
+
+  /* Sidebar visível (desliza para dentro) */
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  /* Stats em coluna única */
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Busca menor */
+  .search-box input {
+    width: 120px;
+  }
+
+  /* Padding reduzido */
+  .topbar {
+    padding: 15px;
+  }
+
+  .main-content {
+    padding: 15px;
+  }
+
+  /* Header da tabela em coluna */
+  .table-widget-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Botões de ação ocupam largura total */
+  .table-widget-actions {
+    width: 100%;
+  }
+
+  .btn-add-user,
+  .btn-export-csv {
+    flex: 1;
+    justify-content: center;
+  }
+}

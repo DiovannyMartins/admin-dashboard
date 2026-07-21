@@ -1,0 +1,55 @@
+/* ==========================================================================
+   PAGINAÇÃO
+   Componente de paginação para tabelas
+   ========================================================================== */
+
+.pagination-wrapper {
+  margin-top: 15px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Botões de página */
+.pagination-btn {
+  background: none;
+  border: 1px solid var(--gray-medium);
+  color: var(--dark);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.pagination-btn:hover:not(.disabled):not(.active) {
+  background-color: var(--gray-light);
+  border-color: var(--primary);
+}
+
+/* Página atual (destaque) */
+.pagination-btn.active {
+  background-color: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+/* Botão desabilitado (primeira/última página) */
+.pagination-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Elipse (quando há muitas páginas) */
+.pagination-ellipsis {
+  padding: 0 4px;
+  color: var(--gray-text);
+}

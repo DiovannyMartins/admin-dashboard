@@ -1,0 +1,87 @@
+/* ==========================================================================
+   CARDS
+   Componentes de card para estatísticas e widgets
+   ========================================================================== */
+
+/* Widget genérico (card com conteúdo) */
+.widget {
+  background-color: var(--white);
+  padding: 25px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-medium);
+}
+
+.widget h2 {
+  font-size: 18px;
+  color: var(--dark);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Card de estatística */
+.stat-card {
+  background-color: var(--white);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-medium);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Efeito hover: card sobe levemente e sombra aumenta */
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Cabeçalho do card (ícone + título) */
+.stat-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Container do ícone */
+.stat-header .icon {
+  background-color: var(--gray-light);
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+}
+
+.stat-header .icon img {
+  width: 22px;
+}
+
+.stat-header h3 {
+  font-size: 15px;
+  color: var(--gray-text-dark);
+  font-weight: 500;
+}
+
+/* Valor principal da métrica */
+.stat-value {
+  font-size: 26px;
+  font-weight: bold;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+/* Indicador de tendência (positivo/negativo) */
+.stat-trend {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stat-trend.positive {
+  color: var(--success-text);
+}
+
+.stat-trend.negative {
+  color: var(--danger-text);
+}

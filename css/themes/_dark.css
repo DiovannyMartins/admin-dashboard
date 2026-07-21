@@ -1,0 +1,34 @@
+/* ==========================================================================
+   DARK MODE
+   Sobrescreve variáveis quando usuário prefere tema escuro
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Ajusta cores para melhor contraste em fundo escuro */
+    --primary: #5a7bff;
+    --primary-hover: #4a6be8;
+    --success: #27ae60;
+    --danger: #e74c3c;
+    --dark: #e4e6eb;
+    --gray-light: #1a1a2e;
+    --gray-medium: #2d2d44;
+    --gray-text: #a0a0b0;
+    --white: #16213e;
+
+    /* Fundos escuros para badges */
+    --success-bg: #0d3320;
+    --danger-bg: #3d1515;
+    --primary-bg: #1a2550;
+
+    /* Textos claros para contraste em fundo escuro */
+    --success-text: #6ee7a0;
+    --danger-text: #f5a0a0;
+    --primary-text: #a0b4ff;
+    --gray-text-dark: #c0c0d0;
+
+    /* Sombras mais pronunciadas em dark mode */
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+}
