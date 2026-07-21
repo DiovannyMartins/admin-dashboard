@@ -1,5 +1,11 @@
-import { $, createElement, sanitize } from '../utils/dom.js';
+/**
+ * Notifications - Sistema de notificações
+ * Gerencia lista de notificações com marcar como lida e limpar todas
+ */
+
+import { $, createElement } from '../utils/dom.js';
 import { Dropdown } from '../components/dropdown.js';
+import { Icon } from '../utils/icons.js';
 
 const DEFAULT_NOTIFICATIONS = [
   { id: 1, text: 'Novo usuário cadastrado: Ana Dias', read: false },
@@ -16,9 +22,26 @@ export class Notifications {
     this.notifications = [...DEFAULT_NOTIFICATIONS];
 
     this.dropdown = new Dropdown(this.trigger, this.dropdownEl);
+    this._renderIcons();
     this._render();
   }
 
+  /**
+   * Renderiza ícones nos botões
+   * @private
+   */
+  _renderIcons() {
+    // Ícone do sino
+    const bellIcon = this.trigger.querySelector('[data-icon="bell"]');
+    if (bellIcon) {
+      bellIcon.outerHTML = Icon.get('bell', { width: 22, height: 22 });
+    }
+  }
+
+  /**
+   * Renderiza lista de notificações
+   * @private
+   */
   _render() {
     this.listEl.innerHTML = '';
 
@@ -48,7 +71,8 @@ export class Notifications {
           'aria-label': 'Marcar como lida',
           title: 'Marcar como lida',
           onClick: () => this._markAsRead(n.id)
-        }, ['✓']);
+        });
+        markBtn.appendChild(Icon.check({ width: 14, height: 14 }));
         item.appendChild(markBtn);
       }
 
@@ -64,12 +88,20 @@ export class Notifications {
     this.listEl.appendChild(footer);
   }
 
+  /**
+   * Marca notificação como lida
+   * @private
+   */
   _markAsRead(id) {
     const n = this.notifications.find(n => n.id === id);
     if (n) n.read = true;
     this._render();
   }
 
+  /**
+   * Limpa todas as notificações
+   * @private
+   */
   _clearAll() {
     this.notifications = [];
     this._render();

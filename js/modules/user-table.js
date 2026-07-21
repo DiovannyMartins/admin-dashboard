@@ -1,15 +1,21 @@
+/**
+ * UserTable - Gerenciamento completo de usuários
+ * CRUD com busca, filtros, ordenação, paginação e export CSV
+ */
+
 import { $, $$, createElement, sanitize, debounce, generateId } from '../utils/dom.js';
 import { eventBus } from '../utils/event-bus.js';
 import { StorageService } from '../services/storage.service.js';
 import { Modal } from '../components/modal.js';
 import { Pagination } from '../components/pagination.js';
 import { showToast } from '../components/toast.js';
+import { Icon } from '../utils/icons.js';
 
 const DEFAULT_USERS = [
-  { id: generateId(), nome: 'João Silva', status: 'Ativo', plano: 'Premium' },
-  { id: generateId(), nome: 'Maria Souza', status: 'Inativo', plano: 'Básico' },
-  { id: generateId(), nome: 'Pedro Alves', status: 'Ativo', plano: 'Básico' },
-  { id: generateId(), nome: 'Ana Dias', status: 'Ativo', plano: 'Premium' },
+  { id: generateId(), nome: 'João Silva', email: 'joao@exemplo.com', status: 'Ativo', plano: 'Premium' },
+  { id: generateId(), nome: 'Maria Souza', email: 'maria@exemplo.com', status: 'Inativo', plano: 'Básico' },
+  { id: generateId(), nome: 'Pedro Alves', email: 'pedro@exemplo.com', status: 'Ativo', plano: 'Básico' },
+  { id: generateId(), nome: 'Ana Dias', email: 'ana@exemplo.com', status: 'Ativo', plano: 'Premium' },
 ];
 
 export class UserTable {
@@ -19,19 +25,29 @@ export class UserTable {
     this.btnAdd = $('#btnAdicionarUsuario');
     this.paginationContainer = $('#paginationContainer');
     this.exportBtn = $('#btnExportarCsv');
+    this.filterStatus = $('#filterStatus');
+    this.filterPlano = $('#filterPlano');
+    this.btnClearFilters = $('#btnClearFilters');
 
     this.users = StorageService.get('usuarios', null) || DEFAULT_USERS;
     this.filteredUsers = [...this.users];
     this.sortState = { field: null, direction: 'asc' };
     this.currentSearch = '';
+    this.currentStatusFilter = '';
+    this.currentPlanoFilter = '';
+    this.lastDeletedUser = null;
+    this.undoTimeout = null;
 
     this.modal = new Modal($('#modalOverlay'), $('#modalUsuario'));
     this.form = $('#formUsuario');
     this.modalTitle = $('#modalTitulo');
     this.modalNome = $('#modalNome');
+    this.modalEmail = $('#modalEmail');
     this.modalStatus = $('#modalStatus');
     this.modalPlano = $('#modalPlano');
     this.btnSave = $('#btnSalvarModal');
+    this.errorNome = $('#errorNome');
+    this.errorEmail = $('#errorEmail');
     this.editingId = null;
 
     this.pagination = new Pagination(this.paginationContainer, {
@@ -40,59 +56,160 @@ export class UserTable {
     });
 
     this._bindEvents();
-    this._applyFilter();
+    this._applyFilters();
+    this._setupUndoToast();
   }
 
+  /**
+   * Registra todos os event listeners
+   * @private
+   */
   _bindEvents() {
+    // Busca com debounce
     this.searchInput.addEventListener('input', debounce(() => {
       this.currentSearch = this.searchInput.value.trim().toLowerCase();
-      this._applyFilter();
+      this._applyFilters();
     }, 250));
 
+    // Filtros
+    this.filterStatus.addEventListener('change', () => {
+      this.currentStatusFilter = this.filterStatus.value;
+      this._applyFilters();
+    });
+
+    this.filterPlano.addEventListener('change', () => {
+      this.currentPlanoFilter = this.filterPlano.value;
+      this._applyFilters();
+    });
+
+    // Limpar filtros
+    if (this.btnClearFilters) {
+      this.btnClearFilters.addEventListener('click', () => this._clearFilters());
+    }
+
+    // Botão adicionar
     this.btnAdd.addEventListener('click', () => this._openModalForCreate());
 
+    // Submit do formulário
     this.form.addEventListener('submit', (e) => this._handleSubmit(e));
 
+    // Ordenação
     $$('.data-table th[data-campo]').forEach(th => {
       th.addEventListener('click', () => this._handleSort(th.dataset.campo));
     });
 
+    // Export CSV
     this.exportBtn.addEventListener('click', () => this._exportCsv());
+
+    // Validação em tempo real
+    this.modalNome.addEventListener('input', () => this._validateNome());
+    if (this.modalEmail) {
+      this.modalEmail.addEventListener('input', () => this._validateEmail());
+    }
   }
 
-  _applyFilter() {
-    if (!this.currentSearch) {
-      this.filteredUsers = [...this.users];
-    } else {
-      this.filteredUsers = this.users.filter(u =>
-        u.nome.toLowerCase().includes(this.currentSearch)
+  /**
+   * Configura toast de undo para exclusão
+   * @private
+   */
+  _setupUndoToast() {
+    const undoToast = $('#undoToast');
+    const btnUndo = $('#btnUndo');
+    
+    if (btnUndo) {
+      btnUndo.addEventListener('click', () => {
+        this._undoDelete();
+        undoToast.classList.remove('active');
+      });
+    }
+  }
+
+  /**
+   * Aplica todos os filtros (busca, status, plano)
+   * @private
+   */
+  _applyFilters() {
+    let filtered = [...this.users];
+
+    // Filtro de busca
+    if (this.currentSearch) {
+      filtered = filtered.filter(u =>
+        u.nome.toLowerCase().includes(this.currentSearch) ||
+        (u.email && u.email.toLowerCase().includes(this.currentSearch))
       );
     }
-    if (this.sortState.field) this._applySort();
+
+    // Filtro de status
+    if (this.currentStatusFilter) {
+      filtered = filtered.filter(u => u.status === this.currentStatusFilter);
+    }
+
+    // Filtro de plano
+    if (this.currentPlanoFilter) {
+      filtered = filtered.filter(u => u.plano === this.currentPlanoFilter);
+    }
+
+    // Aplica ordenação se existir
+    if (this.sortState.field) {
+      this._applySort(filtered);
+    }
+
+    this.filteredUsers = filtered;
     this.pagination.update(this.filteredUsers.length);
     this._render();
   }
 
+  /**
+   * Limpa todos os filtros
+   * @private
+   */
+  _clearFilters() {
+    this.currentSearch = '';
+    this.currentStatusFilter = '';
+    this.currentPlanoFilter = '';
+    
+    this.searchInput.value = '';
+    this.filterStatus.value = '';
+    this.filterPlano.value = '';
+    
+    this._applyFilters();
+    showToast('Filtros limpos', 'info');
+  }
+
+  /**
+   * Ordena array de usuários
+   * @private
+   */
+  _applySort(array = this.filteredUsers) {
+    const { field, direction } = this.sortState;
+    if (!field) return;
+    
+    array.sort((a, b) => {
+      const result = a[field].localeCompare(b[field], 'pt-BR', { sensitivity: 'base' });
+      return direction === 'asc' ? result : -result;
+    });
+  }
+
+  /**
+   * Handler de ordenação por coluna
+   * @private
+   */
   _handleSort(field) {
     if (this.sortState.field === field) {
       this.sortState.direction = this.sortState.direction === 'asc' ? 'desc' : 'asc';
     } else {
       this.sortState = { field, direction: 'asc' };
     }
+    
     this._applySort();
     this._updateSortIcons();
     this._render();
   }
 
-  _applySort() {
-    const { field, direction } = this.sortState;
-    if (!field) return;
-    this.filteredUsers.sort((a, b) => {
-      const result = a[field].localeCompare(b[field], 'pt-BR', { sensitivity: 'base' });
-      return direction === 'asc' ? result : -result;
-    });
-  }
-
+  /**
+   * Atualiza ícones de ordenação nos cabeçalhos
+   * @private
+   */
   _updateSortIcons() {
     $$('.data-table th[data-campo]').forEach(th => {
       const icon = $('.sort-icon', th);
@@ -104,6 +221,10 @@ export class UserTable {
     });
   }
 
+  /**
+   * Renderiza a tabela com dados filtrados e paginados
+   * @private
+   */
   _render() {
     this.tbody.innerHTML = '';
     const { start, end } = this.pagination.getSlice();
@@ -123,6 +244,10 @@ export class UserTable {
     });
   }
 
+  /**
+   * Cria linha da tabela para um usuário
+   * @private
+   */
   _createRow(user) {
     const statusClass = user.status === 'Ativo' ? 'status-active' : 'status-inactive';
     const planClass = user.plano === 'Premium' ? 'plan-premium' : 'plan-basic';
@@ -136,9 +261,9 @@ export class UserTable {
     tdPlan.appendChild(createElement('span', { className: `badge ${planClass}` }, [user.plano]));
 
     const tdActions = createElement('td', { className: 'td-actions' });
-    tdActions.appendChild(this._createActionBtn('visualizar', 'Visualizar', `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`, () => this._openModalForView(user)));
-    tdActions.appendChild(this._createActionBtn('editar', 'Editar', `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>`, () => this._openModalForEdit(user)));
-    tdActions.appendChild(this._createActionBtn('excluir', 'Excluir', `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`, () => this._deleteUser(user)));
+    tdActions.appendChild(this._createActionBtn('visualizar', 'Visualizar', Icon.eye({ width: 18, height: 18 }), () => this._openModalForView(user)));
+    tdActions.appendChild(this._createActionBtn('editar', 'Editar', Icon.edit({ width: 18, height: 18 }), () => this._openModalForEdit(user)));
+    tdActions.appendChild(this._createActionBtn('excluir', 'Excluir', Icon.trash({ width: 18, height: 18 }), () => this._deleteUser(user)));
 
     tr.appendChild(tdName);
     tr.appendChild(tdStatus);
@@ -147,62 +272,161 @@ export class UserTable {
     return tr;
   }
 
-  _createActionBtn(type, label, iconSvg, onClick) {
+  /**
+   * Cria botão de ação com ícone SVG
+   * @private
+   */
+  _createActionBtn(type, label, iconElement, onClick) {
     const btn = createElement('button', {
       className: `btn-action btn-${type}`,
       'aria-label': label,
       title: label,
       onClick
     });
-    btn.innerHTML = iconSvg;
+    btn.appendChild(iconElement);
     return btn;
   }
 
+  /**
+   * Abre modal para visualização
+   * @private
+   */
   _openModalForView(user) {
     this.modalTitle.textContent = 'Visualizar Usuário';
     this.modalNome.value = user.nome;
+    if (this.modalEmail) this.modalEmail.value = user.email || '';
     this.modalStatus.value = user.status;
     this.modalPlano.value = user.plano;
     this._setFormDisabled(true);
     this.btnSave.style.display = 'none';
+    this._clearErrors();
     this.modal.open();
   }
 
+  /**
+   * Abre modal para edição
+   * @private
+   */
   _openModalForEdit(user) {
     this.modalTitle.textContent = 'Editar Usuário';
     this.modalNome.value = user.nome;
+    if (this.modalEmail) this.modalEmail.value = user.email || '';
     this.modalStatus.value = user.status;
     this.modalPlano.value = user.plano;
     this._setFormDisabled(false);
     this.btnSave.style.display = '';
     this.editingId = user.id;
+    this._clearErrors();
     this.modal.open();
   }
 
+  /**
+   * Abre modal para criação
+   * @private
+   */
   _openModalForCreate() {
     this.modalTitle.textContent = 'Novo Usuário';
     this.form.reset();
     this._setFormDisabled(false);
     this.btnSave.style.display = '';
     this.editingId = null;
+    this._clearErrors();
     this.modal.open();
   }
 
+  /**
+   * Habilita/desabilita campos do formulário
+   * @private
+   */
   _setFormDisabled(disabled) {
     this.modalNome.disabled = disabled;
+    if (this.modalEmail) this.modalEmail.disabled = disabled;
     this.modalStatus.disabled = disabled;
     this.modalPlano.disabled = disabled;
   }
 
-  _handleSubmit(e) {
-    e.preventDefault();
+  /**
+   * Valida campo nome
+   * @private
+   */
+  _validateNome() {
     const nome = this.modalNome.value.trim();
     if (!nome) {
-      showToast('O nome não pode estar vazio.', 'warning');
+      this._showError(this.errorNome, 'Nome é obrigatório');
+      return false;
+    }
+    if (nome.length < 2) {
+      this._showError(this.errorNome, 'Nome deve ter pelo menos 2 caracteres');
+      return false;
+    }
+    this._clearError(this.errorNome);
+    return true;
+  }
+
+  /**
+   * Valida campo email
+   * @private
+   */
+  _validateEmail() {
+    if (!this.modalEmail) return true;
+    
+    const email = this.modalEmail.value.trim();
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      this._showError(this.errorEmail, 'Email inválido');
+      return false;
+    }
+    this._clearError(this.errorEmail);
+    return true;
+  }
+
+  /**
+   * Mostra erro em campo
+   * @private
+   */
+  _showError(element, message) {
+    if (element) {
+      element.textContent = message;
+    }
+  }
+
+  /**
+   * Limpa erro de campo
+   * @private
+   */
+  _clearError(element) {
+    if (element) {
+      element.textContent = '';
+    }
+  }
+
+  /**
+   * Limpa todos os erros
+   * @private
+   */
+  _clearErrors() {
+    this._clearError(this.errorNome);
+    this._clearError(this.errorEmail);
+  }
+
+  /**
+   * Handler de submit do formulário
+   * @private
+   */
+  _handleSubmit(e) {
+    e.preventDefault();
+
+    // Valida campos
+    const isNomeValid = this._validateNome();
+    const isEmailValid = this._validateEmail();
+
+    if (!isNomeValid || !isEmailValid) {
+      showToast('Corrija os erros antes de salvar', 'error');
       return;
     }
 
-    const data = { nome, status: this.modalStatus.value, plano: this.modalPlano.value };
+    const nome = this.modalNome.value.trim();
+    const email = this.modalEmail ? this.modalEmail.value.trim() : '';
+    const data = { nome, email, status: this.modalStatus.value, plano: this.modalPlano.value };
 
     if (this.editingId) {
       const idx = this.users.findIndex(u => u.id === this.editingId);
@@ -216,31 +440,77 @@ export class UserTable {
     }
 
     this._persist();
-    this._applyFilter();
+    this._applyFilters();
     this.modal.close();
   }
 
+  /**
+   * Exclui usuário com opção de undo
+   * @private
+   */
   _deleteUser(user) {
-    if (!confirm(`Remover o usuário "${user.nome}"?`)) return;
+    // Salva usuário para possível undo
+    this.lastDeletedUser = { ...user, index: this.users.findIndex(u => u.id === user.id) };
+    
+    // Remove usuário
     this.users = this.users.filter(u => u.id !== user.id);
     this._persist();
-    this._applyFilter();
-    showToast('Usuário removido.', 'info');
+    this._applyFilters();
+
+    // Mostra toast de undo
+    const undoToast = $('#undoToast');
+    if (undoToast) {
+      undoToast.classList.add('active');
+      
+      // Auto-remove após 5 segundos
+      if (this.undoTimeout) clearTimeout(this.undoTimeout);
+      this.undoTimeout = setTimeout(() => {
+        undoToast.classList.remove('active');
+        this.lastDeletedUser = null;
+      }, 5000);
+    }
+
+    showToast('Usuário removido', 'info');
   }
 
+  /**
+   * Desfaz última exclusão
+   * @private
+   */
+  _undoDelete() {
+    if (!this.lastDeletedUser) return;
+
+    const { index, ...user } = this.lastDeletedUser;
+    this.users.splice(index, 0, user);
+    this._persist();
+    this._applyFilters();
+    this.lastDeletedUser = null;
+    
+    showToast('Usuário restaurado', 'success');
+  }
+
+  /**
+   * Persiste dados em localStorage
+   * @private
+   */
   _persist() {
     StorageService.set('usuarios', this.users);
     eventBus.emit('users:changed', this.users);
   }
 
+  /**
+   * Exporta usuários para CSV
+   * @private
+   */
   _exportCsv() {
     if (this.users.length === 0) {
       showToast('Nenhum usuário para exportar.', 'warning');
       return;
     }
-    const header = 'Nome,Status,Plano';
+    
+    const header = 'Nome,Email,Status,Plano';
     const rows = this.users.map(u =>
-      `"${u.nome.replace(/"/g, '""')}","${u.status}","${u.plano}"`
+      `"${u.nome.replace(/"/g, '""')}","${u.email || ''}","${u.status}","${u.plano}"`
     );
     const csv = [header, ...rows].join('\n');
     const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });

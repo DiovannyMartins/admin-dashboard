@@ -1,0 +1,242 @@
+/* ==========================================================================
+   THEME TOGGLE - BOTÃO DE ALTERNÂNCIA DE TEMA
+   ========================================================================== */
+
+.btn-theme-toggle {
+  background: none;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-theme-toggle:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--slate-300);
+}
+
+.btn-theme-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ==========================================================================
+   SEARCH BOX - CAMPO DE BUSCA COM ATALHO
+   ========================================================================== */
+
+.search-shortcut {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-family: inherit;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   TABLE FILTERS - FILTROS AVANÇADOS
+   ========================================================================== */
+
+.table-filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 150px;
+}
+
+.filter-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.btn-clear-filters {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+}
+
+.btn-clear-filters:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* ==========================================================================
+   UNDO TOAST - NOTIFICAÇÃO COM DESFAZER
+   ========================================================================== */
+
+.undo-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 10000;
+  opacity: 0;
+  transition: all var(--transition-slow);
+  pointer-events: none;
+}
+
+.undo-toast.active {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.undo-message {
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-undo {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color var(--transition);
+}
+
+.btn-undo:hover {
+  background-color: var(--primary-light);
+}
+
+/* ==========================================================================
+   MODAL IMPROVEMENTS - MELHORIAS NO MODAL
+   ========================================================================== */
+
+.required {
+  color: var(--danger);
+}
+
+.field-error {
+  font-size: 12px;
+  color: var(--danger);
+  min-height: 16px;
+  margin-top: 4px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.btn-cancel {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-cancel:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   SIDEBAR OVERLAY - OVERLAY PARA MOBILE
+   ========================================================================== */
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition);
+  z-index: 999;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ==========================================================================
+   LOGO ICON - ÍCONE DO LOGO
+   ========================================================================== */
+
+.logo-icon {
+  display: flex;
+  color: var(--primary);
+}
+
+.logo-icon svg {
+  width: 28px;
+  height: 28px;
+}

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="dark">
 
 <head>
   <meta charset="UTF-8" />
@@ -13,16 +13,14 @@
 </head>
 
 <body>
+  <!-- Skip link para acessibilidade -->
+  <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
+
   <div class="layout-grid">
 
     <aside class="sidebar" aria-label="Menu principal">
       <div class="logo">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-          <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-          <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-          <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-        </svg>
+        <span class="logo-icon" data-icon="dashboard" data-size="28"></span>
         <h2>DASHBOARD</h2>
       </div>
 
@@ -30,46 +28,25 @@
         <ul>
           <li>
             <a href="#" class="active" aria-current="page">
-              <span class="icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-                  <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-                  <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-                  <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-                </svg>
-              </span>
+              <span class="icon" data-icon="dashboard"></span>
               Dashboard
             </a>
           </li>
           <li>
             <a href="#">
-              <span class="icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-              </span>
+              <span class="icon" data-icon="user"></span>
               Usuários
             </a>
           </li>
           <li>
             <a href="#">
-              <span class="icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-                </svg>
-              </span>
+              <span class="icon" data-icon="folder"></span>
               Projetos
             </a>
           </li>
           <li>
             <a href="#">
-              <span class="icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="3"></circle>
-                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                </svg>
-              </span>
+              <span class="icon" data-icon="settings"></span>
               Configurações
             </a>
           </li>
@@ -86,21 +63,18 @@
         </button>
 
         <div class="search-box">
-          <label for="inputBuscaUsuario" class="sr-only">Pesquisar usuários</label>
-          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input type="search" placeholder="Pesquisar usuários..." id="inputBuscaUsuario" aria-label="Pesquisar usuários" />
+          <label for="inputBuscaUsuario" class="sr-only">Pesquisar usuários (Ctrl+K)</label>
+          <span class="search-icon-wrapper" data-icon="search" data-size="18"></span>
+          <input type="search" placeholder="Pesquisar usuários... (Ctrl+K)" id="inputBuscaUsuario"
+            aria-label="Pesquisar usuários" />
+          <kbd class="search-shortcut">K</kbd>
         </div>
 
         <div class="topbar-actions">
           <div class="notification-wrapper">
-            <button class="btn-notification" id="btnNotificacao" aria-label="Notificações" aria-haspopup="true" aria-expanded="false">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-              </svg>
+            <button class="btn-notification" id="btnNotificacao" aria-label="Notificações" aria-haspopup="true"
+              aria-expanded="false">
+              <span data-icon="bell" data-size="22"></span>
               <span class="badge-notification" id="badgeNotificacao" aria-live="polite">0</span>
             </button>
 
@@ -110,13 +84,18 @@
             </div>
           </div>
 
+          <button class="btn-theme-toggle" id="btnThemeToggle" aria-label="Alternar tema"
+            title="Alternar tema (Ctrl+T)">
+            <span data-icon="sun" data-size="20"></span>
+          </button>
+
           <div class="user-avatar" role="button" tabindex="0" aria-label="Perfil do usuário">
             <span>DY</span>
           </div>
         </div>
       </header>
 
-      <main class="main-content">
+      <main class="main-content" id="main-content">
         <header class="page-header">
           <div>
             <h1>Dashboard Geral</h1>
@@ -129,21 +108,13 @@
 
           <article class="stat-card stat-card-users">
             <div class="stat-icon-wrapper stat-icon-primary">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-              </svg>
+              <span data-icon="users" data-size="24"></span>
             </div>
             <div class="stat-content">
               <h3>Usuários Totais</h3>
               <p class="stat-value">1.245</p>
               <span class="stat-trend positive" aria-label="Aumento de 10% este mês">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                  <polyline points="17 6 23 6 23 12"></polyline>
-                </svg>
+                <span data-icon="trendUp" data-size="14"></span>
                 +10% este mês
               </span>
             </div>
@@ -151,19 +122,13 @@
 
           <article class="stat-card stat-card-projects">
             <div class="stat-icon-wrapper stat-icon-warning">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-              </svg>
+              <span data-icon="briefcase" data-size="24"></span>
             </div>
             <div class="stat-content">
               <h3>Projetos Ativos</h3>
               <p class="stat-value">85</p>
               <span class="stat-trend negative" aria-label="Queda de 2% este mês">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
-                  <polyline points="17 18 23 18 23 12"></polyline>
-                </svg>
+                <span data-icon="trendDown" data-size="14"></span>
                 -2% este mês
               </span>
             </div>
@@ -171,20 +136,13 @@
 
           <article class="stat-card stat-card-sales">
             <div class="stat-icon-wrapper stat-icon-success">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="9" cy="21" r="1"></circle>
-                <circle cx="20" cy="21" r="1"></circle>
-                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-              </svg>
+              <span data-icon="shoppingCart" data-size="24"></span>
             </div>
             <div class="stat-content">
               <h3>Vendas do Mês</h3>
               <p class="stat-value">R$ 15.400</p>
               <span class="stat-trend positive" aria-label="Aumento de 25%">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                  <polyline points="17 6 23 6 23 12"></polyline>
-                </svg>
+                <span data-icon="trendUp" data-size="14"></span>
                 +25%
               </span>
             </div>
@@ -192,19 +150,13 @@
 
           <article class="stat-card stat-card-revenue">
             <div class="stat-icon-wrapper stat-icon-info">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="1" x2="12" y2="23"></line>
-                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-              </svg>
+              <span data-icon="dollar" data-size="24"></span>
             </div>
             <div class="stat-content">
               <h3>Receita Mensal</h3>
               <p class="stat-value">R$ 12.800</p>
               <span class="stat-trend positive" aria-label="Aumento de 18%">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                  <polyline points="17 6 23 6 23 12"></polyline>
-                </svg>
+                <span data-icon="trendUp" data-size="14"></span>
                 +18%
               </span>
             </div>
@@ -214,29 +166,48 @@
         <div class="content-grid">
           <section class="widget chart-widget" aria-label="Gráfico de desempenho semanal">
             <h2>Desempenho Semanal</h2>
-            <div class="fake-bar-chart" id="grafico" role="img" aria-label="Gráfico de barras: desempenho de vendas e metas de segunda a sexta-feira"></div>
+            <div class="fake-bar-chart" id="grafico" role="img"
+              aria-label="Gráfico de barras: desempenho de vendas e metas de segunda a sexta-feira"></div>
           </section>
 
           <section class="widget table-widget" aria-label="Gerenciamento de usuários">
             <div class="table-widget-header">
               <h2>Últimos Usuários Cadastrados</h2>
               <div class="table-widget-actions">
-                <button type="button" class="btn-export-csv" id="btnExportarCsv" aria-label="Exportar tabela para CSV">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                  </svg>
+                <button type="button" class="btn-export-csv" id="btnExportarCsv"
+                  aria-label="Exportar tabela para CSV (Ctrl+E)">
+                  <span data-icon="download" data-size="16"></span>
                   Exportar CSV
                 </button>
-                <button type="button" class="btn-add-user" id="btnAdicionarUsuario">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                  </svg>
+                <button type="button" class="btn-add-user" id="btnAdicionarUsuario" aria-label="Novo usuário (Ctrl+N)">
+                  <span data-icon="plus" data-size="16"></span>
                   Novo Usuário
                 </button>
               </div>
+            </div>
+
+            <!-- Filtros avançados -->
+            <div class="table-filters">
+              <div class="filter-group">
+                <label for="filterStatus">Status:</label>
+                <select id="filterStatus" class="filter-select">
+                  <option value="">Todos</option>
+                  <option value="Ativo">Ativo</option>
+                  <option value="Inativo">Inativo</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="filterPlano">Plano:</label>
+                <select id="filterPlano" class="filter-select">
+                  <option value="">Todos</option>
+                  <option value="Básico">Básico</option>
+                  <option value="Premium">Premium</option>
+                </select>
+              </div>
+              <button type="button" class="btn-clear-filters" id="btnClearFilters" aria-label="Limpar filtros">
+                <span data-icon="close" data-size="14"></span>
+                Limpar
+              </button>
             </div>
 
             <div class="table-responsive">
@@ -262,22 +233,30 @@
     </div>
   </div>
 
+  <!-- Overlay para sidebar mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
   <div class="modal-overlay" id="modalOverlay"></div>
   <div class="modal-usuario" id="modalUsuario" role="dialog" aria-labelledby="modalTitulo" aria-modal="true">
     <div class="modal-header">
       <h3 id="modalTitulo">Detalhes do Usuário</h3>
       <button type="button" data-modal-close id="btnFecharModal" aria-label="Fechar modal">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
+        <span data-icon="close" data-size="18"></span>
       </button>
     </div>
 
     <form id="formUsuario" class="modal-form" novalidate>
       <div class="campo-modal">
-        <label for="modalNome">Nome</label>
-        <input type="text" id="modalNome" required minlength="2" autocomplete="name">
+        <label for="modalNome">Nome <span class="required">*</span></label>
+        <input type="text" id="modalNome" required minlength="2" maxlength="100" autocomplete="name"
+          placeholder="Digite o nome completo">
+        <span class="field-error" id="errorNome"></span>
+      </div>
+
+      <div class="campo-modal">
+        <label for="modalEmail">Email</label>
+        <input type="email" id="modalEmail" autocomplete="email" placeholder="email@exemplo.com">
+        <span class="field-error" id="errorEmail"></span>
       </div>
 
       <div class="campo-modal">
@@ -296,8 +275,17 @@
         </select>
       </div>
 
-      <button type="submit" class="btn-add-user" id="btnSalvarModal">Salvar</button>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" data-modal-close>Cancelar</button>
+        <button type="submit" class="btn-add-user" id="btnSalvarModal">Salvar</button>
+      </div>
     </form>
+  </div>
+
+  <!-- Toast de undo para exclusão -->
+  <div class="undo-toast" id="undoToast">
+    <span class="undo-message">Usuário removido</span>
+    <button class="btn-undo" id="btnUndo">Desfazer</button>
   </div>
 
   <script type="module" src="js/app.js"></script>

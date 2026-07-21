@@ -2,13 +2,14 @@
    ADMIN DASHBOARD - STYLE.CSS
    Arquivo principal que importa todos os módulos CSS
    
-   Arquitetura:
+   Arquitetura (ITCSS):
    - base/        → Variáveis, reset, acessibilidade
    - layout/      → Grid, sidebar, topbar
    - components/  → Botões, cards, tabela, modal, etc.
    - pages/       → Estilos específicos de páginas
-   - themes/      → Dark mode
+   - themes/      → Temas (dark/light)
    - responsive/  → Media queries
+   - utils/       → Utilitários (skip-link, etc.)
    ========================================================================== */
 
 /* BASE */
@@ -30,6 +31,7 @@
 @import url('./components/_notifications.css');
 @import url('./components/_pagination.css');
 @import url('./components/_toast.css');
+@import url('./components/_extras.css');
 
 /* PÁGINAS */
 @import url('./pages/_dashboard.css');
@@ -40,3 +42,6 @@
 /* RESPONSIVIDADE */
 @import url('./responsive/_tablet.css');
 @import url('./responsive/_mobile.css');
+
+/* UTILITÁRIOS */
+@import url('./utils/_skip-link.css');

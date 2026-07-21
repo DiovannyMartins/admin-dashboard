@@ -1,0 +1,21 @@
+/* ==========================================================================
+   SKIP LINK - ACESSIBILIDADE
+   Link para pular navegação (visível apenas no focus)
+   ========================================================================== */
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: var(--white);
+  padding: 8px 16px;
+  z-index: 10000;
+  transition: top 0.2s;
+  font-weight: 600;
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+
+.skip-link:focus {
+  top: 0;
+}

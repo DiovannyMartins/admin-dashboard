@@ -21,11 +21,11 @@
     left: 0;
     width: var(--sidebar-width);
     height: 100vh;
-    background: var(--white);
+    background: var(--bg-primary);
     z-index: 1000;
-    border-right: 1px solid var(--gray-medium);
+    border-right: 1px solid var(--border-color);
     box-shadow: var(--shadow-lg);
-    transform: translateX(-100%); /* Escondida fora da tela */
+    transform: translateX(-100%);
     transition: transform var(--transition);
     display: block;
   }
@@ -43,6 +43,11 @@
   /* Busca menor */
   .search-box input {
     width: 120px;
+  }
+
+  /* Esconde atalho de teclado em mobile */
+  .search-shortcut {
+    display: none;
   }
 
   /* Padding reduzido */
@@ -69,5 +74,21 @@
   .btn-export-csv {
     flex: 1;
     justify-content: center;
+  }
+
+  /* Filtros em coluna */
+  .table-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  /* Undo toast em mobile */
+  .undo-toast {
+    width: 90%;
+    max-width: 400px;
   }
 }

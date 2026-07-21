@@ -1,6 +1,7 @@
 /* ==========================================================================
    VARIÁVEIS CSS (DESIGN TOKENS)
-   Tema escuro FORÇADO - Paleta moderna inspirada em Linear, Vercel e Stripe
+   Paleta moderna inspirada em Linear, Vercel e Stripe
+   Tema padrão: escuro (pode ser alternado via data-theme)
    ========================================================================== */
 
 :root {
@@ -25,20 +26,21 @@
   --info-light: #164e63;
   --info-dark: #67e8f9;
   
-  /* Cores neutras - Tema escuro com tons azulados profundos */
-  --slate-900: #f8fafc;
-  --slate-800: #f1f5f9;
-  --slate-700: #e2e8f0;
-  --slate-600: #cbd5e1;
-  --slate-500: #94a3b8;
-  --slate-400: #64748b;
-  --slate-300: #475569;
-  --slate-200: #334155;
-  --slate-100: #1e293b;
+  /* Cores neutras - Tema ESCURO (padrão) */
+  /* slate-50 é o mais escuro, slate-900 é o mais claro */
   --slate-50: #0f172a;
+  --slate-100: #1e293b;
+  --slate-200: #334155;
+  --slate-300: #475569;
+  --slate-400: #64748b;
+  --slate-500: #94a3b8;
+  --slate-600: #cbd5e1;
+  --slate-700: #e2e8f0;
+  --slate-800: #f1f5f9;
+  --slate-900: #f8fafc;
   --white: #0f172a;
 
-  /* Aliases semânticos - TEMA ESCURO FIXO */
+  /* Aliases semânticos - TEMA ESCURO (padrão) */
   --bg-primary: #0f172a;
   --bg-secondary: #1e293b;
   --bg-tertiary: #334155;
@@ -67,7 +69,7 @@
   /* Aliases para compatibilidade */
   --gray-light: var(--slate-100);
   --gray-medium: var(--slate-200);
-  --dark: var(--slate-900);
+  --dark: var(--slate-50);
 
   /* Dimensões e espaçamentos */
   --sidebar-width: 260px;
@@ -87,4 +89,82 @@
   --transition: 0.2s ease;
   --transition-fast: 0.15s ease;
   --transition-slow: 0.3s ease;
+}
+
+/* ==========================================================================
+   TEMA CLARO
+   Aplicado quando data-theme="light" está no HTML
+   ========================================================================== */
+
+[data-theme="light"] {
+  /* Cores principais ajustadas para tema claro */
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-light: #eef2ff;
+  --primary-dark: #3730a3;
+  
+  /* Cores de estado */
+  --success: #10b981;
+  --success-light: #d1fae5;
+  --success-dark: #065f46;
+  --danger: #ef4444;
+  --danger-light: #fee2e2;
+  --danger-dark: #991b1b;
+  --warning: #f59e0b;
+  --warning-light: #fef3c7;
+  --warning-dark: #92400e;
+  --info: #06b6d4;
+  --info-light: #cffafe;
+  --info-dark: #155e75;
+  
+  /* Cores neutras - Tema CLARO */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  --white: #ffffff;
+
+  /* Aliases semânticos para tema claro */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --border-color: #e2e8f0;
+  --border-light: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  /* Cores de fundo para badges */
+  --success-bg: var(--success-light);
+  --danger-bg: var(--danger-light);
+  --primary-bg: var(--primary-light);
+  --warning-bg: var(--warning-light);
+  --info-bg: var(--info-light);
+
+  /* Cores de texto para badges */
+  --success-text: var(--success-dark);
+  --danger-text: var(--danger-dark);
+  --primary-text: var(--primary-dark);
+  --warning-text: var(--warning-dark);
+  --info-text: var(--info-dark);
+  --gray-text: var(--text-secondary);
+  --gray-text-dark: var(--slate-700);
+
+  /* Aliases para compatibilidade */
+  --gray-light: var(--slate-100);
+  --gray-medium: var(--slate-200);
+  --dark: var(--slate-900);
+
+  /* Sombras mais suaves para tema claro */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
