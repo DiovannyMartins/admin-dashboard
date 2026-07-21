@@ -1,6 +1,6 @@
 /* ==========================================================================
    TABELA DE DADOS
-   Estilos para tabela de usuários e dados gerais
+   Design moderno com hover e melhor legibilidade
    ========================================================================== */
 
 /* Wrapper com scroll horizontal para telas pequenas */
@@ -10,24 +10,26 @@
 
 .data-table {
   width: 100%;
-  border-collapse: collapse; /* Remove espaçamento entre células */
+  border-collapse: collapse;
 }
 
 .data-table th,
 .data-table td {
-  padding: 15px;
+  padding: 14px 16px;
   text-align: left;
-  border-bottom: 1px solid var(--gray-medium);
+  border-bottom: 1px solid var(--border-light);
 }
 
 /* Cabeçalhos (clicáveis para ordenação) */
 .data-table th {
-  color: var(--gray-text);
+  color: var(--text-muted);
   font-weight: 600;
-  font-size: 14px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  user-select: none; /* Previne seleção de texto ao clicar */
-  transition: color var(--transition-fast);
+  user-select: none;
+  transition: color var(--transition);
 }
 
 .data-table th:hover {
@@ -36,45 +38,54 @@
 
 .data-table td {
   font-size: 14px;
-  color: var(--dark);
+  color: var(--text-primary);
   vertical-align: middle;
+}
+
+/* Linhas com hover */
+.data-table tbody tr {
+  transition: background-color var(--transition);
+}
+
+.data-table tbody tr:hover {
+  background-color: var(--bg-secondary);
 }
 
 /* Mensagem quando tabela está vazia */
 .table-empty {
   text-align: center;
-  color: var(--gray-text);
-  padding: 30px 15px !important;
+  color: var(--text-muted);
+  padding: 40px 16px !important;
+  font-size: 14px;
 }
 
 /* Badges (status e plano) */
 .badge {
-  padding: 6px 12px;
-  border-radius: var(--radius-lg); /* Formato pílula */
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 600;
   display: inline-block;
 }
 
 .status-active {
-  background-color: var(--success-bg);
-  color: var(--success-text);
+  background-color: var(--success-light);
+  color: var(--success-dark);
 }
 
 .status-inactive {
-  background-color: var(--danger-bg);
-  color: var(--danger-text);
+  background-color: var(--danger-light);
+  color: var(--danger-dark);
 }
 
 .plan-premium {
-  background-color: var(--primary-bg);
-  color: var(--primary-text);
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
 }
 
 .plan-basic {
-  background-color: var(--gray-light);
-  color: var(--gray-text-dark);
-  border: 1px solid var(--gray-medium);
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
 }
 
 /* Ícone de ordenação (seta ↑ ou ↓) */
@@ -95,18 +106,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  flex-wrap: wrap; /* Permite quebra em telas pequenas */
-  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .table-widget-header h2 {
   margin-bottom: 0;
 }
 
-/* Container dos botões (Novo Usuário + Exportar CSV) */
+/* Container dos botões */
 .table-widget-actions {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
 }

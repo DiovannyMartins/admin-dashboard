@@ -1,72 +1,90 @@
 /* ==========================================================================
    VARIÁVEIS CSS (DESIGN TOKENS)
-   Definição de cores, espaçamentos e valores reutilizáveis em todo o projeto
+   Paleta moderna inspirada em Linear, Vercel e Stripe
    ========================================================================== */
 
 :root {
-  /* Cores principais da marca - Azul índigo moderno */
+  /* Cores principais da marca - Índigo vibrante */
   --primary: #6366f1;
   --primary-hover: #4f46e5;
   --primary-light: #eef2ff;
+  --primary-dark: #3730a3;
   
   /* Cores de estado (sucesso, erro, aviso, informação) */
   --success: #10b981;
   --success-light: #d1fae5;
+  --success-dark: #065f46;
   --danger: #ef4444;
   --danger-hover: #dc2626;
   --danger-light: #fee2e2;
+  --danger-dark: #991b1b;
   --warning: #f59e0b;
   --warning-light: #fef3c7;
+  --warning-dark: #92400e;
   --info: #06b6d4;
   --info-light: #cffafe;
+  --info-dark: #155e75;
   
-  /* Cores neutras - Tons de cinza-azulados */
-  --dark: #1e293b;
-  --gray-900: #0f172a;
-  --gray-800: #1e293b;
-  --gray-700: #334155;
-  --gray-600: #475569;
-  --gray-500: #64748b;
-  --gray-400: #94a3b8;
-  --gray-300: #cbd5e1;
-  --gray-200: #e2e8f0;
-  --gray-100: #f1f5f9;
-  --gray-50: #f8fafc;
+  /* Cores neutras - Tons de cinza-azulados (Slate) */
+  --slate-900: #0f172a;
+  --slate-800: #1e293b;
+  --slate-700: #334155;
+  --slate-600: #475569;
+  --slate-500: #64748b;
+  --slate-400: #94a3b8;
+  --slate-300: #cbd5e1;
+  --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9;
+  --slate-50: #f8fafc;
   --white: #ffffff;
 
-  /* Aliases para compatibilidade */
-  --gray-light: var(--gray-100);
-  --gray-medium: var(--gray-200);
+  /* Aliases semânticos */
+  --bg-primary: var(--white);
+  --bg-secondary: var(--slate-50);
+  --bg-tertiary: var(--slate-100);
+  --border-color: var(--slate-200);
+  --border-light: var(--slate-100);
+  --text-primary: var(--slate-900);
+  --text-secondary: var(--slate-600);
+  --text-muted: var(--slate-400);
 
-  /* Cores de fundo para badges (versões claras) */
+  /* Cores de fundo para badges */
   --success-bg: var(--success-light);
   --danger-bg: var(--danger-light);
   --primary-bg: var(--primary-light);
   --warning-bg: var(--warning-light);
   --info-bg: var(--info-light);
 
-  /* Cores de texto com contraste AA */
-  --success-text: #065f46;
-  --danger-text: #991b1b;
-  --primary-text: #3730a3;
-  --warning-text: #92400e;
-  --info-text: #155e75;
-  --gray-text: var(--gray-500);
-  --gray-text-dark: var(--gray-700);
+  /* Cores de texto para badges */
+  --success-text: var(--success-dark);
+  --danger-text: var(--danger-dark);
+  --primary-text: var(--primary-dark);
+  --warning-text: var(--warning-dark);
+  --info-text: var(--info-dark);
+  --gray-text: var(--text-secondary);
+  --gray-text-dark: var(--slate-700);
+
+  /* Aliases para compatibilidade */
+  --gray-light: var(--slate-100);
+  --gray-medium: var(--slate-200);
+  --dark: var(--slate-900);
 
   /* Dimensões e espaçamentos */
   --sidebar-width: 260px;
-  --radius: 10px;
-  --radius-sm: 6px;
-  --radius-lg: 20px;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
   
   /* Sombras (elevação) - Mais suaves e modernas */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   
   /* Transições */
-  --transition: 0.3s ease;
-  --transition-fast: 0.2s ease;
+  --transition: 0.2s ease;
+  --transition-fast: 0.15s ease;
+  --transition-slow: 0.3s ease;
 }

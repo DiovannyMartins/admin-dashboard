@@ -5,17 +5,18 @@
 
 .layout-grid {
   display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr; /* Sidebar fixa + conteúdo fluido */
+  grid-template-columns: var(--sidebar-width) 1fr;
   min-height: 100vh;
 }
 
-/* Wrapper do conteúdo principal (topbar + main) */
+/* Wrapper do conteúdo principal */
 .main-wrapper {
   display: flex;
   flex-direction: column;
+  background-color: var(--bg-secondary);
 }
 
 /* Conteúdo principal */
 .main-content {
-  padding: 30px;
+  padding: 32px;
 }

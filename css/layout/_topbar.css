@@ -7,52 +7,74 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--white);
-  padding: 15px 30px;
-  border-bottom: 1px solid var(--gray-medium);
+  background-color: var(--bg-primary);
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--border-color);
+  gap: 24px;
 }
 
-/* Campo de busca com ícone de lupa */
+/* Campo de busca com ícone SVG */
+.search-box {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
 .search-box input {
-  padding: 10px 15px 10px 40px; /* Espaço para ícone à esquerda */
-  border: 1px solid var(--gray-medium);
-  border-radius: var(--radius-lg); /* Formato pílula */
+  width: 100%;
+  padding: 10px 16px 10px 42px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
   outline: none;
-  width: 250px;
-  transition: border-color var(--transition);
-  background-image: url("../img/lupa.png");
-  background-repeat: no-repeat;
-  background-position: 10px center; /* Ícone à esquerda */
-  background-color: var(--white);
-  color: var(--dark);
+  font-size: 14px;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: all var(--transition);
+}
+
+.search-box input::placeholder {
+  color: var(--text-muted);
 }
 
 .search-box input:focus {
   border-color: var(--primary);
+  background-color: var(--bg-primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 /* Container das ações (notificações + avatar) */
 .topbar-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 /* Avatar do usuário (iniciais) */
 .user-avatar {
-  background-color: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
   color: var(--white);
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
+  height: 38px;
+  width: 38px;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 13px;
   cursor: pointer;
-  transition: transform var(--transition-fast);
+  transition: transform var(--transition);
+  box-shadow: var(--shadow-sm);
 }
 
 .user-avatar:hover {
-  transform: scale(1.05); /* Efeito de zoom ao passar mouse */
+  transform: scale(1.05);
 }

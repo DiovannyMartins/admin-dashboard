@@ -1,87 +1,98 @@
 /* ==========================================================================
-   CARDS
-   Componentes de card para estatísticas e widgets
+   CARDS DE ESTATÍSTICAS
+   Design moderno com ícones coloridos e layout refinado
    ========================================================================== */
-
-/* Widget genérico (card com conteúdo) */
-.widget {
-  background-color: var(--white);
-  padding: 25px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  border: 1px solid var(--gray-medium);
-}
-
-.widget h2 {
-  font-size: 18px;
-  color: var(--dark);
-  margin-bottom: 20px;
-  font-weight: 600;
-}
 
 /* Card de estatística */
 .stat-card {
-  background-color: var(--white);
-  padding: 20px;
+  background-color: var(--bg-primary);
+  padding: 24px;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  border: 1px solid var(--gray-medium);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  border: 1px solid var(--border-color);
+  display: flex;
+  gap: 16px;
+  transition: all var(--transition);
 }
 
 /* Efeito hover: card sobe levemente e sombra aumenta */
 .stat-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
+  border-color: var(--slate-300);
 }
 
-/* Cabeçalho do card (ícone + título) */
-.stat-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-/* Container do ícone */
-.stat-header .icon {
-  background-color: var(--gray-light);
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
+/* Wrapper do ícone */
+.stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 15px;
+  flex-shrink: 0;
 }
 
-.stat-header .icon img {
-  width: 22px;
+/* Cores dos ícones por tipo */
+.stat-icon-primary {
+  background-color: var(--primary-light);
+  color: var(--primary);
 }
 
-.stat-header h3 {
-  font-size: 15px;
-  color: var(--gray-text-dark);
+.stat-icon-success {
+  background-color: var(--success-light);
+  color: var(--success);
+}
+
+.stat-icon-warning {
+  background-color: var(--warning-light);
+  color: var(--warning);
+}
+
+.stat-icon-info {
+  background-color: var(--info-light);
+  color: var(--info);
+}
+
+/* Conteúdo do card */
+.stat-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.stat-content h3 {
+  font-size: 13px;
+  color: var(--text-secondary);
   font-weight: 500;
+  margin-bottom: 8px;
 }
 
 /* Valor principal da métrica */
 .stat-value {
-  font-size: 26px;
-  font-weight: bold;
-  color: var(--dark);
-  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.2;
 }
 
 /* Indicador de tendência (positivo/negativo) */
 .stat-trend {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-trend svg {
+  width: 14px;
+  height: 14px;
 }
 
 .stat-trend.positive {
-  color: var(--success-text);
+  color: var(--success);
 }
 
 .stat-trend.negative {
-  color: var(--danger-text);
+  color: var(--danger);
 }

@@ -1,16 +1,17 @@
 /* ==========================================================================
    MODAL
-   Overlay escuro + caixa de diálogo centralizada
+   Design moderno com overlay e animação suave
    ========================================================================== */
 
 /* Overlay (fundo escuro semi-transparente) */
 .modal-overlay {
   position: fixed;
-  inset: 0; /* top: 0, right: 0, bottom: 0, left: 0 */
-  background-color: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--transition);
+  transition: opacity var(--transition-slow);
   z-index: 998;
 }
 
@@ -24,92 +25,100 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.95); /* Centraliza e começa menor */
-  background-color: var(--white);
+  transform: translate(-50%, -50%) scale(0.95);
+  background-color: var(--bg-primary);
   border-radius: var(--radius);
-  padding: 25px;
-  width: 380px;
-  max-width: 90vw; /* Responsivo */
+  padding: 28px;
+  width: 420px;
+  max-width: 90vw;
   opacity: 0;
   visibility: hidden;
-  transition: all var(--transition);
+  transition: all var(--transition-slow);
   z-index: 999;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-color);
 }
 
 .modal-usuario.active {
   opacity: 1;
   visibility: visible;
-  transform: translate(-50%, -50%) scale(1); /* Volta ao tamanho normal */
+  transform: translate(-50%, -50%) scale(1);
 }
 
-/* Cabeçalho do modal (título + botão fechar) */
+/* Cabeçalho do modal */
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .modal-header h3 {
-  color: var(--dark);
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .modal-header button {
   background: none;
   border: none;
-  font-size: 18px;
   cursor: pointer;
-  color: var(--gray-text);
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: background-color var(--transition-fast);
+  color: var(--text-muted);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-header button:hover {
-  background-color: var(--gray-light);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 /* Formulário dentro do modal */
 .modal-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 18px;
 }
 
-/* Campo do formulário (label + input) */
+/* Campo do formulário */
 .campo-modal {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
 }
 
 .campo-modal label {
   font-size: 13px;
-  color: var(--gray-text);
-  font-weight: 600;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
 .campo-modal input,
 .campo-modal select {
-  padding: 10px 12px;
-  border: 1px solid var(--gray-medium);
-  border-radius: 8px;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
   font-family: inherit;
   font-size: 14px;
-  background-color: var(--white);
-  color: var(--dark);
-  transition: border-color var(--transition);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all var(--transition);
 }
 
 .campo-modal input:focus,
 .campo-modal select:focus {
+  outline: none;
   border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
-/* Estado desabilitado (modal de visualização) */
 .campo-modal input:disabled,
 .campo-modal select:disabled {
-  background-color: var(--gray-light);
-  color: var(--gray-text);
+  background-color: var(--bg-secondary);
+  color: var(--text-muted);
   cursor: not-allowed;
 }

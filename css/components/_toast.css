@@ -1,96 +1,98 @@
 /* ==========================================================================
    TOAST NOTIFICATIONS
-   Notificações temporárias no canto superior direito
+   Notificações temporárias com design moderno
    ========================================================================== */
 
 /* Container fixo no canto */
 .toast-container {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 24px;
+  right: 24px;
   z-index: 10000;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  pointer-events: none; /* Container não intercepta cliques */
+  gap: 12px;
+  pointer-events: none;
 }
 
 /* Toast individual */
 .toast {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  background-color: var(--white);
-  border: 1px solid var(--gray-medium);
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
   box-shadow: var(--shadow-lg);
   font-size: 14px;
-  color: var(--dark);
-  min-width: 280px;
-  max-width: 400px;
-  pointer-events: auto; /* Toast pode ser clicado */
-  transform: translateX(120%); /* Começa fora da tela (direita) */
+  color: var(--text-primary);
+  min-width: 300px;
+  max-width: 420px;
+  pointer-events: auto;
+  transform: translateX(120%);
   opacity: 0;
-  transition: all var(--transition);
+  transition: all var(--transition-slow);
 }
 
-/* Estado visível (desliza para dentro) */
+/* Estado visível */
 .toast-visible {
   transform: translateX(0);
   opacity: 1;
 }
 
-/* Ícone do toast (círculo com símbolo) */
+/* Ícone do toast */
 .toast-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 13px;
   flex-shrink: 0;
 }
 
-/* Cores por tipo de toast */
+/* Cores por tipo */
 .toast-success .toast-icon {
-  background-color: var(--success-bg);
-  color: var(--success-text);
+  background-color: var(--success-light);
+  color: var(--success);
 }
 
 .toast-error .toast-icon {
-  background-color: var(--danger-bg);
-  color: var(--danger-text);
+  background-color: var(--danger-light);
+  color: var(--danger);
 }
 
 .toast-warning .toast-icon {
-  background-color: #fef3cd;
-  color: #856404;
+  background-color: var(--warning-light);
+  color: var(--warning);
 }
 
 .toast-info .toast-icon {
-  background-color: var(--primary-bg);
-  color: var(--primary-text);
+  background-color: var(--info-light);
+  color: var(--info);
 }
 
 .toast-message {
   flex: 1;
 }
 
-/* Botão de fechar toast */
+/* Botão de fechar */
 .toast-close {
   background: none;
   border: none;
-  color: var(--gray-text);
+  color: var(--text-muted);
   cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: 4px;
+  border-radius: var(--radius-sm);
   font-size: 14px;
-  transition: background-color var(--transition-fast);
+  transition: all var(--transition);
+  display: flex;
 }
 
 .toast-close:hover {
-  background-color: var(--gray-light);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }

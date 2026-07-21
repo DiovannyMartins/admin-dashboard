@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
     content="Dashboard administrativo com painel de estatísticas, gráfico de desempenho semanal e gerenciamento completo de usuários.">
-  <meta name="theme-color" content="#4361ee">
+  <meta name="theme-color" content="#6366f1">
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" type="image/png" href="img/painel-de-controle-favicon.png">
   <title>Dashboard Admin | Painel de Gerenciamento</title>
@@ -17,6 +17,12 @@
 
     <aside class="sidebar" aria-label="Menu principal">
       <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+          <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+          <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+        </svg>
         <h2>DASHBOARD</h2>
       </div>
 
@@ -25,7 +31,12 @@
           <li>
             <a href="#" class="active" aria-current="page">
               <span class="icon">
-                <img src="img/painel-de-controle.png" alt="" aria-hidden="true" loading="lazy" />
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                  <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                  <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                  <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                </svg>
               </span>
               Dashboard
             </a>
@@ -33,7 +44,10 @@
           <li>
             <a href="#">
               <span class="icon">
-                <img src="img/perfil-de-usuario.png" alt="" aria-hidden="true" loading="lazy" />
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
               </span>
               Usuários
             </a>
@@ -41,7 +55,9 @@
           <li>
             <a href="#">
               <span class="icon">
-                <img src="img/pasta.png" alt="" aria-hidden="true" loading="lazy" />
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
               </span>
               Projetos
             </a>
@@ -49,7 +65,10 @@
           <li>
             <a href="#">
               <span class="icon">
-                <img src="img/configuracoes.png" alt="" aria-hidden="true" loading="lazy" />
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
               </span>
               Configurações
             </a>
@@ -68,13 +87,20 @@
 
         <div class="search-box">
           <label for="inputBuscaUsuario" class="sr-only">Pesquisar usuários</label>
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
           <input type="search" placeholder="Pesquisar usuários..." id="inputBuscaUsuario" aria-label="Pesquisar usuários" />
         </div>
 
         <div class="topbar-actions">
           <div class="notification-wrapper">
             <button class="btn-notification" id="btnNotificacao" aria-label="Notificações" aria-haspopup="true" aria-expanded="false">
-              <img src="img/sino.png" alt="" aria-hidden="true" loading="lazy" />
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
               <span class="badge-notification" id="badgeNotificacao" aria-live="polite">0</span>
             </button>
 
@@ -92,55 +118,96 @@
 
       <main class="main-content">
         <header class="page-header">
-          <h1>Dashboard Geral</h1>
-          <p>Bem-vindo de volta, Diovanny!</p>
+          <div>
+            <h1>Dashboard Geral</h1>
+            <p>Bem-vindo de volta, Diovanny!</p>
+          </div>
         </header>
 
         <section class="stats-grid" aria-label="Resumo geral">
           <h2 class="sr-only">Resumo Geral</h2>
 
-          <article class="stat-card">
-            <div class="stat-header">
-              <span class="icon">
-                <img src="img/multiplos-usuarios.png" alt="" aria-hidden="true" loading="lazy" />
-              </span>
+          <article class="stat-card stat-card-users">
+            <div class="stat-icon-wrapper stat-icon-primary">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="stat-content">
               <h3>Usuários Totais</h3>
+              <p class="stat-value">1.245</p>
+              <span class="stat-trend positive" aria-label="Aumento de 10% este mês">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                  <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
+                +10% este mês
+              </span>
             </div>
-            <p class="stat-value">1.245</p>
-            <span class="stat-trend positive" aria-label="Aumento de 10% este mês">+10% este mês</span>
           </article>
 
-          <article class="stat-card">
-            <div class="stat-header">
-              <span class="icon">
-                <img src="img/maleta-de-negocios.png" alt="" aria-hidden="true" loading="lazy" />
-              </span>
+          <article class="stat-card stat-card-projects">
+            <div class="stat-icon-wrapper stat-icon-warning">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            </div>
+            <div class="stat-content">
               <h3>Projetos Ativos</h3>
+              <p class="stat-value">85</p>
+              <span class="stat-trend negative" aria-label="Queda de 2% este mês">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+                  <polyline points="17 18 23 18 23 12"></polyline>
+                </svg>
+                -2% este mês
+              </span>
             </div>
-            <p class="stat-value">85</p>
-            <span class="stat-trend negative" aria-label="Queda de 2% este mês">-2% este mês</span>
           </article>
 
-          <article class="stat-card">
-            <div class="stat-header">
-              <span class="icon">
-                <img src="img/carrinho-carrinho.png" alt="" aria-hidden="true" loading="lazy" />
-              </span>
+          <article class="stat-card stat-card-sales">
+            <div class="stat-icon-wrapper stat-icon-success">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+            </div>
+            <div class="stat-content">
               <h3>Vendas do Mês</h3>
+              <p class="stat-value">R$ 15.400</p>
+              <span class="stat-trend positive" aria-label="Aumento de 25%">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                  <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
+                +25%
+              </span>
             </div>
-            <p class="stat-value">R$ 15.400</p>
-            <span class="stat-trend positive" aria-label="Aumento de 25%">+25%</span>
           </article>
 
-          <article class="stat-card">
-            <div class="stat-header">
-              <span class="icon">
-                <img src="img/dinheiro.png" alt="" aria-hidden="true" loading="lazy" />
-              </span>
-              <h3>Receita Mensal</h3>
+          <article class="stat-card stat-card-revenue">
+            <div class="stat-icon-wrapper stat-icon-info">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
             </div>
-            <p class="stat-value">R$ 12.800</p>
-            <span class="stat-trend positive" aria-label="Aumento de 18%">+18%</span>
+            <div class="stat-content">
+              <h3>Receita Mensal</h3>
+              <p class="stat-value">R$ 12.800</p>
+              <span class="stat-trend positive" aria-label="Aumento de 18%">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                  <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
+                +18%
+              </span>
+            </div>
           </article>
         </section>
 
@@ -155,10 +222,20 @@
               <h2>Últimos Usuários Cadastrados</h2>
               <div class="table-widget-actions">
                 <button type="button" class="btn-export-csv" id="btnExportarCsv" aria-label="Exportar tabela para CSV">
-                  <img src="img/pasta.png" alt="" aria-hidden="true" loading="lazy" />
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
                   Exportar CSV
                 </button>
-                <button type="button" class="btn-add-user" id="btnAdicionarUsuario">+ Novo Usuário</button>
+                <button type="button" class="btn-add-user" id="btnAdicionarUsuario">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                  Novo Usuário
+                </button>
               </div>
             </div>
 
@@ -189,7 +266,12 @@
   <div class="modal-usuario" id="modalUsuario" role="dialog" aria-labelledby="modalTitulo" aria-modal="true">
     <div class="modal-header">
       <h3 id="modalTitulo">Detalhes do Usuário</h3>
-      <button type="button" data-modal-close id="btnFecharModal" aria-label="Fechar modal">✕</button>
+      <button type="button" data-modal-close id="btnFecharModal" aria-label="Fechar modal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
     </div>
 
     <form id="formUsuario" class="modal-form" novalidate>

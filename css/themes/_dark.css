@@ -1,6 +1,6 @@
 /* ==========================================================================
    DARK MODE
-   Sobrescreve variáveis quando usuário prefere tema escuro
+   Tema escuro refinado com tons azulados profundos
    ========================================================================== */
 
 @media (prefers-color-scheme: dark) {
@@ -9,34 +9,44 @@
     --primary: #818cf8;
     --primary-hover: #6366f1;
     --primary-light: #312e81;
+    --primary-dark: #c7d2fe;
     
     /* Cores de estado */
     --success: #34d399;
     --success-light: #064e3b;
+    --success-dark: #6ee7b7;
     --danger: #f87171;
     --danger-light: #7f1d1d;
+    --danger-dark: #fca5a5;
     --warning: #fbbf24;
     --warning-light: #78350f;
+    --warning-dark: #fcd34d;
     --info: #22d3ee;
     --info-light: #164e63;
+    --info-dark: #67e8f9;
     
     /* Cores neutras - Tons escuros azulados */
-    --dark: #f1f5f9;
-    --gray-900: #f8fafc;
-    --gray-800: #f1f5f9;
-    --gray-700: #e2e8f0;
-    --gray-600: #cbd5e1;
-    --gray-500: #94a3b8;
-    --gray-400: #64748b;
-    --gray-300: #475569;
-    --gray-200: #334155;
-    --gray-100: #1e293b;
-    --gray-50: #0f172a;
+    --slate-900: #f8fafc;
+    --slate-800: #f1f5f9;
+    --slate-700: #e2e8f0;
+    --slate-600: #cbd5e1;
+    --slate-500: #94a3b8;
+    --slate-400: #64748b;
+    --slate-300: #475569;
+    --slate-200: #334155;
+    --slate-100: #1e293b;
+    --slate-50: #0f172a;
     --white: #0f172a;
 
-    /* Aliases para compatibilidade */
-    --gray-light: var(--gray-100);
-    --gray-medium: var(--gray-200);
+    /* Aliases semânticos */
+    --bg-primary: var(--white);
+    --bg-secondary: var(--slate-50);
+    --bg-tertiary: var(--slate-100);
+    --border-color: var(--slate-200);
+    --border-light: var(--slate-100);
+    --text-primary: var(--slate-900);
+    --text-secondary: var(--slate-400);
+    --text-muted: var(--slate-500);
 
     /* Fundos escuros para badges */
     --success-bg: var(--success-light);
@@ -46,15 +56,21 @@
     --info-bg: var(--info-light);
 
     /* Textos claros para contraste em fundo escuro */
-    --success-text: #6ee7b7;
-    --danger-text: #fca5a5;
-    --primary-text: #c7d2fe;
-    --warning-text: #fcd34d;
-    --info-text: #67e8f9;
-    --gray-text: var(--gray-400);
-    --gray-text-dark: var(--gray-200);
+    --success-text: var(--success-dark);
+    --danger-text: var(--danger-dark);
+    --primary-text: var(--primary-dark);
+    --warning-text: var(--warning-dark);
+    --info-text: var(--info-dark);
+    --gray-text: var(--text-secondary);
+    --gray-text-dark: var(--slate-700);
+
+    /* Aliases para compatibilidade */
+    --gray-light: var(--slate-100);
+    --gray-medium: var(--slate-200);
+    --dark: var(--slate-900);
 
     /* Sombras mais pronunciadas em dark mode */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
     --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);

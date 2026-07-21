@@ -1,88 +1,88 @@
 /* ==========================================================================
    NOTIFICAÇÕES (DROPDOWN)
-   Dropdown com lista de notificações
+   Design moderno com badges e estados visuais
    ========================================================================== */
 
 .notification-wrapper {
-  position: relative; /* Para posicionar dropdown */
+  position: relative;
 }
 
-/* Badge vermelho com contador de notificações */
+/* Badge vermelho com contador */
 .badge-notification {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: 2px;
+  right: 2px;
   background-color: var(--danger);
   color: var(--white);
   font-size: 10px;
-  font-weight: bold;
+  font-weight: 700;
   height: 18px;
-  width: 18px;
-  border-radius: 50%;
+  min-width: 18px;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--white); /* Borda branca para destaque */
+  padding: 0 5px;
+  border: 2px solid var(--bg-primary);
 }
 
 /* Dropdown de notificações */
 .notification-dropdown {
   position: absolute;
-  top: 45px; /* Abaixo do botão */
+  top: 48px;
   right: 0;
-  width: 300px;
-  background-color: var(--white);
-  border: 1px solid var(--gray-medium);
+  width: 320px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-10px); /* Começa deslocado para cima */
-  transition: all var(--transition-fast);
+  transform: translateY(-8px);
+  transition: all var(--transition);
   z-index: 500;
   max-height: 400px;
-  overflow-y: auto; /* Scroll se muitas notificações */
+  overflow-y: auto;
 }
 
 .notification-dropdown.active {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0); /* Volta à posição normal */
+  transform: translateY(0);
 }
 
 /* Cabeçalho do dropdown */
 .notification-header {
-  padding: 15px;
+  padding: 16px;
   font-weight: 600;
-  border-bottom: 1px solid var(--gray-medium);
-  color: var(--dark);
+  font-size: 14px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
 }
 
-/* Item de notificação individual */
+/* Item de notificação */
 .notification-item {
-  padding: 12px 15px;
+  padding: 14px 16px;
   font-size: 13px;
-  color: var(--gray-text);
-  border-bottom: 1px solid var(--gray-light);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  transition: background-color var(--transition-fast);
+  gap: 12px;
+  transition: background-color var(--transition);
 }
 
-/* Notificação não lida (destaque) */
 .notification-item.unread {
-  background-color: var(--primary-bg);
+  background-color: var(--primary-light);
 }
 
-/* Notificação lida (opacidade reduzida) */
 .notification-item.read {
   opacity: 0.7;
 }
 
 .notification-item:hover {
-  background-color: var(--gray-light);
+  background-color: var(--bg-secondary);
 }
 
 .notification-text {
@@ -96,14 +96,14 @@
   color: var(--success);
   width: 24px;
   height: 24px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   cursor: pointer;
   font-size: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition-fast);
-  flex-shrink: 0; /* Não encolhe */
+  transition: all var(--transition);
+  flex-shrink: 0;
 }
 
 .notification-mark-read:hover {
@@ -114,15 +114,15 @@
 /* Mensagem quando não há notificações */
 .notification-empty {
   text-align: center;
-  padding: 20px 15px;
-  color: var(--gray-text);
+  padding: 24px 16px;
+  color: var(--text-muted);
 }
 
-/* Rodapé do dropdown (botão limpar todas) */
+/* Rodapé do dropdown */
 .notification-footer {
-  padding: 10px 15px;
+  padding: 12px 16px;
   text-align: center;
-  border-top: 1px solid var(--gray-medium);
+  border-top: 1px solid var(--border-light);
 }
 
 .notification-clear-all {
@@ -132,11 +132,11 @@
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: background-color var(--transition-fast);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition);
 }
 
 .notification-clear-all:hover {
-  background-color: var(--danger-bg);
+  background-color: var(--danger-light);
 }

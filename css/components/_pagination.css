@@ -1,55 +1,59 @@
 /* ==========================================================================
    PAGINAÇÃO
-   Componente de paginação para tabelas
+   Design moderno com botões arredondados
    ========================================================================== */
 
 .pagination-wrapper {
-  margin-top: 15px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 /* Botões de página */
 .pagination-btn {
   background: none;
-  border: 1px solid var(--gray-medium);
-  color: var(--dark);
-  width: 32px;
-  height: 32px;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  width: 34px;
+  height: 34px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 14px;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition-fast);
+  transition: all var(--transition);
 }
 
 .pagination-btn:hover:not(.disabled):not(.active) {
-  background-color: var(--gray-light);
-  border-color: var(--primary);
+  background-color: var(--bg-secondary);
+  border-color: var(--slate-300);
+  color: var(--text-primary);
 }
 
-/* Página atual (destaque) */
+/* Página atual */
 .pagination-btn.active {
   background-color: var(--primary);
   color: var(--white);
   border-color: var(--primary);
 }
 
-/* Botão desabilitado (primeira/última página) */
+/* Botão desabilitado */
 .pagination-btn.disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-/* Elipse (quando há muitas páginas) */
+/* Elipse */
 .pagination-ellipsis {
   padding: 0 4px;
-  color: var(--gray-text);
+  color: var(--text-muted);
 }
