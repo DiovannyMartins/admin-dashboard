@@ -1,7 +1,10 @@
 /* ==========================================================================
    ADMIN DASHBOARD - STYLESHEET CONSOLIDADO
-   Gerado automaticamente - Não editar manualmente
+   Gerado automaticamente por build-css.ps1 - NÃO EDITAR MANUALMENTE
+   Para modificar, edite os arquivos em css/modules/
    ========================================================================== */
+
+/* ===== CSS/MODULES/BASE/VARIABLES.CSS ===== */
 
 /* ==========================================================================
    VARIÁVEIS CSS (DESIGN TOKENS)
@@ -175,6 +178,9 @@
 }
 
 
+
+/* ===== CSS/MODULES/BASE/RESET.CSS ===== */
+
 /* ==========================================================================
    RESET E BASE
    Remove estilos padrão do navegador e define tipografia base
@@ -209,6 +215,9 @@ a {
   color: inherit;
 }
 
+
+
+/* ===== CSS/MODULES/BASE/ACCESSIBILITY.CSS ===== */
 
 /* ==========================================================================
    ACESSIBILIDADE
@@ -255,6 +264,9 @@ select:focus-visible {
 }
 
 
+
+/* ===== CSS/MODULES/LAYOUT/GRID.CSS ===== */
+
 /* ==========================================================================
    LAYOUT PRINCIPAL
    Grid com sidebar fixa e conteúdo principal fluido
@@ -278,6 +290,9 @@ select:focus-visible {
   padding: 32px;
 }
 
+
+
+/* ===== CSS/MODULES/LAYOUT/SIDEBAR.CSS ===== */
 
 /* ==========================================================================
    SIDEBAR
@@ -360,6 +375,9 @@ select:focus-visible {
 }
 
 
+
+/* ===== CSS/MODULES/LAYOUT/TOPBAR.CSS ===== */
+
 /* ==========================================================================
    TOPBAR
    Barra superior com busca, notificações e avatar do usuário
@@ -441,6 +459,9 @@ select:focus-visible {
   transform: scale(1.05);
 }
 
+
+
+/* ===== CSS/MODULES/COMPONENTS/BUTTONS.CSS ===== */
 
 /* ==========================================================================
    BOTÕES
@@ -579,6 +600,9 @@ select:focus-visible {
 }
 
 
+
+/* ===== CSS/MODULES/COMPONENTS/CARDS.CSS ===== */
+
 /* ==========================================================================
    CARDS DE ESTATÍSTICAS
    Design moderno com ícones coloridos e layout refinado
@@ -678,6 +702,9 @@ select:focus-visible {
   color: var(--danger);
 }
 
+
+
+/* ===== CSS/MODULES/COMPONENTS/TABLE.CSS ===== */
 
 /* ==========================================================================
    TABELA DE DADOS
@@ -804,6 +831,9 @@ select:focus-visible {
 }
 
 
+
+/* ===== CSS/MODULES/COMPONENTS/CHART.CSS ===== */
+
 /* ==========================================================================
    GRÁFICO DE BARRAS
    Design moderno com barras arredondadas e animação
@@ -894,6 +924,9 @@ select:focus-visible {
   margin-top: 8px;
 }
 
+
+
+/* ===== CSS/MODULES/COMPONENTS/MODAL.CSS ===== */
 
 /* ==========================================================================
    MODAL
@@ -1020,6 +1053,9 @@ select:focus-visible {
   cursor: not-allowed;
 }
 
+
+
+/* ===== CSS/MODULES/COMPONENTS/NOTIFICATIONS.CSS ===== */
 
 /* ==========================================================================
    NOTIFICAÇÕES (DROPDOWN)
@@ -1165,6 +1201,9 @@ select:focus-visible {
 }
 
 
+
+/* ===== CSS/MODULES/COMPONENTS/PAGINATION.CSS ===== */
+
 /* ==========================================================================
    PAGINAÇÃO
    Design moderno com botões arredondados
@@ -1225,6 +1264,9 @@ select:focus-visible {
   color: var(--text-muted);
 }
 
+
+
+/* ===== CSS/MODULES/COMPONENTS/TOAST.CSS ===== */
 
 /* ==========================================================================
    TOAST NOTIFICATIONS
@@ -1325,6 +1367,9 @@ select:focus-visible {
   color: var(--text-primary);
 }
 
+
+
+/* ===== CSS/MODULES/COMPONENTS/EXTRAS.CSS ===== */
 
 /* ==========================================================================
    THEME TOGGLE - BOTÃO DE ALTERNÂNCIA DE TEMA
@@ -1688,6 +1733,9 @@ select:focus-visible {
 }
 
 
+
+/* ===== CSS/MODULES/PAGES/DASHBOARD.CSS ===== */
+
 /* ==========================================================================
    PÁGINA DASHBOARD
    Estilos específicos da página principal do dashboard
@@ -1743,6 +1791,9 @@ select:focus-visible {
 }
 
 
+
+/* ===== CSS/MODULES/THEMES/DARK.CSS ===== */
+
 /* ==========================================================================
    TEMAS
    Tema escuro fixo - sem alternância automática
@@ -1751,6 +1802,9 @@ select:focus-visible {
 /* Tema escuro é o padrão definido em _variables.css
    Este arquivo está reservado para futuros temas adicionais */
 
+
+
+/* ===== CSS/MODULES/RESPONSIVE/TABLET.CSS ===== */
 
 /* ==========================================================================
    RESPONSIVIDADE - TABLET (até 1024px)
@@ -1768,6 +1822,9 @@ select:focus-visible {
   }
 }
 
+
+
+/* ===== CSS/MODULES/RESPONSIVE/MOBILE.CSS ===== */
 
 /* ==========================================================================
    RESPONSIVIDADE - MOBILE (até 768px)
@@ -1865,6 +1922,9 @@ select:focus-visible {
 }
 
 
+
+/* ===== CSS/MODULES/UTILS/SKIP-LINK.CSS ===== */
+
 /* ==========================================================================
    SKIP LINK - ACESSIBILIDADE
    Link para pular navegação (visível apenas no focus)
@@ -1888,5 +1948,4 @@ select:focus-visible {
 }
 
 
-*/
 
