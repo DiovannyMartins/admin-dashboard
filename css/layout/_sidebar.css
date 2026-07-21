@@ -4,8 +4,8 @@
    ========================================================================== */
 
 .sidebar {
-  background-color: var(--slate-900);
-  border-right: 1px solid var(--slate-800);
+  background-color: var(--bg-primary);
+  border-right: 1px solid var(--border-color);
   padding: 24px 16px;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@
   align-items: center;
   gap: 12px;
   padding: 0 12px 24px 12px;
-  border-bottom: 1px solid var(--slate-800);
+  border-bottom: 1px solid var(--border-color);
   margin-bottom: 24px;
 }
 
@@ -29,7 +29,7 @@
 .logo h2 {
   font-size: 16px;
   font-weight: 700;
-  color: var(--white);
+  color: var(--text-primary);
   letter-spacing: 1px;
 }
 
@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   padding: 10px 12px;
-  color: var(--slate-400);
+  color: var(--text-secondary);
   border-radius: var(--radius-sm);
   transition: all var(--transition);
   font-weight: 500;
@@ -65,8 +65,8 @@
 
 /* Estado hover e ativo (item selecionado) */
 .sidebar-menu a:hover {
-  background-color: var(--slate-800);
-  color: var(--white);
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
 }
 
 .sidebar-menu a.active {
