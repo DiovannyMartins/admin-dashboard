@@ -112,7 +112,8 @@ export class ThemeManager {
     const iconName = this.theme === 'dark' ? 'sun' : 'moon';
     const iconSpan = this._toggleBtn.querySelector('[data-icon]');
     if (iconSpan) {
-      iconSpan.outerHTML = Icon.get(iconName, { width: 20, height: 20 });
+      const svg = Icon.element(iconName, { width: 20, height: 20 });
+      iconSpan.replaceWith(svg);
     }
   }
 }

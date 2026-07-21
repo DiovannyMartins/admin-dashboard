@@ -10,6 +10,7 @@ import { Notifications } from "./modules/notifications.js";
 import { Dashboard } from "./modules/dashboard.js";
 import { ThemeManager } from "./modules/theme.js";
 import { KeyboardShortcuts } from "./modules/keyboard.js";
+import { UserProfile } from "./modules/profile.js";
 import { BarChart } from "./components/bar-chart.js";
 import { Icon } from "./utils/icons.js";
 
@@ -21,6 +22,7 @@ class App {
     this.dashboard = new Dashboard();
     this.userTable = new UserTable();
     this.notifications = new Notifications();
+    this.profile = new UserProfile();
 
     // Inicializa gráfico
     this._initChart();

@@ -48,14 +48,16 @@ export class Sidebar {
   _renderIcons() {
     $$('.sidebar-menu .icon[data-icon]').forEach(el => {
       const iconName = el.dataset.icon;
-      el.innerHTML = Icon.get(iconName, { width: 20, height: 20 });
+      const svg = Icon.element(iconName, { width: 20, height: 20 });
+      el.replaceWith(svg);
     });
 
     // Ícone do logo
     const logoIcon = $('.logo-icon[data-icon]');
     if (logoIcon) {
       const size = parseInt(logoIcon.dataset.size) || 28;
-      logoIcon.innerHTML = Icon.get(logoIcon.dataset.icon, { width: size, height: size });
+      const svg = Icon.element(logoIcon.dataset.icon, { width: size, height: size });
+      logoIcon.replaceWith(svg);
     }
   }
 

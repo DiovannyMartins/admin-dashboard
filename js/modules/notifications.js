@@ -32,9 +32,10 @@ export class Notifications {
    */
   _renderIcons() {
     // Ícone do sino
-    const bellIcon = this.trigger.querySelector('[data-icon="bell"]');
-    if (bellIcon) {
-      bellIcon.outerHTML = Icon.get('bell', { width: 22, height: 22 });
+    const bellSpan = this.trigger.querySelector('[data-icon="bell"]');
+    if (bellSpan) {
+      const svg = Icon.element('bell', { width: 22, height: 22 });
+      bellSpan.replaceWith(svg);
     }
   }
 

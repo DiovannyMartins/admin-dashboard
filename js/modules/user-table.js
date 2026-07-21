@@ -29,7 +29,17 @@ export class UserTable {
     this.filterPlano = $('#filterPlano');
     this.btnClearFilters = $('#btnClearFilters');
 
-    this.users = StorageService.get('usuarios', null) || DEFAULT_USERS;
+    // Migra dados antigos (sem campo email)
+    const stored = StorageService.get('usuarios', null);
+    if (stored && stored.length > 0) {
+      this.users = stored.map(u => ({
+        ...u,
+        email: u.email || ''
+      }));
+    } else {
+      this.users = DEFAULT_USERS;
+    }
+    
     this.filteredUsers = [...this.users];
     this.sortState = { field: null, direction: 'asc' };
     this.currentSearch = '';

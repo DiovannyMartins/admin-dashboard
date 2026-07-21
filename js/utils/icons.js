@@ -4,8 +4,8 @@
  * 
  * Uso:
  * import { Icon } from '../utils/icons.js';
- * Icon.dashboard() // Retorna string SVG
- * Icon.dashboardElement() // Retorna elemento SVG
+ * Icon.eye() // Retorna elemento SVG
+ * Icon.get('eye') // Retorna string SVG
  */
 
 const ICONS = {
@@ -71,37 +71,46 @@ export const Icon = {
   },
 
   /**
-   * Retorna elemento SVG
+   * Retorna elemento SVG DOM
    * @param {string} name - Nome do ícone
    * @param {Object} attrs - Atributos adicionais
    * @returns {SVGElement} - Elemento SVG
    */
-  getElement(name, attrs = {}) {
+  element(name, attrs = {}) {
     const div = document.createElement('div');
     div.innerHTML = this.get(name, attrs);
-    return div.firstElementChild;
+    const svg = div.firstElementChild;
+    if (!svg) {
+      // Fallback: cria SVG vazio
+      const fallback = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      fallback.setAttribute('width', attrs.width || 24);
+      fallback.setAttribute('height', attrs.height || 24);
+      fallback.setAttribute('viewBox', '0 0 24 24');
+      return fallback;
+    }
+    return svg;
   },
 
-  // Métodos de atalho para cada ícone
-  dashboard: (attrs) => this.get('dashboard', attrs),
-  user: (attrs) => this.get('user', attrs),
-  users: (attrs) => this.get('users', attrs),
-  folder: (attrs) => this.get('folder', attrs),
-  settings: (attrs) => this.get('settings', attrs),
-  search: (attrs) => this.get('search', attrs),
-  bell: (attrs) => this.get('bell', attrs),
-  briefcase: (attrs) => this.get('briefcase', attrs),
-  shoppingCart: (attrs) => this.get('shoppingCart', attrs),
-  dollar: (attrs) => this.get('dollar', attrs),
-  trendUp: (attrs) => this.get('trendUp', attrs),
-  trendDown: (attrs) => this.get('trendDown', attrs),
-  download: (attrs) => this.get('download', attrs),
-  plus: (attrs) => this.get('plus', attrs),
-  close: (attrs) => this.get('close', attrs),
-  eye: (attrs) => this.get('eye', attrs),
-  edit: (attrs) => this.get('edit', attrs),
-  trash: (attrs) => this.get('trash', attrs),
-  check: (attrs) => this.get('check', attrs),
-  sun: (attrs) => this.get('sun', attrs),
-  moon: (attrs) => this.get('moon', attrs)
+  // Métodos de atalho - retornam ELEMENTOS DOM (para appendChild)
+  dashboard: (attrs) => Icon.element('dashboard', attrs),
+  user: (attrs) => Icon.element('user', attrs),
+  users: (attrs) => Icon.element('users', attrs),
+  folder: (attrs) => Icon.element('folder', attrs),
+  settings: (attrs) => Icon.element('settings', attrs),
+  search: (attrs) => Icon.element('search', attrs),
+  bell: (attrs) => Icon.element('bell', attrs),
+  briefcase: (attrs) => Icon.element('briefcase', attrs),
+  shoppingCart: (attrs) => Icon.element('shoppingCart', attrs),
+  dollar: (attrs) => Icon.element('dollar', attrs),
+  trendUp: (attrs) => Icon.element('trendUp', attrs),
+  trendDown: (attrs) => Icon.element('trendDown', attrs),
+  download: (attrs) => Icon.element('download', attrs),
+  plus: (attrs) => Icon.element('plus', attrs),
+  close: (attrs) => Icon.element('close', attrs),
+  eye: (attrs) => Icon.element('eye', attrs),
+  edit: (attrs) => Icon.element('edit', attrs),
+  trash: (attrs) => Icon.element('trash', attrs),
+  check: (attrs) => Icon.element('check', attrs),
+  sun: (attrs) => Icon.element('sun', attrs),
+  moon: (attrs) => Icon.element('moon', attrs)
 };
