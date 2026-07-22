@@ -112,5 +112,18 @@ export const Icon = {
   trash: (attrs) => Icon.element('trash', attrs),
   check: (attrs) => Icon.element('check', attrs),
   sun: (attrs) => Icon.element('sun', attrs),
-  moon: (attrs) => Icon.element('moon', attrs)
+  moon: (attrs) => Icon.element('moon', attrs),
+
+  /**
+   * Renderiza todos os ícones da página com atributo data-icon
+   * Varre o DOM e substitui cada [data-icon] pelo SVG correspondente
+   */
+  renderAll(context = document) {
+    context.querySelectorAll('[data-icon]').forEach(el => {
+      const name = el.dataset.icon;
+      const size = parseInt(el.dataset.size) || 24;
+      const svg = Icon.element(name, { width: size, height: size });
+      if (svg) el.replaceWith(svg);
+    });
+  }
 };

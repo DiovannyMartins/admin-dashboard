@@ -24,6 +24,9 @@ class App {
     this.notifications = new Notifications();
     this.profile = new UserProfile();
 
+    // Renderiza todos os ícones SVG da página
+    Icon.renderAll();
+
     // Inicializa gráfico
     this._initChart();
 

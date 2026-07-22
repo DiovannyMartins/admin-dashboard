@@ -606,6 +606,7 @@ select:focus-visible {
 /* ==========================================================================
    CARDS DE ESTATÍSTICAS
    Design moderno com ícones coloridos e layout refinado
+   Layout: [Ícone + Título] na mesma linha, Valor e Trend abaixo
    ========================================================================== */
 
 /* Card de estatística */
@@ -615,6 +616,7 @@ select:focus-visible {
   border-radius: var(--radius);
   border: 1px solid var(--border-color);
   display: flex;
+  flex-direction: column;
   gap: 16px;
   transition: all var(--transition);
 }
@@ -626,10 +628,17 @@ select:focus-visible {
   border-color: var(--slate-300);
 }
 
+/* Header do card: ícone + título na mesma linha */
+.stat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 /* Wrapper do ícone */
 .stat-icon-wrapper {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
@@ -637,38 +646,38 @@ select:focus-visible {
   flex-shrink: 0;
 }
 
+.stat-icon-wrapper svg {
+  width: 22px;
+  height: 22px;
+}
+
 /* Cores dos ícones por tipo */
 .stat-icon-primary {
-  background-color: var(--primary-light);
+  background-color: var(--primary-bg);
   color: var(--primary);
 }
 
 .stat-icon-success {
-  background-color: var(--success-light);
+  background-color: var(--success-bg);
   color: var(--success);
 }
 
 .stat-icon-warning {
-  background-color: var(--warning-light);
+  background-color: var(--warning-bg);
   color: var(--warning);
 }
 
 .stat-icon-info {
-  background-color: var(--info-light);
+  background-color: var(--info-bg);
   color: var(--info);
 }
 
-/* Conteúdo do card */
-.stat-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.stat-content h3 {
-  font-size: 13px;
+/* Título do card */
+.stat-header h3 {
+  font-size: 14px;
   color: var(--text-secondary);
   font-weight: 500;
-  margin-bottom: 8px;
+  margin: 0;
 }
 
 /* Valor principal da métrica */
@@ -676,7 +685,7 @@ select:focus-visible {
   font-size: 28px;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin: 0;
   line-height: 1.2;
 }
 
