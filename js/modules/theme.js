@@ -105,15 +105,19 @@ export class ThemeManager {
 
   /**
    * Atualiza ícone do botão de toggle
+   * Recria o SVG completamente ao invés de buscar [data-icon]
    * @private
    */
   _updateToggleButton() {
     if (!this._toggleBtn) return;
     const iconName = this.theme === 'dark' ? 'sun' : 'moon';
-    const iconSpan = this._toggleBtn.querySelector('[data-icon]');
-    if (iconSpan) {
-      const svg = Icon.element(iconName, { width: 20, height: 20 });
-      iconSpan.replaceWith(svg);
-    }
+    
+    // Remove SVG existente se houver
+    const existingSvg = this._toggleBtn.querySelector('svg');
+    if (existingSvg) existingSvg.remove();
+    
+    // Cria novo SVG
+    const svg = Icon.element(iconName, { width: 20, height: 20 });
+    this._toggleBtn.appendChild(svg);
   }
 }

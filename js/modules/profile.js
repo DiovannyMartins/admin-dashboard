@@ -55,7 +55,7 @@ export class UserProfile {
     document.body.appendChild(this.dropdownEl);
     this.dropdown = new Dropdown(this.avatar, this.dropdownEl);
 
-    // Renderiza ícones
+    // Renderiza ícones recriando SVGs
     this.dropdownEl.querySelectorAll('[data-icon]').forEach(el => {
       const svg = Icon.element(el.dataset.icon, { width: parseInt(el.dataset.size) || 16, height: parseInt(el.dataset.size) || 16 });
       el.replaceWith(svg);

@@ -30,6 +30,25 @@
    SEARCH BOX - CAMPO DE BUSCA COM ATALHO
    ========================================================================== */
 
+.search-box {
+  position: relative;
+}
+
+.search-icon-wrapper {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.search-icon-wrapper svg {
+  width: 18px;
+  height: 18px;
+}
+
 .search-shortcut {
   position: absolute;
   right: 12px;
