@@ -83,7 +83,7 @@
 /* Label abaixo das barras */
 .label {
   font-size: 12px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-weight: 500;
   margin-top: 8px;
 }

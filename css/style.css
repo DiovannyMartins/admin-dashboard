@@ -733,7 +733,7 @@ select:focus-visible {
 
 /* Cabeçalhos (clicáveis para ordenação) */
 .data-table th {
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-weight: 600;
   font-size: 12px;
   text-transform: uppercase;
@@ -795,8 +795,9 @@ select:focus-visible {
 }
 
 .plan-basic {
-  background-color: var(--bg-tertiary);
-  color: var(--text-secondary);
+  background-color: var(--slate-200);
+  color: var(--slate-600);
+  border: 1px solid var(--slate-300);
 }
 
 /* Ícone de ordenação (seta ↑ ou ↓) */
@@ -922,7 +923,7 @@ select:focus-visible {
 /* Label abaixo das barras */
 .label {
   font-size: 12px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-weight: 500;
   margin-top: 8px;
 }
