@@ -24,6 +24,10 @@ class App {
     this.notifications = new Notifications();
     this.profile = new UserProfile();
 
+    // Renderiza ícones globais do HTML (stat-cards, search, botões, etc.)
+    // Cada módulo já renderiza seus próprios ícones internamente
+    Icon.renderAll();
+
     // Inicializa gráfico
     this._initChart();
 
