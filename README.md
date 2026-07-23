@@ -23,21 +23,19 @@ Dashboard administrativo para gerenciamento de usuarios, estatisticas e notifica
 
 [![Preview do Admin Dashboard](https://github.com/user-attachments/assets/12995740-aa1b-47dd-a5fe-32ea71856f92)](https://diovannymartins.github.io/admin-dashboard/)
 
-> Dica: um GIF demonstrando interacoes (alternar tema, criar usuario, paginacao) converte mais que screenshot estatica.
-
 **[Acesse a demo ao vivo](https://diovannymartins.github.io/admin-dashboard/)**
 
 ---
 
 ## Tecnologias
 
-| Tecnologia | Versao/Recurso | Uso |
-|------------|---------------|-----|
-| **HTML5** | Semantic markup | Estrutura acessivel com ARIA |
-| **CSS3** | Variables, Grid, Flexbox | Design system modular (ITCSS) |
-| **JavaScript** | ES6+ Modules | Classes, import/export, arrow functions |
-| **SVG** | Inline icons | 20+ icones escalaveis sem dependencias |
-| **Git/GitHub** | Versionamento | Deploy via GitHub Pages |
+| Tecnologia | Utilização |
+|------------|------------|
+| **HTML5** | Estrutura semântica |
+| **CSS3** | Layout, temas e responsividade |
+| **JavaScript** | Lógica, CRUD e interação |
+| **SVG** | Ícones escaláveis |
+| **GitHub Pages** | Deploy |
 
 ---
 
@@ -45,10 +43,10 @@ Dashboard administrativo para gerenciamento de usuarios, estatisticas e notifica
 
 Este e um projeto de estudo focado em praticar arquitetura frontend sem frameworks. As decisoes tecnicas principais:
 
-- **ITCSS (Inverted Triangle CSS)** para organizar os estilos em camadas de especificidade crescente: `base` > `layout` > `components` > `pages` > `responsive` > `themes` > `utils`
+- **Arquitetura CSS em camadas** para organizar estilos por especificidade: `base` > `layout` > `components` > `pages` > `responsive` > `themes` > `utils`
 - **ES Modules nativos** (`type="module"`) para separacao de responsabilidades sem bundler
 - **EventBus (pub/sub)** para comunicacao entre modulos sem acoplamento direto
-- **Design tokens via CSS Variables** para facilitar a troca de temas e manutencao da paleta
+- **CSS Variables** para design tokens, facilitando a troca de temas e manutencao da paleta
 - **Debounce de 250ms** na busca para evitar re-renders excessivos
 - **Focus trap** em modais seguindo a tecnica de redirecionamento de Tab/Shift+Tab
 - **`prefers-reduced-motion`** respeitado em todas as animacoes CSS
@@ -253,6 +251,6 @@ Este projeto esta sob a licenca MIT. Veja o arquivo [LICENSE](LICENSE) para mais
 ---
 
 <div align="center">
-  <p><strong>Admin Dashboard</strong> -- Projeto de estudo</p>
+  <p><strong>Admin Dashboard</strong></p>
   <p>2026 Diovanny.dev</p>
 </div>
