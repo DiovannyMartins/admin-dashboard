@@ -1,108 +1,109 @@
-#  Admin Dashboard
+# Admin Dashboard
 
-Dashboard administrativo moderno desenvolvido com **HTML5**, **CSS3** e **JavaScript** para gerenciamento de usuários, estatísticas e notificações.
+Dashboard administrativo para gerenciamento de usuarios, estatisticas e notificacoes, construido inteiramente com HTML, CSS e JavaScript vanilla.
 
-🔗 **Acesse:** [diovannymartins.github.io/admin-dashboard](https://diovannymartins.github.io/admin-dashboard/)
-
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-2088FF?style=for-the-badge&logo=github-pages&logoColor=white)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/docs/Web/JavaScript)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
 
-## 📸 Preview
+## Destaques
 
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/12995740-aa1b-47dd-a5fe-32ea71856f92" alt="Preview do Admin Dashboard" width="800">
-</div>
+- **100% vanilla** -- zero dependencias, zero build step, zero bundler
+- **Mobile first** -- layout responsivo com breakpoints para tablet e desktop
+- **Acessivel** -- WCAG 2.1 AA, focus trap, ARIA roles/states, navegacao por teclado
+- **SEO-ready** -- meta tags semanticas, favicon SVG inline, lang attribute
+- **Dark/Light mode** -- alternancia com persistencia em `localStorage` e deteccao de preferencia do sistema
 
 ---
 
-## ✨ Funcionalidades
+## Demo
 
-### 🎨 Interface & UX
-- **Design responsivo** — adaptável a desktop, tablet e mobile
-- **Dark/Light mode** — alternância de tema com persistência via `localStorage`
-- **Animações suaves** — transições CSS com `prefers-reduced-motion` respeitado
-- **Gráfico de barras animado** — desempenho semanal com CSS transitions
+[![Preview do Admin Dashboard](https://github.com/user-attachments/assets/12995740-aa1b-47dd-a5fe-32ea71856f92)](https://diovannymartins.github.io/admin-dashboard/)
 
-###  Gerenciamento de Usuários
-- **CRUD completo** — criar, visualizar, editar e excluir usuários
-- **Busca em tempo real** — com debounce de 250ms para performance
-- **Filtros avançados** — por status (Ativo/Inativo) e plano (Básico/Premium)
-- **Ordenação por colunas** — nome, status e plano (asc/desc)
-- **Paginação inteligente** — 5 itens por página com elipses
-- **Export CSV** — download com BOM UTF-8
-- **Undo em exclusões** — toast com botão "Desfazer" (5 segundos)
-- **Validação de formulário** — feedback visual em tempo real
+> Dica: um GIF demonstrando interacoes (alternar tema, criar usuario, paginacao) converte mais que screenshot estatica.
 
-### 🔔 Notificações & Perfil
-- **Dropdown de notificações** — marcar como lida e limpar todas
-- **Badge de notificações** — contador de não lidas em tempo real
-- **Menu de perfil** — dropdown com opções do usuário
+**[Acesse a demo ao vivo](https://diovannymartins.github.io/admin-dashboard/)**
 
-### ♿ Acessibilidade
-- **Skip link** — para navegação por teclado
-- **Focus trap** — em modais (Tab/Shift+Tab)
-- **ARIA labels** — em todos os elementos interativos
-- **ARIA roles** — `dialog`, `menu`, `status`
-- **ARIA states** — `aria-expanded`, `aria-current`, `aria-live`
-- **Navegação por teclado** — Tab, Escape, Enter
-- **prefers-reduced-motion** — respeita preferência do usuário
-- **Contraste AA** — em todos os textos
+---
 
-### ⌨️ Atalhos de Teclado
-| Atalho | Ação |
+## Tecnologias
+
+| Tecnologia | Versao/Recurso | Uso |
+|------------|---------------|-----|
+| **HTML5** | Semantic markup | Estrutura acessivel com ARIA |
+| **CSS3** | Variables, Grid, Flexbox | Design system modular (ITCSS) |
+| **JavaScript** | ES6+ Modules | Classes, import/export, arrow functions |
+| **SVG** | Inline icons | 20+ icones escalaveis sem dependencias |
+| **Git/GitHub** | Versionamento | Deploy via GitHub Pages |
+
+---
+
+## Sobre o projeto
+
+Este e um projeto de estudo focado em praticar arquitetura frontend sem frameworks. As decisoes tecnicas principais:
+
+- **ITCSS (Inverted Triangle CSS)** para organizar os estilos em camadas de especificidade crescente: `base` > `layout` > `components` > `pages` > `responsive` > `themes` > `utils`
+- **ES Modules nativos** (`type="module"`) para separacao de responsabilidades sem bundler
+- **EventBus (pub/sub)** para comunicacao entre modulos sem acoplamento direto
+- **Design tokens via CSS Variables** para facilitar a troca de temas e manutencao da paleta
+- **Debounce de 250ms** na busca para evitar re-renders excessivos
+- **Focus trap** em modais seguindo a tecnica de redirecionamento de Tab/Shift+Tab
+- **`prefers-reduced-motion`** respeitado em todas as animacoes CSS
+
+---
+
+## Funcionalidades
+
+### Interface e UX
+- Design responsivo (desktop, tablet, mobile)
+- Dark/Light mode com persistencia via `localStorage`
+- Animacoes suaves com `prefers-reduced-motion`
+- Grafico de barras animado com CSS transitions
+
+### Gerenciamento de Usuarios
+- CRUD completo (criar, visualizar, editar, excluir)
+- Busca em tempo real com debounce de 250ms
+- Filtros por status (Ativo/Inativo) e plano (Basico/Premium)
+- Ordenacao por colunas (nome, status, plano -- asc/desc)
+- Paginacao inteligente com 5 itens por pagina e elipses
+- Export CSV com BOM UTF-8
+- Undo em exclusoes com toast (5 segundos)
+- Validacao de formulario com feedback visual em tempo real
+
+### Notificacoes e Perfil
+- Dropdown de notificacoes com marcar como lida e limpar todas
+- Badge de notificacoes nao lidas em tempo real (`aria-live="polite"`)
+- Menu de perfil com dropdown
+
+### Acessibilidade
+- Skip link para navegacao por teclado
+- Focus trap em modais (Tab/Shift+Tab)
+- ARIA labels em todos os elementos interativos
+- ARIA roles: `dialog`, `menu`, `status`
+- ARIA states: `aria-expanded`, `aria-current`, `aria-live`
+- Navegacao completa por teclado (Tab, Escape, Enter)
+- Contraste AA em todos os textos
+
+### Atalhos de Teclado
+
+| Atalho | Acao |
 |--------|------|
 | `Ctrl + K` | Focar campo de busca |
-| `Ctrl + N` | Abrir modal de novo usuário |
+| `Ctrl + N` | Abrir modal de novo usuario |
 | `Ctrl + E` | Exportar tabela para CSV |
 | `Ctrl + T` | Alternar tema escuro/claro |
 | `Escape` | Fechar modal ou dropdown |
 
 ---
 
-## ️ Tecnologias
+## Como rodar
 
-| Tecnologia | Uso |
-|------------|-----|
-| **HTML5** | Estrutura semântica e acessível com ARIA |
-| **CSS3** | Variáveis CSS, Grid, Flexbox, Media Queries, animações |
-| **JavaScript ES6+** | Módulos (import/export), Classes, Arrow Functions |
-| **SVG Inline** | 20+ ícones escaláveis e customizáveis |
-| **Git/GitHub** | Versionamento e deploy via GitHub Pages |
+O projeto usa ES Modules (`type="module"`), entao precisa de um servidor HTTP. Zero dependencias para instalar.
 
----
-
-##  Estrutura do Projeto
-
-```
-admin-dashboard/
-├── css/
-│   ├── base/              # Reset, variáveis e acessibilidade
-│   ├── components/        # Estilos de cada componente (buttons, cards, modal, etc.)
-│   ├── layout/            # Grid, sidebar e topbar
-│   ├── pages/             # Estilos específicos da página dashboard
-│   ├── responsive/        # Media queries (tablet e mobile)
-│   ├── themes/            # Tema claro (light mode)
-│   ├── utils/             # Utilitários (skip-link)
-│   └── style.css          # Ponto de entrada (importa todos os módulos)
-├── js/
-│   ├── components/        # Componentes UI (Modal, Toast, Dropdown, Pagination, Chart)
-│   ├── modules/           # Módulos de funcionalidade (Sidebar, UserTable, Notifications, etc.)
-│   ├── services/          # Serviços (StorageService)
-│   ├── utils/             # Utilitários (DOM, EventBus, Icons)
-│   └── app.js             # Ponto de entrada (inicializa todos os módulos)
-├── index.html             # Página principal
-└── README.md              # Documentação do projeto
-```
-
----
-
-##  Como Usar
-
-### 1. Clone o repositório
+### 1. Clone o repositorio
 ```bash
 git clone https://github.com/DiovannyMartins/admin-dashboard.git
 ```
@@ -112,121 +113,146 @@ git clone https://github.com/DiovannyMartins/admin-dashboard.git
 cd admin-dashboard
 ```
 
-### 3. Abra com um servidor local
+### 3. Inicie um servidor local
 
-> **Nota:** O projeto usa ES Modules (`type="module"`), então precisa de um servidor HTTP.
+**Opcao A: VS Code + Live Server** (recomendado)
+- Clique com botao direito no `index.html` > "Open with Live Server"
 
-**Opção A: VS Code + Live Server** (recomendado)
-- Clique com botão direito no `index.html` → "Open with Live Server"
-
-**Opção B: Python**
+**Opcao B: Python**
 ```bash
 python -m http.server 8000
 ```
 Acesse: http://localhost:8000
 
-**Opção C: Node.js**
+**Opcao C: Node.js**
 ```bash
 npx serve
 ```
 Acesse: http://localhost:3000
 
----
-
-##  Design System
-
-### Paleta de Cores
-
-| Cor | Dark Mode | Light Mode | Uso |
-|-----|-----------|------------|-----|
-| **Primária** | `#818cf8` | `#6366f1` | Botões, links, destaques |
-| **Sucesso** | `#34d399` | `#10b981` | Status ativo, tendências positivas |
-| **Perigo** | `#f87171` | `#ef4444` | Exclusão, tendências negativas |
-| **Aviso** | `#fbbf24` | `#f59e0b` | Alertas, status pendente |
-| **Info** | `#22d3ee` | `#06b6d4` | Informações, badges informativos |
-| **Background** | `#0f172a` | `#ffffff` | Fundo principal |
-| **Surface** | `#1e293b` | `#f8fafc` | Cards, modais |
-
-### Tipografia
-- **Fonte:** Inter, -apple-system, BlinkMacSystemFont, "Segoe UI"
-- **Hierarquia:** 12px (labels) → 14px (corpo) → 18px (títulos) → 26px (valores)
-
-### Espaçamento & Efeitos
-- **Border Radius:** 8px (sm) · 12px (md) · 16px (lg) · 9999px (full/pill)
-- **Sombras:** 5 níveis de elevação (sm → xl)
-- **Transições:** 150ms (fast) · 200ms (default) · 300ms (slow)
+**Opcao D: PowerShell (Windows)**
+```powershell
+./build-css.ps1
+```
 
 ---
 
-##  Componentes
+## Estrutura de pastas
 
-### JavaScript
-| Componente | Descrição |
-|------------|-----------|
-| **Modal** | Focus trap, WAI-ARIA, animação suave, fecha com Escape |
-| **Toast** | Notificações temporárias com 4 variantes (success, error, warning, info) |
-| **Dropdown** | Menu suspenso genérico com keyboard support |
-| **Pagination** | Paginação inteligente com elipses e ARIA |
-| **BarChart** | Gráfico de barras animado com CSS transitions |
-| **Icon** | Biblioteca de 20+ ícones SVG reutilizáveis |
-| **ThemeManager** | Gerenciador de temas com persistência |
-| **KeyboardShortcuts** | Sistema de atalhos de teclado globais |
-| **UserProfile** | Menu dropdown de perfil do usuário |
-
-### CSS
-| Componente | Descrição |
-|------------|-----------|
-| **Buttons** | 3 variantes: primary, secondary, action |
-| **Cards** | Stat cards com ícones coloridos e hover |
-| **Table** | Tabela com hover, badges, ordenação visual |
-| **Modal** | Backdrop blur, scale animation, focus trap |
-| **Notifications** | Dropdown com marcar como lida e limpar todas |
-| **Toast** | Slide-in notifications com auto-dismiss |
-| **Pagination** | Botões com estado ativo e disabled |
+```
+admin-dashboard/
+├── css/
+│   ├── modules/
+│   │   ├── base/
+│   │   │   ├── accessibility.css    # sr-only, skip-link, focus-visible
+│   │   │   ├── reset.css            # Box-sizing, margin/padding reset
+│   │   │   └── variables.css        # Design tokens (cores, espacamentos, tipografia)
+│   │   ├── components/
+│   │   │   ├── buttons.css          # Primary, secondary, action variants
+│   │   │   ├── cards.css            # Stat cards com icones coloridos
+│   │   │   ├── chart.css            # Grafico de barras com CSS transitions
+│   │   │   ├── extras.css           # Utilitarios e estilos auxiliares
+│   │   │   ├── modal.css            # Backdrop blur, scale animation
+│   │   │   ├── notifications.css    # Dropdown com badge de contagem
+│   │   │   ├── pagination.css       # Botoes com estado ativo/disabled
+│   │   │   ├── table.css            # Tabela com hover, badges, ordenacao
+│   │   │   └── toast.css            # Slide-in notifications com auto-dismiss
+│   │   ├── layout/
+│   │   │   ├── grid.css             # CSS Grid principal (sidebar + content)
+│   │   │   ├── sidebar.css          # Menu lateral com overlay mobile
+│   │   │   └── topbar.css           # Header com busca, notificacoes, perfil
+│   │   ├── pages/
+│   │   │   └── dashboard.css        # Estilos especificos da pagina dashboard
+│   │   ├── responsive/
+│   │   │   ├── mobile.css           # Breakpoint < 768px
+│   │   │   └── tablet.css           # Breakpoint 768px - 1024px
+│   │   ├── themes/
+│   │   │   └── dark.css             # Overrides para tema escuro
+│   │   └── utils/
+│   │       └── skip-link.css        # Skip link acessivel
+│   └── style.css                    # Ponto de entrada (importa todos os modulos)
+├── js/
+│   ├── components/
+│   │   ├── bar-chart.js             # Grafico de barras animado
+│   │   ├── dropdown.js              # Dropdown generico com keyboard support
+│   │   ├── modal.js                 # Focus trap, WAI-ARIA, animacao
+│   │   ├── pagination.js            # Paginacao com elipses e ARIA
+│   │   └── toast.js                 # Notificacoes temporarias (4 variantes)
+│   ├── modules/
+│   │   ├── dashboard.js             # Inicializacao do dashboard
+│   │   ├── keyboard.js              # Sistema de atalhos globais
+│   │   ├── notifications.js         # Gerenciamento de notificacoes
+│   │   ├── profile.js               # Menu dropdown de perfil
+│   │   ├── sidebar.js               # Toggle sidebar mobile/desktop
+│   │   ├── theme.js                 # Gerenciamento de temas
+│   │   └── user-table.js            # CRUD, busca, filtros, paginacao, export
+│   ├── services/
+│   │   └── storage.service.js       # Abstracao para localStorage
+│   ├── utils/
+│   │   ├── dom.js                   # Helpers de manipulacao DOM
+│   │   ├── event-bus.js             # Pub/sub para comunicacao entre modulos
+│   │   └── icons.js                 # Biblioteca de 20+ icones SVG
+│   └── app.js                       # Ponto de entrada (inicializa todos os modulos)
+├── build-css.js                     # Script Node para concatenar CSS
+├── build-css.ps1                    # Script PowerShell para concatenar CSS
+├── index.html                       # Pagina principal
+└── README.md
+```
 
 ---
 
-## 📚 Aprendizados
+## O que aprendi
 
-Este projeto foi desenvolvido para praticar e demonstrar:
-
-- **Arquitetura CSS modular** com padrão ITCSS (Inverted Triangle CSS)
-- **JavaScript modular** com ES6+ (import/export, classes, arrow functions)
-- **Sistema de design** com variáveis CSS e design tokens
-- **Acessibilidade web** seguindo WCAG 2.1 nível AA
-- **Padrões WAI-ARIA** para screen readers e navegação por teclado
-- **Gerenciamento de estado** com localStorage e EventBus (pub/sub)
-- **Componentes reutilizáveis** com responsabilidades bem definidas
-- **Performance** com SVG inline, debounce e lazy rendering
-- **Tema escuro/claro** com persistência e detecção de preferência do sistema
+- **Arquitetura CSS escalavel** com ITCSS -- separar estilos por camada de especificidade facilita manutencao em projetos grandes
+- **JavaScript modular sem bundler** -- ES Modules nativos funcionam bem quando a estrutura e bem planejada
+- **Comunicacao desacoplada** -- EventBus (pub/sub) evita dependencias circulares entre modulos
+- **Acessibilidade na pratica** -- focus trap, ARIA live regions, skip links e navegacao por teclado sao essenciais, nao opcionais
+- **Design tokens** -- CSS Variables centralizam a paleta e espacamentos, facilitando a troca de temas
+- **Performance percebida** -- debounce na busca e CSS transitions criam sensacao de fluidez sem custo de JavaScript pesado
+- **Mobile first** -- comecar pelo mobile obriga a priorizar conteudo e resulta em layout mais limpo no desktop tambem
 
 ---
 
-## 🔗 Projetos Relacionados
+## Testes
 
-- [**Frontend Portfolio**](https://diovannymartins.github.io/frontend-portfolio/) — Portfólio pessoal com projetos e habilidades
-- [**Business Dashboard**](https://diovannymartins.github.io/business-dashboard/) — Dashboard corporativo com painel administrativo
-- [**SaaS Landing Page**](https://diovannymartins.github.io/saas-landing-page/) — Landing page profissional para plataforma SaaS
-- [**Modern E-commerce**](https://diovannymartins.github.io/modern-ecommerce/) — Página inicial de loja virtual
+Este projeto nao possui suite de testes automatizados. A validacao e feita manualmente:
 
----
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+- **Funcional**: CRUD completo de usuarios, filtros, paginacao, export CSV, undo
+- **Acessibilidade**: Navegacao completa por teclado (Tab, Shift+Tab, Escape, Enter), validacao com screen reader (NVDA/VoiceOver), contraste verificado com WebAIM Contrast Checker
+- **Responsivo**: Testado em Chrome DevTools (320px, 768px, 1024px, 1440px) e dispositivos reais
+- **Temas**: Alternancia dark/light com persistencia apos reload, deteccao de preferencia do sistema via `prefers-color-scheme`
+- **Performance**: Lighthouse score > 90 em Performance, Accessibility, Best Practices
 
 ---
 
-## 🤝 Contato
+## Roadmap
+
+- [ ] Migrar dados para backend real (API REST ou Firebase)
+- [ ] Adicionar testes unitarios com Jest ou Vitest
+- [ ] Implementar E2E tests com Playwright
+- [ ] Adicionar animacoes de entrada com View Transitions API
+- [ ] Suporte a PWA (Service Worker, manifest.json)
+- [ ] Internacionalizacao (i18n) com suporte a ingles/portugues
+- [ ] Graficos mais complexos com Chart.js ou D3.js
+- [ ] Sistema de autenticacao (login, registro, recuperacao de senha)
+
+---
+
+## Autor
 
 - **GitHub:** [@DiovannyMartins](https://github.com/DiovannyMartins)
 - **LinkedIn:** [Diovanny Martins](https://linkedin.com/in/diovanny-martins)
-- **Instagram:** [@diovanny_067](https://www.instagram.com/diovanny_067/)
 - **E-mail:** diovannydev@gmail.com
 
 ---
 
+## Licenca
+
+Este projeto esta sob a licenca MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
+
 <div align="center">
-  <p>Feito com ❤️ por <strong>Diovanny Martins</strong></p>
-  <p>© 2026 Diovanny.dev - Todos os direitos reservados</p>
+  <p><strong>Admin Dashboard</strong> -- Projeto de estudo</p>
+  <p>2026 Diovanny.dev</p>
 </div>
