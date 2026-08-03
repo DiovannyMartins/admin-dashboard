@@ -19,14 +19,6 @@ Dashboard administrativo para gerenciamento de usuários, estatísticas e notifi
 
 ---
 
-## Demo
-
-[![Preview do Admin Dashboard](https://github.com/user-attachments/assets/12995740-aa1b-47dd-a5fe-32ea71856f92)](https://diovannymartins.github.io/admin-dashboard/)
-
-**[Acesse a demo ao vivo](https://diovannymartins.github.io/admin-dashboard/)**
-
----
-
 ## Tecnologias
 
 | Tecnologia | Utilização |
@@ -199,31 +191,6 @@ admin-dashboard/
 - **Design tokens** -- CSS Variables centralizam a paleta e espaçamentos, facilitando a troca de temas
 - **Performance percebida** -- debounce na busca e CSS transitions criam sensação de fluidez sem custo de JavaScript pesado
 - **Mobile first** -- começar pelo mobile obriga a priorizar conteúdo e resulta em layout mais limpo no desktop também
-
----
-
-## Testes
-
-Este projeto não possui suite de testes automatizados. A validação é feita manualmente:
-
-- **Funcional**: CRUD completo de usuários, filtros, paginação, export CSV, undo
-- **Acessibilidade**: Navegação completa por teclado (Tab, Shift+Tab, Escape, Enter), validação com screen reader (NVDA/VoiceOver), contraste verificado com WebAIM Contrast Checker
-- **Responsivo**: Testado em Chrome DevTools (320px, 768px, 1024px, 1440px) e dispositivos reais
-- **Temas**: Alternância dark/light com persistência após reload, detecção de preferência do sistema via `prefers-color-scheme`
-- **Performance**: Lighthouse score > 90 em Performance, Accessibility, Best Practices
-
----
-
-## Roadmap
-
-- [ ] Migrar dados para backend real (API REST ou Firebase)
-- [ ] Adicionar testes unitários com Jest ou Vitest
-- [ ] Implementar E2E tests com Playwright
-- [ ] Adicionar animações de entrada com View Transitions API
-- [ ] Suporte a PWA (Service Worker, manifest.json)
-- [ ] Internacionalização (i18n) com suporte a inglês/português
-- [ ] Gráficos mais complexos com Chart.js ou D3.js
-- [ ] Sistema de autenticação (login, registro, recuperação de senha)
 
 ---
 
