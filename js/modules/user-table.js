@@ -31,7 +31,7 @@ export class UserTable {
 
     // Migra dados antigos (sem campo email)
     const stored = StorageService.get('usuarios', null);
-    if (stored && stored.length > 0) {
+    if (stored && Array.isArray(stored) && stored.length > 0) {
       this.users = stored.map(u => ({
         ...u,
         email: u.email || ''
@@ -195,7 +195,9 @@ export class UserTable {
     if (!field) return;
     
     array.sort((a, b) => {
-      const result = a[field].localeCompare(b[field], 'pt-BR', { sensitivity: 'base' });
+      const valA = String(a[field] || '');
+      const valB = String(b[field] || '');
+      const result = valA.localeCompare(valB, 'pt-BR', { sensitivity: 'base' });
       return direction === 'asc' ? result : -result;
     });
   }
@@ -436,6 +438,14 @@ export class UserTable {
 
     const nome = this.modalNome.value.trim();
     const email = this.modalEmail ? this.modalEmail.value.trim() : '';
+
+    // Validação de email duplicado
+    if (email && this.users.some(u => u.email.toLowerCase() === email.toLowerCase() && u.id !== this.editingId)) {
+      this._showError(this.errorEmail, 'Email já cadastrado');
+      showToast('Email já está em uso por outro usuário', 'error');
+      return;
+    }
+
     const data = { nome, email, status: this.modalStatus.value, plano: this.modalPlano.value };
 
     if (this.editingId) {
@@ -460,7 +470,9 @@ export class UserTable {
    */
   _deleteUser(user) {
     // Salva usuário para possível undo
-    this.lastDeletedUser = { ...user, index: this.users.findIndex(u => u.id === user.id) };
+    const deleteIndex = this.users.findIndex(u => u.id === user.id);
+    if (deleteIndex === -1) return;
+    this.lastDeletedUser = { ...user, index: deleteIndex };
     
     // Remove usuário
     this.users = this.users.filter(u => u.id !== user.id);
@@ -505,6 +517,7 @@ export class UserTable {
    */
   _persist() {
     StorageService.set('usuarios', this.users);
+    // Ponto de extensão: outros módulos podem escutar users:changed
     eventBus.emit('users:changed', this.users);
   }
 
@@ -520,7 +533,7 @@ export class UserTable {
     
     const header = 'Nome,Email,Status,Plano';
     const rows = this.users.map(u =>
-      `"${u.nome.replace(/"/g, '""')}","${u.email || ''}","${u.status}","${u.plano}"`
+      `"${u.nome.replace(/"/g, '""')}","${(u.email || '').replace(/"/g, '""')}","${u.status}","${u.plano}"`
     );
     const csv = [header, ...rows].join('\n');
     const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });

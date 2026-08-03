@@ -30,10 +30,6 @@
    SEARCH BOX - CAMPO DE BUSCA COM ATALHO
    ========================================================================== */
 
-.search-box {
-  position: relative;
-}
-
 .search-icon-wrapper {
   position: absolute;
   left: 14px;

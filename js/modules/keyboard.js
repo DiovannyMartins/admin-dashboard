@@ -29,10 +29,11 @@ export class KeyboardShortcuts {
   _bindShortcuts() {
     document.addEventListener('keydown', (e) => {
       // Ignora se está em input/select/textarea (exceto Escape)
-      const isInput = ['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName);
+      const tag = document.activeElement?.tagName ?? '';
+      const isInput = ['INPUT', 'SELECT', 'TEXTAREA'].includes(tag);
       
       if (e.key === 'Escape') {
-        // Escape sempre funciona
+        // Escape é delegado aos componentes (Modal, Sidebar, Dropdown)
         return;
       }
       

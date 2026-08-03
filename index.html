@@ -14,9 +14,10 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
   <div class="layout-grid">
 
-    <aside class="sidebar" aria-label="Menu principal">
+    <aside id="sidebar" class="sidebar" aria-label="Menu principal">
       <div class="logo">
         <span class="logo-icon" data-icon="dashboard" data-size="28"></span>
         <h2>DASHBOARD</h2>
@@ -75,7 +76,7 @@
               <span class="badge-notification" id="badgeNotificacao" aria-live="polite">0</span>
             </button>
 
-            <div class="notification-dropdown" id="notificationDropdown" role="menu" aria-label="Lista de notificações">
+            <div class="notification-dropdown" id="notificationDropdown" role="region" aria-label="Lista de notificações">
               <div class="notification-header">Notificações</div>
               <div id="listaNotificacoes" role="list"></div>
             </div>
@@ -85,7 +86,7 @@
             title="Alternar tema (Ctrl+T)">
           </button>
 
-          <div class="user-avatar" role="button" tabindex="0" aria-label="Perfil do usuário" title="Meu Perfil">
+          <div class="user-avatar" role="button" tabindex="0" aria-label="Perfil do usuário" aria-expanded="false" aria-haspopup="true" title="Meu Perfil">
             <span>DY</span>
           </div>
         </div>
@@ -233,9 +234,10 @@
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
   <div class="modal-overlay" id="modalOverlay"></div>
-  <div class="modal-usuario" id="modalUsuario" role="dialog" aria-labelledby="modalTitulo" aria-modal="true">
+  <div class="modal-usuario" id="modalUsuario" role="dialog" aria-labelledby="modalTitulo" aria-describedby="modalDescricao">
     <div class="modal-header">
       <h3 id="modalTitulo">Detalhes do Usuário</h3>
+      <p id="modalDescricao" class="sr-only">Formulário para visualizar, criar ou editar dados do usuário.</p>
       <button type="button" data-modal-close id="btnFecharModal" aria-label="Fechar modal">
         <span data-icon="close" data-size="18"></span>
       </button>

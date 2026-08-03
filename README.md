@@ -43,7 +43,7 @@ Dashboard administrativo para gerenciamento de usuários, estatísticas e notifi
 
 Este é um projeto de estudo focado em praticar arquitetura frontend sem frameworks. As decisões técnicas principais:
 
-- **Arquitetura CSS em camadas** para organizar estilos por especificidade: `base` > `layout` > `components` > `pages` > `responsive` > `themes` > `utils`
+- **Arquitetura CSS em camadas** para organizar estilos por especificidade: `base` > `layout` > `components` > `pages` > `responsive` > `utils`
 - **ES Modules nativos** (`type="module"`) para separação de responsabilidades sem bundler
 - **EventBus (pub/sub)** para comunicação entre módulos sem acoplamento direto
 - **CSS Variables** para design tokens, facilitando a troca de temas e manutenção da paleta
@@ -128,11 +128,6 @@ npx serve
 ```
 Acesse: http://localhost:3000
 
-**Opção D: PowerShell (Windows)**
-```powershell
-./build-css.ps1
-```
-
 ---
 
 ## Estrutura de pastas
@@ -164,11 +159,9 @@ admin-dashboard/
 │   │   ├── responsive/
 │   │   │   ├── mobile.css           # Breakpoint < 768px
 │   │   │   └── tablet.css           # Breakpoint 768px - 1024px
-│   │   ├── themes/
-│   │   │   └── dark.css             # Overrides para tema escuro
 │   │   └── utils/
 │   │       └── skip-link.css        # Skip link acessível
-│   └── style.css                    # Ponto de entrada (importa todos os módulos)
+│   └── style.css                    # CSS consolidado (todos os módulos concatenados)
 ├── js/
 │   ├── components/
 │   │   ├── bar-chart.js             # Gráfico de barras animado
@@ -191,8 +184,6 @@ admin-dashboard/
 │   │   ├── event-bus.js             # Pub/sub para comunicação entre módulos
 │   │   └── icons.js                 # Biblioteca de 20+ ícones SVG
 │   └── app.js                       # Ponto de entrada (inicializa todos os módulos)
-├── build-css.js                     # Script Node para concatenar CSS
-├── build-css.ps1                    # Script PowerShell para concatenar CSS
 ├── index.html                       # Página principal
 └── README.md
 ```

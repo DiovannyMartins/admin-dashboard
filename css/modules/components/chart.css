@@ -77,7 +77,7 @@
 }
 
 .bar-green {
-  background: linear-gradient(180deg, var(--success) 0%, #059669 100%);
+  background: linear-gradient(180deg, var(--success) 0%, var(--success-dark) 100%);
 }
 
 /* Label abaixo das barras */

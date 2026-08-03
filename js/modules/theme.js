@@ -86,7 +86,7 @@ export class ThemeManager {
     try {
       localStorage.setItem('theme', this.theme);
     } catch {
-      // Silencioso - modo privado pode falhar
+      console.warn('ThemeManager: não foi possível salvar tema no localStorage');
     }
   }
 

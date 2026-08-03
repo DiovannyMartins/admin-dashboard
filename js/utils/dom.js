@@ -36,10 +36,10 @@ export function $$(selector, context = document) {
 export function createElement(tag, attrs = {}, children = []) {
   const el = document.createElement(tag);
   for (const [key, value] of Object.entries(attrs)) {
+    if (value === undefined) continue;
     if (key === 'className') el.className = value;
     else if (key === 'dataset') Object.assign(el.dataset, value);
     else if (key.startsWith('on') && typeof value === 'function') {
-      // Converte onClick -> click, onMouseover -> mouseover, etc.
       el.addEventListener(key.slice(2).toLowerCase(), value);
     } else if (key === 'html') el.innerHTML = value;
     else el.setAttribute(key, value);

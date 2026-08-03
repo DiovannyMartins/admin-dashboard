@@ -3,14 +3,15 @@
  * Gerencia lista de notificações com marcar como lida e limpar todas
  */
 
-import { $, createElement } from '../utils/dom.js';
+import { $, createElement, generateId } from '../utils/dom.js';
 import { Dropdown } from '../components/dropdown.js';
 import { Icon } from '../utils/icons.js';
+import { StorageService } from '../services/storage.service.js';
 
 const DEFAULT_NOTIFICATIONS = [
-  { id: 1, text: 'Novo usuário cadastrado: Ana Dias', read: false },
-  { id: 2, text: 'Meta de vendas de Quarta atingida!', read: false },
-  { id: 3, text: 'Servidor com uso de disco em 80%', read: false },
+  { id: generateId(), text: 'Novo usuário cadastrado: Ana Dias', read: false },
+  { id: generateId(), text: 'Meta de vendas de Quarta atingida!', read: false },
+  { id: generateId(), text: 'Servidor com uso de disco em 80%', read: false },
 ];
 
 export class Notifications {
@@ -19,7 +20,13 @@ export class Notifications {
     this.dropdownEl = $('#notificationDropdown');
     this.badge = $('#badgeNotificacao');
     this.listEl = $('#listaNotificacoes');
-    this.notifications = [...DEFAULT_NOTIFICATIONS];
+
+    const stored = StorageService.get('notifications', null);
+    if (stored && Array.isArray(stored)) {
+      this.notifications = stored;
+    } else {
+      this.notifications = [...DEFAULT_NOTIFICATIONS];
+    }
 
     this.dropdown = new Dropdown(this.trigger, this.dropdownEl);
     this._renderIcons();
@@ -96,6 +103,7 @@ export class Notifications {
   _markAsRead(id) {
     const n = this.notifications.find(n => n.id === id);
     if (n) n.read = true;
+    this._persist();
     this._render();
   }
 
@@ -105,6 +113,15 @@ export class Notifications {
    */
   _clearAll() {
     this.notifications = [];
+    this._persist();
     this._render();
+  }
+
+  /**
+   * Persiste notificações em localStorage
+   * @private
+   */
+  _persist() {
+    StorageService.set('notifications', this.notifications);
   }
 }

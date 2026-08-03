@@ -9,7 +9,7 @@ import { Icon } from '../utils/icons.js';
 export class Sidebar {
   constructor() {
     this.toggle = $('#menuToggle');
-    this.sidebar = $('.sidebar');
+    this.sidebar = $('#sidebar');
     this.overlay = $('#sidebarOverlay');
     this.links = $$('.sidebar-menu a');
     
@@ -33,12 +33,11 @@ export class Sidebar {
       this.overlay.addEventListener('click', () => this.close());
     }
 
-    // Fecha com Escape
-    document.addEventListener('keydown', (e) => {
+    this._onEscape = (e) => {
       if (e.key === 'Escape' && this.sidebar.classList.contains('active')) {
         this.close();
       }
-    });
+    };
   }
 
   /**
@@ -77,6 +76,12 @@ export class Sidebar {
     
     // Previne scroll do body quando sidebar está aberta
     document.body.style.overflow = isActive ? 'hidden' : '';
+
+    if (isActive) {
+      document.addEventListener('keydown', this._onEscape);
+    } else {
+      document.removeEventListener('keydown', this._onEscape);
+    }
   }
 
   /**
@@ -92,5 +97,6 @@ export class Sidebar {
     }
     
     document.body.style.overflow = '';
+    document.removeEventListener('keydown', this._onEscape);
   }
 }

@@ -33,9 +33,6 @@ class App {
 
     // Inicializa atalhos de teclado
     this._initKeyboardShortcuts();
-
-    // Adiciona skip link dinamicamente
-    this._addSkipLink();
   }
 
   /**
@@ -80,18 +77,6 @@ class App {
         this.theme.toggle();
       },
     });
-  }
-
-  /**
-   * Adiciona skip link para acessibilidade
-   * @private
-   */
-  _addSkipLink() {
-    const skipLink = document.createElement("a");
-    skipLink.href = "#main-content";
-    skipLink.className = "skip-link";
-    skipLink.textContent = "Pular para conteúdo principal";
-    document.body.insertBefore(skipLink, document.body.firstChild);
   }
 }
 

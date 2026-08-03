@@ -14,7 +14,6 @@ export class UserProfile {
     if (!this.avatar) return;
 
     this._createDropdown();
-    this._bindEvents();
   }
 
   /**
@@ -28,29 +27,34 @@ export class UserProfile {
       'aria-label': 'Menu do perfil'
     });
 
-    this.dropdownEl.innerHTML = `
-      <div class="profile-dropdown-header">
-        <div class="profile-avatar-large">DY</div>
-        <div class="profile-info">
-          <div class="profile-name">Diovanny Martins</div>
-          <div class="profile-email">diovanny@exemplo.com</div>
-        </div>
-      </div>
-      <div class="profile-dropdown-menu">
-        <button class="profile-menu-item" data-action="profile">
-          <span data-icon="user" data-size="16"></span>
-          Meu Perfil
-        </button>
-        <button class="profile-menu-item" data-action="settings">
-          <span data-icon="settings" data-size="16"></span>
-          Configurações
-        </button>
-        <div class="profile-divider"></div>
-        <button class="profile-menu-item profile-menu-logout" data-action="logout">
-          Sair
-        </button>
-      </div>
-    `;
+    const header = createElement('div', { className: 'profile-dropdown-header' });
+    header.appendChild(createElement('div', { className: 'profile-avatar-large' }, ['DY']));
+    const info = createElement('div', { className: 'profile-info' });
+    info.appendChild(createElement('div', { className: 'profile-name' }, ['Diovanny Martins']));
+    info.appendChild(createElement('div', { className: 'profile-email' }, ['diovanny@exemplo.com']));
+    header.appendChild(info);
+    this.dropdownEl.appendChild(header);
+
+    const menu = createElement('div', { className: 'profile-dropdown-menu' });
+
+    const btnProfile = createElement('button', { className: 'profile-menu-item', 'data-action': 'profile' });
+    const iconProfile = createElement('span', { 'data-icon': 'user', 'data-size': '16' });
+    btnProfile.appendChild(iconProfile);
+    btnProfile.appendChild(document.createTextNode('Meu Perfil'));
+    menu.appendChild(btnProfile);
+
+    const btnSettings = createElement('button', { className: 'profile-menu-item', 'data-action': 'settings' });
+    const iconSettings = createElement('span', { 'data-icon': 'settings', 'data-size': '16' });
+    btnSettings.appendChild(iconSettings);
+    btnSettings.appendChild(document.createTextNode('Configurações'));
+    menu.appendChild(btnSettings);
+
+    menu.appendChild(createElement('div', { className: 'profile-divider' }));
+
+    const btnLogout = createElement('button', { className: 'profile-menu-item profile-menu-logout', 'data-action': 'logout' }, ['Sair']);
+    menu.appendChild(btnLogout);
+
+    this.dropdownEl.appendChild(menu);
 
     document.body.appendChild(this.dropdownEl);
     this.dropdown = new Dropdown(this.avatar, this.dropdownEl);
@@ -64,19 +68,6 @@ export class UserProfile {
     // Bind actions
     this.dropdownEl.querySelectorAll('[data-action]').forEach(btn => {
       btn.addEventListener('click', () => this._handleAction(btn.dataset.action));
-    });
-  }
-
-  /**
-   * Bind de eventos do avatar
-   * @private
-   */
-  _bindEvents() {
-    this.avatar.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        this.dropdown.toggle();
-      }
     });
   }
 

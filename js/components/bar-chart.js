@@ -12,7 +12,7 @@
  *   { dia: 'Ter', vendas: 65, metas: 35 }
  * ]);
  */
-import { createElement, sanitize } from '../utils/dom.js';
+import { createElement } from '../utils/dom.js';
 
 export class BarChart {
   /**
@@ -32,6 +32,7 @@ export class BarChart {
    * @param {Object[]} data - Array de objetos com { dia, valor1, valor2, ... }
    */
   render(data) {
+    if (!this.container) return;
     this.container.innerHTML = '';
 
     // Cria legenda

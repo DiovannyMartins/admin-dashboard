@@ -9,6 +9,19 @@ export class Dropdown {
     this.dropdown = dropdownEl;
     this.isOpen = false;
 
+    this._onClickOutside = (e) => {
+      if (this.isOpen && !this.dropdown.contains(e.target)) {
+        this.close();
+      }
+    };
+
+    this._onEscape = (e) => {
+      if (e.key === 'Escape' && this.isOpen) {
+        this.close();
+        this.trigger.focus();
+      }
+    };
+
     // Toggle ao clicar no trigger
     this.trigger.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -18,21 +31,6 @@ export class Dropdown {
     // Previne fechamento ao clicar dentro do dropdown
     this.dropdown.addEventListener('click', (e) => {
       e.stopPropagation();
-    });
-
-    // Fecha ao clicar fora
-    document.addEventListener('click', (e) => {
-      if (this.isOpen && !this.dropdown.contains(e.target)) {
-        this.close();
-      }
-    });
-
-    // Fecha com Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.isOpen) {
-        this.close();
-        this.trigger.focus();
-      }
     });
   }
 
@@ -50,6 +48,8 @@ export class Dropdown {
     this.isOpen = true;
     this.dropdown.classList.add('active');
     this.trigger.setAttribute('aria-expanded', 'true');
+    document.addEventListener('click', this._onClickOutside);
+    document.addEventListener('keydown', this._onEscape);
   }
 
   /**
@@ -59,5 +59,7 @@ export class Dropdown {
     this.isOpen = false;
     this.dropdown.classList.remove('active');
     this.trigger.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('click', this._onClickOutside);
+    document.removeEventListener('keydown', this._onEscape);
   }
 }
