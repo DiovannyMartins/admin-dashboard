@@ -1,0 +1,16 @@
+{
+  "name": "admin-dashboard",
+  "version": "0.1.0",
+  "description": "Dashboard administrativo full-stack (front vanilla + API Node + Express + SQLite)",
+  "type": "module",
+  "scripts": {
+    "dev": "node backend/src/server.js",
+    "start": "node backend/src/server.js",
+    "test": "node --test backend/tests/"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
