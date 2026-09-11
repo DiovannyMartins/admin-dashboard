@@ -112,7 +112,7 @@ export function seedDatabase(db) {
   const { total: projectsTotal } = db.prepare('SELECT COUNT(*) AS total FROM projects').get();
   const { total: salesTotal } = db.prepare('SELECT COUNT(*) AS total FROM sales').get();
   const { total: notificationsTotal } = db.prepare('SELECT COUNT(*) AS total FROM notifications').get();
-  if (total > 0 || projectsTotal > 0 || salesTotal > 0 || notificationsTotal > 0) return; // idempotente: não duplica o demo
+  const { total: goalsTotal } = db.prepare('SELECT COUNT(*) AS total FROM weekly_goals').get();
 
   const insertUser = db.prepare('INSERT INTO users (nome, email, status, plano) VALUES (?, ?, ?, ?)');
   const insertProject = db.prepare('INSERT INTO projects (nome, status) VALUES (?, ?)');
@@ -122,12 +122,14 @@ export function seedDatabase(db) {
   );
   const insertGoal = db.prepare('INSERT INTO weekly_goals (dia, meta) VALUES (?, ?)');
 
+  // Idempotente por tabela: só preenche o que está vazio (nunca duplica o demo
+  // nem zera metas quando só uma tabela foi esvaziada).
   const seedAll = db.transaction(() => {
-    for (const u of USUARIOS_SEED) insertUser.run(u.nome, u.email, u.status, u.plano);
-    for (const p of PROJETOS_SEED) insertProject.run(p.nome, p.status);
-    for (const s of VENDAS_SEED) insertSale.run(s.descricao, s.valor, s.dia);
-    for (const n of NOTIFICACOES_SEED) insertNotification.run(n.titulo, n.mensagem, n.lida);
-    for (const g of METAS_SEED) insertGoal.run(g.dia, g.meta);
+    if (total === 0) for (const u of USUARIOS_SEED) insertUser.run(u.nome, u.email, u.status, u.plano);
+    if (projectsTotal === 0) for (const p of PROJETOS_SEED) insertProject.run(p.nome, p.status);
+    if (salesTotal === 0) for (const s of VENDAS_SEED) insertSale.run(s.descricao, s.valor, s.dia);
+    if (notificationsTotal === 0) for (const n of NOTIFICACOES_SEED) insertNotification.run(n.titulo, n.mensagem, n.lida);
+    if (goalsTotal === 0) for (const g of METAS_SEED) insertGoal.run(g.dia, g.meta);
   });
 
   seedAll();

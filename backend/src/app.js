@@ -38,7 +38,7 @@ export function createApp({ dbPath } = {}) {
     const dbUp = isDatabaseUp(db);
     if (!dbUp) {
       return res.status(503).json({
-        error: { code: 'DB_UNAVAILABLE', message: 'Banco de dados indisponível' },
+        error: { code: 'INTERNAL_ERROR', message: 'Banco de dados indisponível' },
       });
     }
     return res.json({ status: 'ok', db: 'up', seed: getCounts(db) });

@@ -33,9 +33,10 @@ export function validateUserInput(input = {}, { partial = false } = {}) {
     }
   }
 
-  // email (opcional)
+  // email (opcional; '' em update parcial limpa para null)
   if (input.email === undefined || input.email === null || input.email === '') {
     if (!partial) value.email = null;
+    else if (input.email === '') value.email = null;
   } else if (typeof input.email !== 'string' || !EMAIL_RE.test(input.email.trim())) {
     errors.push({ field: 'email', message: 'Email inválido' });
   } else {
