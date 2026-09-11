@@ -44,7 +44,7 @@ export const FALLBACK_NOTIFICATIONS = [
   { id: 4, titulo: 'Projeto concluído', mensagem: 'Blog corporativo foi marcado como concluído.', lida: false },
   { id: 3, titulo: 'Venda aprovada', mensagem: 'Assinatura Premium de R$ 499,90 confirmada.', lida: false },
   { id: 2, titulo: 'Meta semanal atualizada', mensagem: 'A meta de sexta-feira foi revisada.', lida: false },
-  { id: 1, titulo: 'Novo usuário cadastrado', mensagem: 'João Silva criou uma conta Premium.', lida: false },
+  { id: 1, titulo: 'Novo usuário cadastrado', mensagem: 'João Silva criou um Usuário Premium.', lida: false },
 ];
 
 /** Vendas agregadas por dia (somatório do seed do back-end). */

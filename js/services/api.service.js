@@ -246,7 +246,9 @@ export class ApiService {
   _loadUsersLocal() {
     if (this._users) return this._users;
     const stored = StorageService.get('usuarios', null);
-    if (stored && Array.isArray(stored) && stored.length > 0) {
+    if (stored && Array.isArray(stored)) {
+      // Array vazio é estado intencional (tabela esvaziada); só usa o seed
+      // quando nunca houve persistência (null), nunca ressuscitando dados.
       this._users = stored.map((u) => ({ ...u, email: u.email || '' }));
     } else {
       this._users = structuredClone(FALLBACK_USERS);
@@ -298,7 +300,10 @@ export class ApiService {
       else value.nome = nome;
     }
     if (input.email === undefined || input.email === null || input.email === '') {
-      if (!partial) value.email = '';
+      // Espelha o back-end (validate.js): '' limpa para vazio/nulo, inclusive
+      // em update parcial; o front representa ausência como '' (ver toUserJson).
+      value.email = '';
+      if (partial && input.email === undefined) delete value.email;
     } else if (typeof input.email !== 'string' || !EMAIL_RE.test(input.email.trim())) {
       errors.push({ field: 'email', message: 'Email inválido' });
     } else {
