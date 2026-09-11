@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { validateUserInput, toUserJson, STATUS_VALIDOS, PLANOS_VALIDOS } from './validate.js';
+import { USER_SORTS_VALIDOS } from '../../shared/user-domain.js';
 import { createError } from './errors.js';
 
 /**
@@ -13,11 +14,11 @@ import { createError } from './errors.js';
  * - POST /api/users/:id/restore (undo de 5s do front)
  */
 
-const SORTS_VALIDOS = ['nome', 'status', 'plano', 'created_at', 'id'];
+const SORTS_VALIDOS = USER_SORTS_VALIDOS;
 
 function parseListParams(query) {
   const errors = [];
-  const q = typeof query.q === 'string' ? query.q.trim() : '';
+  const searchTerm = typeof query.q === 'string' ? query.q.trim() : '';
 
   let status;
   if (query.status !== undefined && query.status !== '') {
@@ -57,7 +58,7 @@ function parseListParams(query) {
     errors.push({ field: 'per_page', message: 'per_page deve ser inteiro entre 1 e 100' });
   }
 
-  return { params: { q, status, plano, sort, order, page, perPage }, errors };
+  return { params: { q: searchTerm, status, plano, sort, order, page, perPage }, errors };
 }
 
 function emailEmUso(db, email, excetoId = null) {
@@ -78,28 +79,28 @@ export function createUsersRouter(db) {
       }
       const { q, status, plano, sort, order, page, perPage } = params;
 
-      const conds = [];
-      const args = [];
+      const conditions = [];
+      const sqlArgs = [];
       if (q) {
-        conds.push('(nome LIKE ? COLLATE NOCASE OR email LIKE ? COLLATE NOCASE)');
-        args.push(`%${q}%`, `%${q}%`);
+        conditions.push('(nome LIKE ? COLLATE NOCASE OR email LIKE ? COLLATE NOCASE)');
+        sqlArgs.push(`%${q}%`, `%${q}%`);
       }
       if (status) {
-        conds.push('status = ?');
-        args.push(status);
+        conditions.push('status = ?');
+        sqlArgs.push(status);
       }
       if (plano) {
-        conds.push('plano = ?');
-        args.push(plano);
+        conditions.push('plano = ?');
+        sqlArgs.push(plano);
       }
-      const where = conds.length > 0 ? `WHERE ${conds.join(' AND ')}` : '';
+      const where = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
 
-      const { total } = db.prepare(`SELECT COUNT(*) AS total FROM users ${where}`).get(...args);
+      const { total } = db.prepare(`SELECT COUNT(*) AS total FROM users ${where}`).get(...sqlArgs);
       const totalPages = Math.max(1, Math.ceil(total / perPage));
       const offset = (page - 1) * perPage;
       const rows = db
         .prepare(`SELECT * FROM users ${where} ORDER BY ${sort} ${order === 'asc' ? 'ASC' : 'DESC'} LIMIT ? OFFSET ?`)
-        .all(...args, perPage, offset);
+        .all(...sqlArgs, perPage, offset);
 
       return res.json({
         data: rows.map(toUserJson),

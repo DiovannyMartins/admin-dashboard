@@ -21,11 +21,13 @@ import {
   FALLBACK_GOALS_BY_DAY,
   FALLBACK_ACTIVE_PROJECTS,
 } from './fallback-seed.js';
+import {
+  USER_SORTS_VALIDOS,
+  validateUserInput,
+} from '../../shared/user-domain.js';
 
 export const API_BASE_URL = 'http://localhost:3001/api';
 const REQUEST_TIMEOUT_MS = 2500;
-const SORTS_VALIDOS = ['nome', 'status', 'plano', 'created_at', 'id'];
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export class ApiError extends Error {
   constructor(message, { code = 'INTERNAL_ERROR', status = 500, details } = {}) {
@@ -60,11 +62,10 @@ export class ApiService {
   /** Sonda a API; define o modo online/offline inicial. */
   async init() {
     try {
-      await this._request('/health', { allowOffline: false });
+      await this._request('/health');
       this.online = true;
-    } catch (err) {
-      if (err?.offline) this.online = false;
-      else this.online = false;
+    } catch {
+      this.online = false;
     }
     return this.online;
   }
@@ -75,7 +76,7 @@ export class ApiService {
 
   // ---- HTTP ----
 
-  async _request(path, { method = 'GET', body, allowOffline = true } = {}) {
+  async _request(path, { method = 'GET', body } = {}) {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), this.timeoutMs);
     let res;
@@ -102,7 +103,6 @@ export class ApiService {
     try {
       return await res.json();
     } catch {
-      if (!allowOffline) throw ApiError.offline();
       throw new ApiError('Resposta inválida da API', { code: 'INTERNAL_ERROR', status: res.status });
     }
   }
@@ -286,44 +286,13 @@ export class ApiService {
     StorageService.set('notifications', all);
   }
 
-  /** Validação espelhada do back-end para o modo offline. */
+  /**
+   * Validação espelhada do back-end para o modo offline.
+   * Delega para `shared/user-domain.js` (fonte única); o front representa
+   * email ausente como '' (ver `toUserJson` no back-end).
+   */
   _validateLocal(input, { partial = false } = {}) {
-    const errors = [];
-    const value = {};
-    if (input.nome === undefined && partial) {
-      // mantém atual
-    } else {
-      const nome = typeof input.nome === 'string' ? input.nome.trim() : '';
-      if (!nome) errors.push({ field: 'nome', message: 'Nome é obrigatório' });
-      else if (nome.length < 2) errors.push({ field: 'nome', message: 'Nome deve ter pelo menos 2 caracteres' });
-      else if (nome.length > 100) errors.push({ field: 'nome', message: 'Nome deve ter no máximo 100 caracteres' });
-      else value.nome = nome;
-    }
-    if (input.email === undefined || input.email === null || input.email === '') {
-      // Espelha o back-end (validate.js): '' limpa para vazio/nulo, inclusive
-      // em update parcial; o front representa ausência como '' (ver toUserJson).
-      value.email = '';
-      if (partial && input.email === undefined) delete value.email;
-    } else if (typeof input.email !== 'string' || !EMAIL_RE.test(input.email.trim())) {
-      errors.push({ field: 'email', message: 'Email inválido' });
-    } else {
-      value.email = input.email.trim();
-    }
-    if (input.status === undefined) {
-      if (!partial) value.status = 'Ativo';
-    } else if (!['Ativo', 'Inativo'].includes(input.status)) {
-      errors.push({ field: 'status', message: 'Status de Usuário deve ser Ativo ou Inativo' });
-    } else {
-      value.status = input.status;
-    }
-    if (input.plano === undefined) {
-      if (!partial) value.plano = 'Básico';
-    } else if (!['Básico', 'Premium'].includes(input.plano)) {
-      errors.push({ field: 'plano', message: 'Plano deve ser Básico ou Premium' });
-    } else {
-      value.plano = input.plano;
-    }
-    return { value, errors };
+    return validateUserInput(input, { partial, emptyEmail: '' });
   }
 
   _assertValidLocal(result) {
@@ -355,7 +324,7 @@ export class ApiService {
     }
     if (status) filtered = filtered.filter((u) => u.status === status);
     if (plano) filtered = filtered.filter((u) => u.plano === plano);
-    const campo = SORTS_VALIDOS.includes(sort) ? sort : 'id';
+    const campo = USER_SORTS_VALIDOS.includes(sort) ? sort : 'id';
     const dir = order === 'asc' ? 1 : -1;
     filtered.sort((a, b) => {
       if (campo === 'id') return (Number(a.id) - Number(b.id)) * dir;

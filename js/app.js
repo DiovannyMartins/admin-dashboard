@@ -53,7 +53,9 @@ class App {
   }
 
   /**
-   * Inicializa gráfico de barras (vendas vs metas Seg–Sex, normalizado em %)
+   * Inicializa gráfico de barras com valores REAIS da API (vendas vs metas).
+   * A normalização para % de altura acontece dentro do BarChart; aqui passam
+   * os números reais, com fallback estático só se API e seed local falharem.
    * @private
    */
   async _initChart() {
@@ -61,12 +63,7 @@ class App {
     try {
       const weekly = await apiService.getWeekly();
       if (Array.isArray(weekly) && weekly.length > 0) {
-        const max = Math.max(1, ...weekly.flatMap((d) => [d.vendas, d.meta]));
-        chartData = weekly.map((d) => ({
-          dia: d.dia,
-          vendas: Math.round((d.vendas / max) * 100),
-          metas: Math.round((d.meta / max) * 100),
-        }));
+        chartData = weekly.map((d) => ({ dia: d.dia, vendas: d.vendas, metas: d.meta }));
       }
     } catch {
       // Mantém fallback estático

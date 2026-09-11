@@ -126,7 +126,7 @@ describe('ApiService fallback offline (issue #7)', () => {
     const stats = await api.getStats();
     assert.equal(stats.usuarios_totais, 28);
     assert.equal(stats.projetos_ativos, 8);
-    assert.equal(stats.vendas_total, 33);
+    assert.equal(stats.vendas_total, 32); // 5+6+6+5+10 vendas do seed (igual ao banco online)
     assert.ok(stats.receita_total > 17000);
 
     const weekly = await api.getWeekly();

@@ -28,7 +28,9 @@ export class BarChart {
   }
 
   /**
-   * Renderiza o gráfico com os dados fornecidos
+   * Renderiza o gráfico com os dados fornecidos.
+   * Recebe valores REAIS (ex: vendas em R$) e normaliza para % da altura
+   * internamente; o tooltip (`title`) exibe o valor real.
    * @param {Object[]} data - Array de objetos com { dia, valor1, valor2, ... }
    */
   render(data) {
@@ -50,21 +52,23 @@ export class BarChart {
     const chartArea = createElement('div', { className: 'chart-area' });
 
     // Renderiza cada grupo de barras (um por dia/período)
+    const max = Math.max(1, ...data.flatMap((item) => Object.values(item).filter((v) => typeof v === 'number')));
     data.forEach((item, idx) => {
       const group = createElement('div', { className: 'bar-group' });
       const wrapper = createElement('div', { className: 'bars-wrapper' });
 
-      // Pega apenas valores numéricos do objeto (ex: vendas: 40, metas: 60)
+      // Pega apenas valores numéricos do objeto (ex: vendas: 2549.7, meta: 3000)
       const values = Object.values(item).filter(v => typeof v === 'number');
       values.forEach((val, i) => {
         const bar = createElement('div', { className: `bar ${this.barClasses[i]}` });
+        bar.title = `${this.legendLabels[i] ?? ''}: ${val}`.trim();
         // Começa com altura 0 para animar
         bar.style.height = '0%';
         wrapper.appendChild(bar);
         // Anima com delay escalonado (cada grupo aparece após o anterior)
         requestAnimationFrame(() => {
           setTimeout(() => {
-            bar.style.height = `${val}%`;
+            bar.style.height = `${Math.round((val / max) * 100)}%`;
           }, idx * 80); // 80ms de delay entre grupos
         });
       });

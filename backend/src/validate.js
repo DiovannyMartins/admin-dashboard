@@ -1,67 +1,22 @@
 /**
- * validate — validação espelhada front/back de Usuário.
+ * validate — validação de Usuário no back-end.
  *
- * Regras (spec #1, issues #3/#7):
- * - nome obrigatório, 2–100 caracteres (após trim)
- * - email opcional; vazio/null ausente; se informado, formato válido
- * - Status de Usuário restrito a Ativo/Inativo (default Ativo)
- * - Plano restrito a Básico/Premium (default Básico)
+ * Delega para `shared/user-domain.js` (fonte única, espelhada no front para o
+ * modo offline). Reexporta os símbolos para os importadores existentes.
+ * Email ausente vira null no banco (`toUserJson` expõe '' ao front).
  */
 
-export const STATUS_VALIDOS = ['Ativo', 'Inativo'];
-export const PLANOS_VALIDOS = ['Básico', 'Premium'];
+import {
+  STATUS_VALIDOS,
+  PLANOS_VALIDOS,
+  EMAIL_RE,
+  validateUserInput as sharedValidate,
+} from '../../shared/user-domain.js';
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export { STATUS_VALIDOS, PLANOS_VALIDOS, EMAIL_RE };
 
 export function validateUserInput(input = {}, { partial = false } = {}) {
-  const errors = [];
-  const value = {};
-
-  // nome
-  if (input.nome === undefined && partial) {
-    // ausente em update parcial: mantém atual
-  } else {
-    const nome = typeof input.nome === 'string' ? input.nome.trim() : '';
-    if (!nome) {
-      errors.push({ field: 'nome', message: 'Nome é obrigatório' });
-    } else if (nome.length < 2) {
-      errors.push({ field: 'nome', message: 'Nome deve ter pelo menos 2 caracteres' });
-    } else if (nome.length > 100) {
-      errors.push({ field: 'nome', message: 'Nome deve ter no máximo 100 caracteres' });
-    } else {
-      value.nome = nome;
-    }
-  }
-
-  // email (opcional; '' em update parcial limpa para null)
-  if (input.email === undefined || input.email === null || input.email === '') {
-    if (!partial) value.email = null;
-    else if (input.email === '') value.email = null;
-  } else if (typeof input.email !== 'string' || !EMAIL_RE.test(input.email.trim())) {
-    errors.push({ field: 'email', message: 'Email inválido' });
-  } else {
-    value.email = input.email.trim();
-  }
-
-  // status
-  if (input.status === undefined) {
-    if (!partial) value.status = 'Ativo';
-  } else if (!STATUS_VALIDOS.includes(input.status)) {
-    errors.push({ field: 'status', message: 'Status de Usuário deve ser Ativo ou Inativo' });
-  } else {
-    value.status = input.status;
-  }
-
-  // plano
-  if (input.plano === undefined) {
-    if (!partial) value.plano = 'Básico';
-  } else if (!PLANOS_VALIDOS.includes(input.plano)) {
-    errors.push({ field: 'plano', message: 'Plano deve ser Básico ou Premium' });
-  } else {
-    value.plano = input.plano;
-  }
-
-  return { value, errors };
+  return sharedValidate(input, { partial, emptyEmail: null });
 }
 
 export function toUserJson(row) {
