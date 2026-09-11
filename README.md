@@ -14,7 +14,7 @@ Dashboard administrativo full-stack para gerenciamento de usuários, estatístic
 
 ## Destaques
 
-- **100% vanilla** -- zero dependências, zero build step, zero bundler
+- **Front 100% vanilla** -- zero dependências, zero build step, zero bundler no `index.html`/`css/`/`js/` (o back em `backend/` usa `express`, `better-sqlite3` e `cors`)
 - **Mobile first** -- layout responsivo com breakpoints para tablet e desktop
 - **Acessível** -- WCAG 2.1 AA, focus trap, ARIA roles/states, navegação por teclado
 - **SEO-ready** -- meta tags semânticas, favicon SVG inline, lang attribute
@@ -192,7 +192,8 @@ admin-dashboard/
 │   │   ├── notifications.routes.js  # Notificações persistentes
 │   │   ├── demo.routes.js           # Reset demo
 │   │   └── errors.js                # Envelope de erros JSON
-│   └── tests/                       # Testes HTTP (node --test)
+│   ├── tests/                       # Testes HTTP (node --test): users, users-list, stats, notifications, health, errors, demo, persistence
+│   └── data/                        # SQLite local (dashboard.db, gitignored via .gitignore)
 ├── css/
 │   ├── modules/
 │   │   ├── base/
@@ -220,7 +221,7 @@ admin-dashboard/
 │   │   │   └── tablet.css           # Breakpoint 768px - 1024px
 │   │   └── utils/
 │   │       └── skip-link.css        # Skip link acessível
-│   └── style.css                    # CSS consolidado (todos os módulos concatenados)
+│   └── style.css                    # CSS consolidado versionado (espelha os módulos acima; edite em css/modules/ e atualize aqui)
 ├── js/
 │   ├── components/
 │   │   ├── bar-chart.js             # Gráfico de barras animado
@@ -239,13 +240,23 @@ admin-dashboard/
 │   ├── services/
 │   │   ├── storage.service.js       # Abstração para localStorage
 │   │   ├── api.service.js           # ApiService: fetch na API com fallback offline
+│   │   ├── api.service.test.js      # Testes do ApiService (modo offline/online)
 │   │   └── fallback-seed.js         # Seed local rico (modo GitHub Pages)
 │   ├── utils/
 │   │   ├── dom.js                   # Helpers de manipulação DOM
 │   │   ├── event-bus.js             # Pub/sub para comunicação entre módulos
 │   │   └── icons.js                 # Biblioteca de 20+ ícones SVG
 │   └── app.js                       # Ponto de entrada (inicializa todos os módulos)
+├── shared/
+│   ├── user-domain.js               # Enums e sorts de Usuário compartilhados front/back
+│   └── seed-data.js                 # Dados do seed rico compartilhados front/back
+├── docs/
+│   ├── adr/                         # ADRs (0001 Node+Express+SQLite, 0002 GitHub Pages)
+│   └── agents/                      # Skills de engenharia (issue-tracker, triage, domain)
 ├── index.html                       # Página principal
+├── CONTEXT.md                       # Vocabulário do domínio (Usuário, Stat, Desempenho Semanal...)
+├── package.json                     # Scripts dev/start/test + deps (express, better-sqlite3, cors)
+├── LICENSE                          # MIT
 └── README.md
 ```
 
