@@ -6,6 +6,11 @@
 /* Cabeçalho da página */
 .page-header {
   margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .page-header h1 {

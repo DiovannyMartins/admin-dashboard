@@ -95,7 +95,7 @@ const NOTIFICACOES_SEED = [
   { titulo: 'Venda aprovada', mensagem: 'Assinatura Premium de R$ 499,90 confirmada.', lida: 0 },
   { titulo: 'Projeto concluído', mensagem: 'Blog corporativo foi marcado como concluído.', lida: 0 },
   { titulo: 'Backup diário', mensagem: 'Backup do banco SQLite concluído com sucesso.', lida: 1 },
-  { titulo: 'Plano expirando', mensagem: '3 contas Básicas vencem nesta semana.', lida: 1 },
+  { titulo: 'Plano expirando', mensagem: '3 Usuários do plano Básico vencem nesta semana.', lida: 1 },
   { titulo: 'Bem-vindo ao painel', mensagem: 'Explore Usuários, Stats e Desempenho Semanal.', lida: 1 },
 ];
 

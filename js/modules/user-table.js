@@ -1,22 +1,16 @@
 /**
- * UserTable - Gerenciamento completo de usuários
- * CRUD com busca, filtros, ordenação, paginação e export CSV
+ * UserTable - Gerenciamento completo de usuários via ApiService
+ * Busca, filtros, ordenação e paginação no servidor (ou seed local offline),
+ * com CRUD, export CSV e undo de exclusão (5 segundos).
  */
 
-import { $, $$, createElement, sanitize, debounce, generateId } from '../utils/dom.js';
+import { $, $$, createElement, sanitize, debounce } from '../utils/dom.js';
 import { eventBus } from '../utils/event-bus.js';
-import { StorageService } from '../services/storage.service.js';
+import { apiService } from '../services/api.service.js';
 import { Modal } from '../components/modal.js';
 import { Pagination } from '../components/pagination.js';
 import { showToast } from '../components/toast.js';
 import { Icon } from '../utils/icons.js';
-
-const DEFAULT_USERS = [
-  { id: generateId(), nome: 'João Silva', email: 'joao@exemplo.com', status: 'Ativo', plano: 'Premium' },
-  { id: generateId(), nome: 'Maria Souza', email: 'maria@exemplo.com', status: 'Inativo', plano: 'Básico' },
-  { id: generateId(), nome: 'Pedro Alves', email: 'pedro@exemplo.com', status: 'Ativo', plano: 'Básico' },
-  { id: generateId(), nome: 'Ana Dias', email: 'ana@exemplo.com', status: 'Ativo', plano: 'Premium' },
-];
 
 export class UserTable {
   constructor() {
@@ -29,24 +23,14 @@ export class UserTable {
     this.filterPlano = $('#filterPlano');
     this.btnClearFilters = $('#btnClearFilters');
 
-    // Migra dados antigos (sem campo email)
-    const stored = StorageService.get('usuarios', null);
-    if (stored && Array.isArray(stored) && stored.length > 0) {
-      this.users = stored.map(u => ({
-        ...u,
-        email: u.email || ''
-      }));
-    } else {
-      this.users = DEFAULT_USERS;
-    }
-    
-    this.filteredUsers = [...this.users];
-    this.sortState = { field: null, direction: 'asc' };
+    this.sortState = { field: 'id', direction: 'desc' };
     this.currentSearch = '';
     this.currentStatusFilter = '';
     this.currentPlanoFilter = '';
+    this.pageUsers = [];
     this.lastDeletedUser = null;
     this.undoTimeout = null;
+    this._fetchSeq = 0;
 
     this.modal = new Modal($('#modalOverlay'), $('#modalUsuario'));
     this.form = $('#formUsuario');
@@ -62,12 +46,12 @@ export class UserTable {
 
     this.pagination = new Pagination(this.paginationContainer, {
       perPage: 5,
-      onChange: () => this._render()
+      onChange: () => this._fetchAndRender(),
     });
 
     this._bindEvents();
-    this._applyFilters();
     this._setupUndoToast();
+    this.ready = this._fetchAndRender();
   }
 
   /**
@@ -77,19 +61,22 @@ export class UserTable {
   _bindEvents() {
     // Busca com debounce
     this.searchInput.addEventListener('input', debounce(() => {
-      this.currentSearch = this.searchInput.value.trim().toLowerCase();
-      this._applyFilters();
+      this.currentSearch = this.searchInput.value.trim();
+      this.pagination.currentPage = 1;
+      this._fetchAndRender();
     }, 250));
 
     // Filtros
     this.filterStatus.addEventListener('change', () => {
       this.currentStatusFilter = this.filterStatus.value;
-      this._applyFilters();
+      this.pagination.currentPage = 1;
+      this._fetchAndRender();
     });
 
     this.filterPlano.addEventListener('change', () => {
       this.currentPlanoFilter = this.filterPlano.value;
-      this._applyFilters();
+      this.pagination.currentPage = 1;
+      this._fetchAndRender();
     });
 
     // Limpar filtros
@@ -125,7 +112,7 @@ export class UserTable {
   _setupUndoToast() {
     const undoToast = $('#undoToast');
     const btnUndo = $('#btnUndo');
-    
+
     if (btnUndo) {
       btnUndo.addEventListener('click', () => {
         this._undoDelete();
@@ -135,38 +122,36 @@ export class UserTable {
   }
 
   /**
-   * Aplica todos os filtros (busca, status, plano)
+   * Busca a página atual na API (ou seed local offline) e renderiza
    * @private
    */
-  _applyFilters() {
-    let filtered = [...this.users];
-
-    // Filtro de busca
-    if (this.currentSearch) {
-      filtered = filtered.filter(u =>
-        u.nome.toLowerCase().includes(this.currentSearch) ||
-        (u.email && u.email.toLowerCase().includes(this.currentSearch))
-      );
+  async _fetchAndRender() {
+    const seq = ++this._fetchSeq;
+    this._renderLoading();
+    try {
+      const { data, meta } = await apiService.listUsers({
+        q: this.currentSearch,
+        status: this.currentStatusFilter,
+        plano: this.currentPlanoFilter,
+        sort: this.sortState.field,
+        order: this.sortState.direction,
+        page: this.pagination.currentPage,
+        per_page: this.pagination.perPage,
+      });
+      if (seq !== this._fetchSeq) return; // resposta obsoleta: ignora
+      this.pageUsers = data;
+      this.pagination.update(meta.total);
+      // Filtros podem ter esvaziado páginas além do total: refaz na última válida
+      if (this.pagination.currentPage > this.pagination.totalPages) {
+        this.pagination.currentPage = this.pagination.totalPages;
+        return this._fetchAndRender();
+      }
+      this._render();
+    } catch (err) {
+      if (seq !== this._fetchSeq) return;
+      this.pageUsers = [];
+      this._renderError(err?.message ?? 'Erro ao carregar usuários');
     }
-
-    // Filtro de status
-    if (this.currentStatusFilter) {
-      filtered = filtered.filter(u => u.status === this.currentStatusFilter);
-    }
-
-    // Filtro de plano
-    if (this.currentPlanoFilter) {
-      filtered = filtered.filter(u => u.plano === this.currentPlanoFilter);
-    }
-
-    // Aplica ordenação se existir
-    if (this.sortState.field) {
-      this._applySort(filtered);
-    }
-
-    this.filteredUsers = filtered;
-    this.pagination.update(this.filteredUsers.length);
-    this._render();
   }
 
   /**
@@ -177,29 +162,14 @@ export class UserTable {
     this.currentSearch = '';
     this.currentStatusFilter = '';
     this.currentPlanoFilter = '';
-    
+
     this.searchInput.value = '';
     this.filterStatus.value = '';
     this.filterPlano.value = '';
-    
-    this._applyFilters();
-    showToast('Filtros limpos', 'info');
-  }
 
-  /**
-   * Ordena array de usuários
-   * @private
-   */
-  _applySort(array = this.filteredUsers) {
-    const { field, direction } = this.sortState;
-    if (!field) return;
-    
-    array.sort((a, b) => {
-      const valA = String(a[field] || '');
-      const valB = String(b[field] || '');
-      const result = valA.localeCompare(valB, 'pt-BR', { sensitivity: 'base' });
-      return direction === 'asc' ? result : -result;
-    });
+    this.pagination.currentPage = 1;
+    this._fetchAndRender();
+    showToast('Filtros limpos', 'info');
   }
 
   /**
@@ -212,10 +182,10 @@ export class UserTable {
     } else {
       this.sortState = { field, direction: 'asc' };
     }
-    
-    this._applySort();
+
     this._updateSortIcons();
-    this._render();
+    this.pagination.currentPage = 1;
+    this._fetchAndRender();
   }
 
   /**
@@ -234,15 +204,37 @@ export class UserTable {
   }
 
   /**
-   * Renderiza a tabela com dados filtrados e paginados
+   * Renderiza estado de carregamento
+   * @private
+   */
+  _renderLoading() {
+    this.tbody.innerHTML = '';
+    const tr = createElement('tr');
+    const td = createElement('td', { colspan: '4', className: 'table-empty' }, ['Carregando usuários…']);
+    tr.appendChild(td);
+    this.tbody.appendChild(tr);
+  }
+
+  /**
+   * Renderiza estado de erro com tentativa novamente
+   * @private
+   */
+  _renderError(message) {
+    this.tbody.innerHTML = '';
+    const tr = createElement('tr');
+    const td = createElement('td', { colspan: '4', className: 'table-empty' }, [message]);
+    tr.appendChild(td);
+    this.tbody.appendChild(tr);
+  }
+
+  /**
+   * Renderiza a tabela com a página atual
    * @private
    */
   _render() {
     this.tbody.innerHTML = '';
-    const { start, end } = this.pagination.getSlice();
-    const page = this.filteredUsers.slice(start, end);
 
-    if (page.length === 0) {
+    if (this.pageUsers.length === 0) {
       const tr = createElement('tr');
       const td = createElement('td', { colspan: '4', className: 'table-empty' }, ['Nenhum usuário encontrado.']);
       tr.appendChild(td);
@@ -250,7 +242,7 @@ export class UserTable {
       return;
     }
 
-    page.forEach(user => {
+    this.pageUsers.forEach(user => {
       const tr = this._createRow(user);
       this.tbody.appendChild(tr);
     });
@@ -371,6 +363,10 @@ export class UserTable {
       this._showError(this.errorNome, 'Nome deve ter pelo menos 2 caracteres');
       return false;
     }
+    if (nome.length > 100) {
+      this._showError(this.errorNome, 'Nome deve ter no máximo 100 caracteres');
+      return false;
+    }
     this._clearError(this.errorNome);
     return true;
   }
@@ -381,7 +377,7 @@ export class UserTable {
    */
   _validateEmail() {
     if (!this.modalEmail) return true;
-    
+
     const email = this.modalEmail.value.trim();
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       this._showError(this.errorEmail, 'Email inválido');
@@ -421,10 +417,27 @@ export class UserTable {
   }
 
   /**
+   * Exibe erros de validação vindos da API nos campos do formulário
+   * @private
+   */
+  _showApiErrors(err) {
+    const details = Array.isArray(err?.details) ? err.details : [];
+    for (const d of details) {
+      if (d.field === 'nome') this._showError(this.errorNome, d.message);
+      if (d.field === 'email') this._showError(this.errorEmail, d.message);
+    }
+    if (details.some(d => d.field === 'email' && /uso/i.test(d.message))) {
+      showToast('Email já está em uso por outro usuário', 'error');
+    } else {
+      showToast(err?.message ?? 'Corrija os erros antes de salvar', 'error');
+    }
+  }
+
+  /**
    * Handler de submit do formulário
    * @private
    */
-  _handleSubmit(e) {
+  async _handleSubmit(e) {
     e.preventDefault();
 
     // Valida campos
@@ -438,52 +451,48 @@ export class UserTable {
 
     const nome = this.modalNome.value.trim();
     const email = this.modalEmail ? this.modalEmail.value.trim() : '';
-
-    // Validação de email duplicado
-    if (email && this.users.some(u => u.email.toLowerCase() === email.toLowerCase() && u.id !== this.editingId)) {
-      this._showError(this.errorEmail, 'Email já cadastrado');
-      showToast('Email já está em uso por outro usuário', 'error');
-      return;
-    }
-
     const data = { nome, email, status: this.modalStatus.value, plano: this.modalPlano.value };
 
-    if (this.editingId) {
-      const idx = this.users.findIndex(u => u.id === this.editingId);
-      if (idx !== -1) {
-        this.users[idx] = { ...this.users[idx], ...data };
+    try {
+      if (this.editingId !== null && this.editingId !== undefined) {
+        await apiService.updateUser(this.editingId, data);
         showToast('Usuário atualizado com sucesso!', 'success');
+      } else {
+        await apiService.createUser(data);
+        showToast('Usuário criado com sucesso!', 'success');
       }
-    } else {
-      this.users.unshift({ id: generateId(), ...data });
-      showToast('Usuário criado com sucesso!', 'success');
+      this.modal.close();
+      eventBus.emit('users:changed');
+      await this._fetchAndRender();
+    } catch (err) {
+      if (err?.code === 'VALIDATION_ERROR') this._showApiErrors(err);
+      else showToast(err?.message ?? 'Erro ao salvar usuário', 'error');
     }
-
-    this._persist();
-    this._applyFilters();
-    this.modal.close();
   }
 
   /**
    * Exclui usuário com opção de undo
    * @private
    */
-  _deleteUser(user) {
-    // Salva usuário para possível undo
-    const deleteIndex = this.users.findIndex(u => u.id === user.id);
-    if (deleteIndex === -1) return;
-    this.lastDeletedUser = { ...user, index: deleteIndex };
-    
-    // Remove usuário
-    this.users = this.users.filter(u => u.id !== user.id);
-    this._persist();
-    this._applyFilters();
+  async _deleteUser(user) {
+    let deleted;
+    try {
+      deleted = await apiService.deleteUser(user.id);
+    } catch (err) {
+      showToast(err?.message ?? 'Erro ao excluir usuário', 'error');
+      return;
+    }
+
+    // Guarda payload para possível undo (restauração com o mesmo id)
+    this.lastDeletedUser = deleted;
+    eventBus.emit('users:changed');
+    await this._fetchAndRender();
 
     // Mostra toast de undo
     const undoToast = $('#undoToast');
     if (undoToast) {
       undoToast.classList.add('active');
-      
+
       // Auto-remove após 5 segundos
       if (this.undoTimeout) clearTimeout(this.undoTimeout);
       this.undoTimeout = setTimeout(() => {
@@ -499,50 +508,70 @@ export class UserTable {
    * Desfaz última exclusão
    * @private
    */
-  _undoDelete() {
+  async _undoDelete() {
     if (!this.lastDeletedUser) return;
 
-    const { index, ...user } = this.lastDeletedUser;
-    this.users.splice(index, 0, user);
-    this._persist();
-    this._applyFilters();
-    this.lastDeletedUser = null;
-    
-    showToast('Usuário restaurado', 'success');
-  }
-
-  /**
-   * Persiste dados em localStorage
-   * @private
-   */
-  _persist() {
-    StorageService.set('usuarios', this.users);
-    // Ponto de extensão: outros módulos podem escutar users:changed
-    eventBus.emit('users:changed', this.users);
-  }
-
-  /**
-   * Exporta usuários para CSV
-   * @private
-   */
-  _exportCsv() {
-    if (this.users.length === 0) {
-      showToast('Nenhum usuário para exportar.', 'warning');
-      return;
+    try {
+      await apiService.restoreUser(this.lastDeletedUser);
+      this.lastDeletedUser = null;
+      eventBus.emit('users:changed');
+      await this._fetchAndRender();
+      showToast('Usuário restaurado', 'success');
+    } catch (err) {
+      showToast(err?.message ?? 'Erro ao restaurar usuário', 'error');
     }
-    
-    const header = 'Nome,Email,Status,Plano';
-    const rows = this.users.map(u =>
-      `"${u.nome.replace(/"/g, '""')}","${(u.email || '').replace(/"/g, '""')}","${u.status}","${u.plano}"`
-    );
-    const csv = [header, ...rows].join('\n');
-    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = createElement('a', { href: url, download: 'usuarios.csv' });
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    showToast('CSV exportado com sucesso!', 'success');
+  }
+
+  /**
+   * Exporta usuários filtrados para CSV (todas as páginas)
+   * @private
+   */
+  async _exportCsv() {
+    try {
+      const perPage = 100;
+      const first = await apiService.listUsers({
+        q: this.currentSearch,
+        status: this.currentStatusFilter,
+        plano: this.currentPlanoFilter,
+        sort: this.sortState.field,
+        order: this.sortState.direction,
+        page: 1,
+        per_page: perPage,
+      });
+      let users = [...first.data];
+      for (let page = 2; page <= first.meta.total_pages; page++) {
+        const next = await apiService.listUsers({
+          q: this.currentSearch,
+          status: this.currentStatusFilter,
+          plano: this.currentPlanoFilter,
+          sort: this.sortState.field,
+          order: this.sortState.direction,
+          page,
+          per_page: perPage,
+        });
+        users = users.concat(next.data);
+      }
+
+      if (users.length === 0) {
+        showToast('Nenhum usuário para exportar.', 'warning');
+        return;
+      }
+
+      const header = 'Nome,Email,Status,Plano';
+      const rows = users.map(u =>
+        `"${u.nome.replace(/"/g, '""')}","${(u.email || '').replace(/"/g, '""')}","${u.status}","${u.plano}"`
+      );
+      const csv = [header, ...rows].join('\n');
+      const blob = new Blob([String.fromCharCode(0xFEFF) + csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = createElement('a', { href: url, download: 'usuarios.csv' });
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('CSV exportado com sucesso!', 'success');
+    } catch (err) {
+      showToast(err?.message ?? 'Erro ao exportar CSV', 'error');
+    }
   }
 }

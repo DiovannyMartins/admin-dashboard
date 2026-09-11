@@ -4,6 +4,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { initDatabase, getCounts, isDatabaseUp } from './db.js';
 import { seedDatabase } from './seed.js';
+import { createUsersRouter } from './users.routes.js';
+import { createStatsRouter } from './stats.routes.js';
+import { createNotificationsRouter } from './notifications.routes.js';
+import { createDemoRouter } from './demo.routes.js';
 import { notFoundHandler, errorHandler } from './errors.js';
 
 /**
@@ -24,6 +28,11 @@ export function createApp({ dbPath } = {}) {
   app.disable('x-powered-by');
   app.use(cors());
   app.use(express.json({ limit: '100kb' }));
+
+  app.use('/api/users', createUsersRouter(db));
+  app.use('/api/notifications', createNotificationsRouter(db));
+  app.use('/api/demo', createDemoRouter(db));
+  app.use('/api', createStatsRouter(db));
 
   app.get('/api/health', (_req, res) => {
     const dbUp = isDatabaseUp(db);

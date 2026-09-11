@@ -1,10 +1,13 @@
 # Admin Dashboard
 
-Dashboard administrativo para gerenciamento de usuários, estatísticas e notificações, construído inteiramente com HTML, CSS e JavaScript vanilla.
+Dashboard administrativo full-stack para gerenciamento de usuários, estatísticas e notificações: front em HTML, CSS e JavaScript vanilla + API REST em Node + Express + SQLite.
 
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/docs/Web/JavaScript)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
+[![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com)
+[![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
@@ -27,7 +30,51 @@ Dashboard administrativo para gerenciamento de usuários, estatísticas e notifi
 | **CSS3** | Layout, temas e responsividade |
 | **JavaScript** | Lógica, CRUD e interação |
 | **SVG** | Ícones escaláveis |
-| **GitHub Pages** | Deploy |
+| **Node.js + Express** | API REST (`backend/`, porta 3001) |
+| **SQLite** | Persistência local (`better-sqlite3`, sem ORM) |
+| **GitHub Pages** | Deploy do demo estático |
+
+---
+
+## Arquitetura
+
+```
+Navegador (front vanilla)          Node + Express + SQLite
+┌────────────────────────┐        ┌──────────────────────────────┐
+│ ApiService (fetch)     │──on──▶ │ /api/users (CRUD + restore)  │
+│  + fallback offline    │        │ /api/stats                   │
+│  (seed local rico)     │        │ /api/performance/weekly      │
+└────────────────────────┘        │ /api/notifications           │
+        │ offline                 │ /api/demo/reset              │
+        ▼ (GitHub Pages)          └──────────────────────────────┘
+  seed local: painel 100%
+  funcional sem servidor
+```
+
+- O demo no GitHub Pages é só estático: o `ApiService` tenta a API local e, se offline, opera sobre o seed local rico — o painel nunca quebra.
+- Localmente, `npm run dev` sobe API + front estático no mesmo processo (http://localhost:3001).
+- Sem autenticação nesta versão (ver `docs/adr/0001-node-express-sqlite-rest.md`).
+- Vocabulário da API e UI: Usuário, Status de Usuário, Plano, Notificação, Stat, Desempenho Semanal (ver `CONTEXT.md`).
+
+### Contrato REST
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| `GET` | `/api/health` | Status da API + contagens do seed |
+| `GET` | `/api/users?q=&status=&plano=&sort=&order=&page=&per_page=` | Lista com busca, filtros, ordenação e paginação |
+| `POST` | `/api/users` | Cria Usuário (nome 2-100, email válido opcional, Status/Plano) |
+| `GET` | `/api/users/:id` | Lê Usuário por id |
+| `PUT` | `/api/users/:id` | Atualiza Usuário por id |
+| `DELETE` | `/api/users/:id` | Exclui Usuário (undo do front restaura em 5s) |
+| `POST` | `/api/users/:id/restore` | Restaura Usuário excluído com o mesmo id |
+| `GET` | `/api/stats` | Stats derivados do banco (usuários, projetos ativos, vendas, receita) |
+| `GET` | `/api/performance/weekly` | Vendas vs metas Seg–Sex a partir de vendas reais |
+| `GET` | `/api/notifications` | Lista Notificações + contagem de não-lidas |
+| `PATCH` | `/api/notifications/:id` | Marca Notificação como lida (`{ "lida": true }`) |
+| `DELETE` | `/api/notifications` | Limpa todas as Notificações |
+| `POST` | `/api/demo/reset` | Restaura o seed rico (botão "Reset demo") |
+
+Respostas de erro seguem o envelope `{ "error": { "code", "message", "details?" } }` com códigos `NOT_FOUND`, `VALIDATION_ERROR` e `INTERNAL_ERROR`.
 
 ---
 
@@ -91,19 +138,26 @@ Este é um projeto de estudo focado em praticar arquitetura frontend sem framewo
 
 ## Como rodar
 
-O projeto usa ES Modules (`type="module"`), então precisa de um servidor HTTP. Zero dependências para instalar.
+### Full-stack (front + API, recomendado)
 
-### 1. Clone o repositório
+Um comando sobe a API em http://localhost:3001 servindo o front junto, com SQLite + seed rico de demonstração.
+
 ```bash
 git clone https://github.com/DiovannyMartins/admin-dashboard.git
-```
-
-### 2. Entre na pasta do projeto
-```bash
 cd admin-dashboard
+npm install
+npm run dev
 ```
 
-### 3. Inicie um servidor local
+Acesse: http://localhost:3001 — o painel opera 100% via API (verifique com `GET /api/health`).
+
+```bash
+npm test   # suíte de testes HTTP da API (runner nativo do Node)
+```
+
+### Só front (estático, sem servidor)
+
+O projeto usa ES Modules (`type="module"`), então precisa de um servidor HTTP. Zero dependências para instalar. Neste modo o painel usa o seed local (mesmo comportamento do GitHub Pages).
 
 **Opção A: VS Code + Live Server** (recomendado)
 - Clique com botão direito no `index.html` > "Open with Live Server"
@@ -126,6 +180,19 @@ Acesse: http://localhost:3000
 
 ```
 admin-dashboard/
+├── backend/
+│   ├── src/
+│   │   ├── app.js                   # Fábrica do Express (API + front estático)
+│   │   ├── server.js                # Entry point: npm run dev (porta 3001)
+│   │   ├── db.js                    # SQLite + schema (Usuários, projetos, vendas, Notificações, metas)
+│   │   ├── seed.js                  # Seed rico idempotente de demonstração
+│   │   ├── validate.js              # Validação espelhada front/back
+│   │   ├── users.routes.js          # CRUD + restore + listagem avançada
+│   │   ├── stats.routes.js          # Stats + Desempenho Semanal derivados
+│   │   ├── notifications.routes.js  # Notificações persistentes
+│   │   ├── demo.routes.js           # Reset demo
+│   │   └── errors.js                # Envelope de erros JSON
+│   └── tests/                       # Testes HTTP (node --test)
 ├── css/
 │   ├── modules/
 │   │   ├── base/
@@ -170,7 +237,9 @@ admin-dashboard/
 │   │   ├── theme.js                 # Gerenciamento de temas
 │   │   └── user-table.js            # CRUD, busca, filtros, paginação, export
 │   ├── services/
-│   │   └── storage.service.js       # Abstração para localStorage
+│   │   ├── storage.service.js       # Abstração para localStorage
+│   │   ├── api.service.js           # ApiService: fetch na API com fallback offline
+│   │   └── fallback-seed.js         # Seed local rico (modo GitHub Pages)
 │   ├── utils/
 │   │   ├── dom.js                   # Helpers de manipulação DOM
 │   │   ├── event-bus.js             # Pub/sub para comunicação entre módulos
@@ -191,6 +260,9 @@ admin-dashboard/
 - **Design tokens** -- CSS Variables centralizam a paleta e espaçamentos, facilitando a troca de temas
 - **Performance percebida** -- debounce na busca e CSS transitions criam sensação de fluidez sem custo de JavaScript pesado
 - **Mobile first** -- começar pelo mobile obriga a priorizar conteúdo e resulta em layout mais limpo no desktop também
+- **Contrato REST como seam** -- testar comportamento via HTTP (status, corpo, persistência) em vez de detalhes internos de SQL
+- **Fallback offline** -- tentar a API e cair para seed local mantém o demo estático funcionando sem servidor
+- **Validação espelhada** -- mesmas regras nos dois lados (nome 2-100, email, enums) evitam dados inconsistentes
 
 ---
 

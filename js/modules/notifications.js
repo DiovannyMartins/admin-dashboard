@@ -1,18 +1,12 @@
 /**
- * Notifications - Sistema de notificações
- * Gerencia lista de notificações com marcar como lida e limpar todas
+ * Notifications - Sistema de notificações via ApiService (issue #8)
+ * Lista, marca como lida e limpa todas; online via API, offline via seed local.
  */
 
-import { $, createElement, generateId } from '../utils/dom.js';
+import { $, createElement } from '../utils/dom.js';
+import { apiService } from '../services/api.service.js';
 import { Dropdown } from '../components/dropdown.js';
 import { Icon } from '../utils/icons.js';
-import { StorageService } from '../services/storage.service.js';
-
-const DEFAULT_NOTIFICATIONS = [
-  { id: generateId(), text: 'Novo usuário cadastrado: Ana Dias', read: false },
-  { id: generateId(), text: 'Meta de vendas de Quarta atingida!', read: false },
-  { id: generateId(), text: 'Servidor com uso de disco em 80%', read: false },
-];
 
 export class Notifications {
   constructor() {
@@ -20,16 +14,24 @@ export class Notifications {
     this.dropdownEl = $('#notificationDropdown');
     this.badge = $('#badgeNotificacao');
     this.listEl = $('#listaNotificacoes');
-
-    const stored = StorageService.get('notifications', null);
-    if (stored && Array.isArray(stored)) {
-      this.notifications = stored;
-    } else {
-      this.notifications = [...DEFAULT_NOTIFICATIONS];
-    }
+    this.notifications = [];
 
     this.dropdown = new Dropdown(this.trigger, this.dropdownEl);
     this._renderIcons();
+    this.ready = this._load();
+  }
+
+  /**
+   * Carrega Notificações da API (ou seed local offline)
+   * @private
+   */
+  async _load() {
+    try {
+      const { data } = await apiService.listNotifications();
+      this.notifications = data;
+    } catch {
+      this.notifications = [];
+    }
     this._render();
   }
 
@@ -47,13 +49,22 @@ export class Notifications {
   }
 
   /**
+   * Texto exibido de uma Notificação (título + mensagem)
+   * @private
+   */
+  _textOf(n) {
+    if (n.titulo && n.mensagem) return `${n.titulo} — ${n.mensagem}`;
+    return n.titulo ?? n.text ?? '';
+  }
+
+  /**
    * Renderiza lista de notificações
    * @private
    */
   _render() {
     this.listEl.innerHTML = '';
 
-    const unread = this.notifications.filter(n => !n.read);
+    const unread = this.notifications.filter(n => !(n.lida ?? n.read));
     this.badge.textContent = unread.length;
     this.badge.style.display = unread.length > 0 ? 'flex' : 'none';
 
@@ -65,15 +76,16 @@ export class Notifications {
     }
 
     this.notifications.forEach(n => {
+      const read = n.lida ?? n.read ?? false;
       const item = createElement('div', {
-        className: `notification-item ${n.read ? 'read' : 'unread'}`,
+        className: `notification-item ${read ? 'read' : 'unread'}`,
         dataset: { id: String(n.id) }
       });
 
-      const text = createElement('span', { className: 'notification-text' }, [n.text]);
+      const text = createElement('span', { className: 'notification-text' }, [this._textOf(n)]);
       item.appendChild(text);
 
-      if (!n.read) {
+      if (!read) {
         const markBtn = createElement('button', {
           className: 'notification-mark-read',
           'aria-label': 'Marcar como lida',
@@ -100,10 +112,21 @@ export class Notifications {
    * Marca notificação como lida
    * @private
    */
-  _markAsRead(id) {
-    const n = this.notifications.find(n => n.id === id);
-    if (n) n.read = true;
-    this._persist();
+  async _markAsRead(id) {
+    try {
+      const updated = await apiService.markNotificationRead(id, true);
+      const local = this.notifications.find(n => String(n.id) === String(id));
+      if (local) {
+        local.lida = updated.lida ?? true;
+        local.read = local.lida;
+      }
+    } catch {
+      const local = this.notifications.find(n => String(n.id) === String(id));
+      if (local) {
+        local.lida = true;
+        local.read = true;
+      }
+    }
     this._render();
   }
 
@@ -111,17 +134,13 @@ export class Notifications {
    * Limpa todas as notificações
    * @private
    */
-  _clearAll() {
+  async _clearAll() {
+    try {
+      await apiService.clearNotifications();
+    } catch {
+      // Offline total: limpa só a exibição
+    }
     this.notifications = [];
-    this._persist();
     this._render();
-  }
-
-  /**
-   * Persiste notificações em localStorage
-   * @private
-   */
-  _persist() {
-    StorageService.set('notifications', this.notifications);
   }
 }
